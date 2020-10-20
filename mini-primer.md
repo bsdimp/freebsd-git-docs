@@ -237,3 +237,31 @@ and you are done. If you have a local branch, though, there's one or two caveats
 
 What the above does is checkout no-color-ls. Then create a new name for it (no-color-ls-stable-12) in case you need to get back to it. Then you rebase onto the main branch. This will find all the commits to the current no-color-ls branch (back to where it meets up with the stable/12 branch) and then it will replay them onto the main branch creating a new no-color-ls branch there (which is why I had you create a place holder name).
 
+### Migrating from an existing git clone
+
+If you have work based on a previous git conversion or a locally running git-svn conversion, migrating to new repository can be problemtic because git have no knowledge about the connection between the two.
+
+If do not have a lot of local changes, the easiest way would be to cherry-pick your changes to the new base:
+
+    % git checkout main
+    % git cherry-pick old_branch..your_branch
+
+If you do have a lot of changes, you would probably want to perform a merge instead.  The idea is to create a merge point that consolidates the history of the old_branch, and the new source of truth (main).
+
+We intend to publish a set of pairs of SHA1s for this, but if you are running a local conversion, you can find out by looking up the same commit that are found on both parents:
+
+    % git show old_branch
+
+You will see a commit message, now search for that in the new branch:
+
+    % git log --grep="commit message on old_branch" origin/main
+
+You would get a SHA1 on the new main branch, create a helper branch (in the example we call it 'stage') from that SHA1:
+
+    % git checkout -b stage SHA1_found_from_git_log
+
+Then perform a merge of the old branch:
+
+    % git merge -s ours -m "Mark old branch as merged" old_branch
+    
+With that, it's possible to merge your work branch or the main branch in any order without problem.  Eventually, when you are ready to merge your work back to main, you can perform a rebase to main, or do a squash commit by combining everything into one commit.

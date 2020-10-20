@@ -17,6 +17,7 @@ At the moment, there's two repositories. The hashes are different between them. 
 The github repo is at https://github.com/freebsd/freebsd.git
 The new cgit beta repo is at https://cgit-beta.freebsd.org/src.git
 These will be $URL in the commands below.
+Please note that the cgit repo is still beta at this time, and hashes may change as its refined.
 
 Note: The project doesn't use submodules as they are a poor fit for our workflows and development model. How we track changes in third-party applications is discussed elsewhere and generally of little concern to the casual user.
 

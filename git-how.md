@@ -18,7 +18,7 @@ these things. Their organization is beyond the scope of this document.
 
 ## The 'doc' repository.
 
-The documenation repository ('doc') is the simplest repository. It has
+The documentation repository ('doc') is the simplest repository. It has
 no branches (large scale collaberation projects are done with
 forks). It has a number of tags that describe the doc tree at various
 releases.
@@ -36,7 +36,7 @@ This may undergo changes after the conversion to asciidoc completes.
 
 ## The 'ports' repository
 
-The pors repository has all the files we use to generate our
+The ports repository has all the files we use to generate our
 packages. It's structure is currently being debated.
 
 ## The 'src' repository
@@ -50,16 +50,16 @@ The 'main' branch contains the mainline development of the operating
 system. This is "FreeBSD CURRENT" and all new work is expected to come
 in here when ready.
 
-The 'stable/*' branches are the projects stable, release branches. We
+The 'stable/\*' branches are the projects stable, release branches. We
 create a new one every couple of years and maintain it for a
 while. Changes that are mature are cherry picked from the 'main'
 branch into these branches (though sometimes direct commits happen, or
 the commits need to be tweaked).
 
-The 'releng/*' branches are branches for the release engineer to
+The 'releng/\*' branches are branches for the release engineer to
 create releases for the project.
 
-The 'vendor/*' branches are vendor branches. These are used to manage
+The 'vendor/\*' branches are vendor branches. These are used to manage
 importing new software and help track local changes not yet in
 upstream (or that will never be in upstream).
 

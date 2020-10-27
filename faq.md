@@ -51,9 +51,11 @@ forcing a complicated merge rather than a simple one.
 **Q:** From time to time, I goof up and commit to main instead of to a
 branch. What do I do?
 
-**A:** First, don't panit.
+**A:** First, don't panic.
 
-Second, don't push.
+Second, don't push. In fact, you can fix almost anything if you
+haven't pushed. All the answers in this section assume no push
+has happened.
 
 The following answer assumes you committed to `main` and want to
 create a branch called `issue`:

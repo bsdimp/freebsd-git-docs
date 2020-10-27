@@ -88,6 +88,19 @@ in the `git cherry-pick` command), but that too can be generalized.
 % git reset --hard HEAD^	# move what wilma refers to
 ```
 
+**Q:** But what if I want to commit a few changes to `main`, but
+keep the rest in `wilma` for some reason?
+
+**A:** The same technique above also works if you are wanting to
+'land' parts of the branch you are working on into `main` before the
+rest of the branch is ready (say you noticed an unrelated typo, or
+fixed an incidental bug). You can cherry pick those changes into main,
+then push to the parent repo. Once you've done that, cleanup couldn't
+be simpler: just `git rebase -i` since git will notice you've done
+this and omit the common changes automatically (even if you had to
+change the commit message or tweak the commit slightly). There's no
+need to switch back to wilma to adjust it: just rebase!
+
 **Q:** I want split off some chagnes from branch `wilma` into branch `fred`
 
 **A:** The more general answer would be the same as the

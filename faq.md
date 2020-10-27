@@ -118,4 +118,72 @@ the end to create a branch, and now `fred` and `wilma` are all
 screwed up. How do I find what the `wilma` has was before I started. I don't
 know how many times I moved things around.
 
+**A:** All is not lost. You can figure out it, so long as it hasn't
+been too long, or too many commits (hundreds).
+
+So I created a wilma branch committed a couple of things to it, then
+decided I wanted to split it into fred and wilma. Nothing weird
+happened when I did that, but lot's say it did. The way to look at
+what you've done is with the `git reflog`:
+```
+% git reflog
+6ff9c25 (HEAD -> wilma) HEAD@{0}: rebase -i (finish): returning to refs/heads/wilma
+6ff9c25 (HEAD -> wilma) HEAD@{1}: rebase -i (start): checkout main
+869cbd3 HEAD@{2}: rebase -i (start): checkout wilma
+a6a5094 (fred) HEAD@{3}: rebase -i (finish): returning to refs/heads/fred
+a6a5094 (fred) HEAD@{4}: rebase -i (pick): Encourage contributions
+1ccd109 (origin/main, main) HEAD@{5}: rebase -i (start): checkout main
+869cbd3 HEAD@{6}: rebase -i (start): checkout fred
+869cbd3 HEAD@{7}: checkout: moving from wilma to fred
+869cbd3 HEAD@{8}: commit: Encourage contributions
+...
+%
+```
+
+Here we see the changes I've made. You can use it to figure out where
+things when wrong. I'll just point out a few things here. The first
+one is that HEAD@{X} is a 'commitish' thing, so you can use that as an
+argument to a command. Though if that command commits anything to the
+repo, the X numbers change. You can also use the hash (first column)
+as well.
+
+Next 'Encourage contribuions' was the last commit I did to `wilma`
+before I decided to split things up. You can also see the same hash is
+there when I created the 'fred' branch to do that. I started by
+rebasing 'fred' and you see the 'start', each step, and the 'finish'
+for that process. While we don't need it here, you can figure out
+exactly what happened.  Fortunately, to fix this, you can follow the
+prior answer's steps, but with the hash `869cbd3` instead of
+`pre-split`. While that set of a bit verbose, it's easy to remember
+since you're doing one thing at a time. You can also stack:
+```
+% git checkout -B wilma 869cbd3
+% git branch -D fred
+```
+and you are ready to try again. The checkout -B with the hash combines
+checking out and creating a branch for it. The -B instead of -b forces
+the movement of a pre-existing branch. Either way works, which is what's
+great (and aweful) about git. One reason I tend to use `git checkout -B xxxx hash`
+instead of checking out the hash, and then creating / moving the branch
+is purely to avoid the slightly distressing message about detached heads:
+```
+% git checkout 869cbd3
+M	faq.md
+Note: checking out '869cbd3'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 869cbd3 Encourage contributions
+% git checkout -B wilma
+```
+this produces the same effect, but I have to read a lot more and severed heads
+aren't an image I like to contemplate.
+
 ## Integrators

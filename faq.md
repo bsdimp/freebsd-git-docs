@@ -151,8 +151,8 @@ as well.
 
 Next 'Encourage contribuions' was the last commit I did to `wilma`
 before I decided to split things up. You can also see the same hash is
-there when I created the 'fred' branch to do that. I started by
-rebasing 'fred' and you see the 'start', each step, and the 'finish'
+there when I created the `fred` branch to do that. I started by
+rebasing `fred` and you see the 'start', each step, and the 'finish'
 for that process. While we don't need it here, you can figure out
 exactly what happened.  Fortunately, to fix this, you can follow the
 prior answer's steps, but with the hash `869cbd3` instead of

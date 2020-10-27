@@ -119,7 +119,7 @@ You'd then build/install that version. If it's good you'd type 'git bisect good'
 The ports tree operates the same way. The branch names are different and the repos are in different locations.
 
 The GitHub mirror is at https://github.com/freebsd/freebsd-ports.git
-The cgit mirror is https://cgit-beta.freebsd.org/src.git
+The cgit mirror is https://cgit-beta.freebsd.org/ports.git
 
 As with ports, the 'current' branches are 'master' and 'main' respectively. The quarterly branches are named the same as in FreeBSD's svn repo.
 

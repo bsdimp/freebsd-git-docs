@@ -40,7 +40,7 @@ very similar to how you might expect:
 % git merge --ff-only origin/stable/12
 # now your stable/12 is up to date too
 ```
-I recommend using --ff-only because it's safer and you won't accidentally
+I recommend using `--ff-only` because it's safer and you won't accidentally
 get into a 'merge nightmare' where you have an extra change in your tree,
 forcing a complicated merge rather than a simple one.
 

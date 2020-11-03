@@ -7,14 +7,14 @@ are likely to come up often for users, developer and integrators.
 
 ### How do I track -current and -stable with only one copy of the repo?
 
-**Q:** Although disk space isn't a huge issue, it's more efficient to use
+**Q:** Although disk space is not a huge issue, it's more efficient to use
 only one copy of the repository. With svn mirroring, I could checkout
 multiple trees from the same repo. How do I do this with git?
 
 **A:** You can use git worktrees. There's a number of ways to do this,
 but the simplest way is to do a clone to track -current, and a
 worktree to track stable releases. While using a 'naked repository'
-has been put forward as a way to cope, it's more complicated and won't
+has been put forward as a way to cope, it's more complicated and will not
 be documented here.
 
 First, you need to clone the FreeBSD repository, shown here cloning into
@@ -40,9 +40,10 @@ very similar to how you might expect:
 % git merge --ff-only origin/stable/12
 # now your stable/12 is up to date too
 ```
-I recommend using `--ff-only` because it's safer and you won't accidentally
-get into a 'merge nightmare' where you have an extra change in your tree,
-forcing a complicated merge rather than a simple one.
+I recommend using `--ff-only` because it's safer and you avoid
+accidentally getting into a 'merge nightmare' where you have an extra
+change in your tree, forcing a complicated merge rather than a simple
+one.
 
 ## Developers
 
@@ -128,7 +129,7 @@ you can undo it with the following sequence:
 the last step is optional. If you are going to try again to
 split, you'd omit it.
 
-**Q:** But I did things as I read a long and didn't see your advice at
+**Q:** But I did things as I read along and didn't see your advice at
 the end to create a branch, and now `fred` and `wilma` are all
 screwed up. How do I find what the `wilma` has was before I started. I don't
 know how many times I moved things around.
@@ -200,5 +201,62 @@ HEAD is now at 869cbd3 Encourage contributions
 ```
 this produces the same effect, but I have to read a lot more and severed heads
 aren't an image I like to contemplate.
+
+### Ooops! I did a 'git pull' and it created a merge commit, what do I do?
+
+**Q:** I was on autopilot and did a 'git pull' for my development tree and
+that created a merge commit on the mainline. How do I recover?
+
+**A:** This can happen when you have changes in your tree that aren't properly on
+a branch when you do the pull.
+
+There's two phases for recovering. The first is to figure out what the changes were
+that were on the main branch. The second is recovering.
+
+As we discovered above, `git reflog` will help you sort out what at least the hash
+was before the change. Once you have that, you can find what changes were present
+that caused the disruption. At this point, you should drop a branch to that change
+so you don't have to deal with hashes too much:
+```
+% git checkout -B tmp-branch $HASH
+```
+where $HASH is the hash in question (it's almost always one of the hashes of the merge
+commit that's created to bring the changes in, so `git log` would have told you
+the hash as well).
+
+Now that you have a temporary tag, you can fix main branch by forcing the local
+main branch to match the remove main branch:
+```
+% git checkout -B main origin/main
+```
+
+You can now use tmp-branch created above to pull in changes from there
+to a proper branch off of main for easiler rebasing. If it's one or
+two changes, you may be able to do this with a
+```
+% git rebase -i main tmp-branch
+```
+since that will look for the all the changes from the `tmp-branch` after it
+branched from `main`. Since the most common cause of this issue is
+```
+% git commit ...
+% git commit ...
+% git commit ...
+% git pull
+```
+Those 3 commits will be relative to `main` and can easily be rebased to the
+recreated 'main' branch above (and since we gave the branch a name, they are on a proper brnach)
+
+**Q:** But I hate the name `tmp-branch`. Can I change it easily?
+**A:** Yes.
+```
+% git checkout tmp-branch
+% git checkout -b good-name
+% git branch -d tmp-branch
+```
+is what I do, though I have a feeling git has an obscure, one step command to do it too.
+There's nothing magical about branches in git: they are just labels on a DAG that can be moved
+forward by a commit. So the above works because you're just swapping out a label. There's no
+metadata about the branch that needs to be preserved due to this.
 
 ## Integrators

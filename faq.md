@@ -62,8 +62,8 @@ The following answer assumes you committed to `main` and want to
 create a branch called `issue`:
 ```
 % git checkout -b issue     # Create the issue branch
-% git checkout master       # Go back to main branch
-% git reset --hard HEAD^    # Reset what master references
+% git checkout main         # Go back to main branch
+% git reset --hard HEAD^    # Reset what main references
 % git checkout issue        # Back to where you were
 ```
 The above assumes one commit, hence the `HEAD^`. You can put anything
@@ -301,7 +301,7 @@ comes to worse, you can throw this all away and start over with the
 `driver` branch since you've not yet moved it).
 
 ```
-% git rebase -i master userland
+% git rebase -i main userland
 ```
 and do the same thing you did with the `kernel` branch.
 

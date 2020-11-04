@@ -259,4 +259,69 @@ There's nothing magical about branches in git: they are just labels on a DAG tha
 forward by a commit. So the above works because you're just swapping out a label. There's no
 metadata about the branch that needs to be preserved due to this.
 
+Get both of them in the same repo.
+
+
+
+
+
+6:40
+git checkout NCD-5498-worker-thread
+6:41
+git checkout -b NCD-5498   # create a new branch
+6:41
+git cherry-pick master..NCD-5498-aopen # bring in the changes
+6:41
+git push NCD-5498
+6:42
+oh, wait
+6:42
+I answered the question backwards
+6:42
+so are the commits disjoint?
+6:43
+if so then it’s done as follows:
+
+
+
+
+
+6:43
+git checkout NCD-5498
+6:44
+git checkout -b NCD-5498-worker-thread
+6:44
+git checkout -b NCD-5498-aopen
+6:44
+# Now you have two identical branches
+6:44
+git rebase -i master NCD-5498-aopen
+6:44
+(just pick the aopen changes)
+6:44
+git rebase -i master NCD-5498-worker-thread
+6:45
+(pick the ohter commits)
+6:45
+If there’s commits that are in both, then you leave those changes in both, and use something complicated to split the commit.
+6:47
+It’s not something I’ve done (I’m lots of tiny commits or mr curated commits man), but you rebase to the commit you want to split in each branch (so change the action to rework)
+6:47
+then the scary part
+6:47
+when you’re at that point, you do a git reset HEAD^
+6:47
+this undoes the last commit, but leaves it in the tree (so you lose the commit message, alas)
+6:48
+If you’re lucky and the files are disjoint, it’s just git add <those files>; git commit; git rebase --cont….
+6:48
+if they aren’t disjoint, you need to use git add -i to interactively pick it apart.
+6:48
+make sense?
+6:48
+off to more election results.
+6:49
+(and 2 more questions for my FAQ)
+
+
 ## Integrators

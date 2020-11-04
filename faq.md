@@ -261,67 +261,91 @@ metadata about the branch that needs to be preserved due to this.
 
 Get both of them in the same repo.
 
+### Mixing and matching branches
 
+**Q:** So I have two branches `worker` and `async` that I'd like to combine into one branch called `feature`
+while maintaining the commits in both.
 
+**A:** This is a job for cherry pick.
 
+```
+% git checkout worker
+% git checkout -b feature	# create a new branch
+% git cherry-pick main..async	# bring in the changes
+```
+You now have one brach called `feature`. This branch combines commits
+from both branches. You can further curate it with `git rebase`.
 
-6:40
-git checkout NCD-5498-worker-thread
-6:41
-git checkout -b NCD-5498   # create a new branch
-6:41
-git cherry-pick master..NCD-5498-aopen # bring in the changes
-6:41
-git push NCD-5498
-6:42
-oh, wait
-6:42
-I answered the question backwards
-6:42
-so are the commits disjoint?
-6:43
-if so then it’s done as follows:
+**Q:** OK Wise Guy. That was too easy. I have a branch called `driver` and I'd like
+to break it up into `kernel` and `userland` so I can evolve them separately and commit
+each branch as it becomes ready.
 
+**A:** This takes a little bit of prep work, but `git rebase` will do the heavy
+lifting here.
 
+```
+% git checkout driver		# Checkout the driver
+% git checkout -b kernel	# Create kernel branch
+% git checkout -b userland	# Create userland branch
+```
+Now you have two identical branches. So, it's time to separate out the commits.
+We'll assume first that all the commits in `driver` go into either the `kernel`
+or the `userland` branch, but not both.
 
+```
+% git rebase -i main kernel
+```
+and just include the changes you want (with a 'p' or 'pick' line) and
+just delete the commits you don't (this sounds scary, but if worse
+comes to worse, you can throw this all away and start over with the
+`driver` branch since you've not yet moved it).
 
+```
+% git rebase -i master userland
+```
+and do the same thing you did with the `kernel` branch.
 
-6:43
-git checkout NCD-5498
-6:44
-git checkout -b NCD-5498-worker-thread
-6:44
-git checkout -b NCD-5498-aopen
-6:44
-# Now you have two identical branches
-6:44
-git rebase -i master NCD-5498-aopen
-6:44
-(just pick the aopen changes)
-6:44
-git rebase -i master NCD-5498-worker-thread
-6:45
-(pick the ohter commits)
-6:45
-If there’s commits that are in both, then you leave those changes in both, and use something complicated to split the commit.
-6:47
-It’s not something I’ve done (I’m lots of tiny commits or mr curated commits man), but you rebase to the commit you want to split in each branch (so change the action to rework)
-6:47
-then the scary part
-6:47
-when you’re at that point, you do a git reset HEAD^
-6:47
-this undoes the last commit, but leaves it in the tree (so you lose the commit message, alas)
-6:48
-If you’re lucky and the files are disjoint, it’s just git add <those files>; git commit; git rebase --cont….
-6:48
-if they aren’t disjoint, you need to use git add -i to interactively pick it apart.
-6:48
-make sense?
-6:48
-off to more election results.
-6:49
-(and 2 more questions for my FAQ)
+**Q:** Oh great! I followed the above and forgot a commit in the `kernel` branch.
+How do I recover?
 
+**A:** You can use the `driver` branch to find the hash of the commit is missing and
+cherry pick it.
+```
+% git checkout kernel
+% git log driver
+% git cherry-pick $HASH
+```
+
+**Q:** OK. I have the same situation as the above, but my commits are all mixed up. I need
+parts of one commit to go to one branch and the rest to go to the other. In fact, I have
+several. Your rebase method to select sounds tricky.
+
+**A:** In this situation, you'd be better off to curate the original branch to separate
+out the commits, and then use the above method to split the branch.
+
+So let's assume that there's just one commit with a clean tree. You
+can either use `git rebase` with a `rework` line, or you can use this
+with the commit on the tip. The steps are the same either way. The
+first thing we need to do is to back up one commit while leaving the
+changes uncommitted in the tree:
+```
+% git reset HEAD^
+```
+Note: Do not, repeat do not, add --hard here since that also removes the changes from your tree.
+
+Now, if you are lucky, the change needs to be split up falls entirely along file lines. In that
+case you can just do the usual `git add` for the files in each group than do a `git commit`. Note:
+when you do this, you'll lose the commit message when you do the reset, so if you need it for
+some reason, you should save a copy (though `git log $HASH` can recover it).
+
+If you are not lucky, you'll need to split apart files. There's another tool to do that you
+can apply one file at a time.
+```
+git add -i foo/bar.c
+```
+will step through the diffs, prompting you one at time whether to include or exclude the hunk.
+Once you're done, `git commit` and you'll have the remainder in your tree. You can run it
+multiple times as well, and even over multiple files (though I find it easier to do one file at a time
+and use the `git rebase -i` to fold the related commits together).
 
 ## Integrators

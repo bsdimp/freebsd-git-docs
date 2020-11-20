@@ -12,7 +12,7 @@ This document will assume that you've read through it and will try not to belabo
 
 This section will cover a couple of common scenarios for migrating from using the FreeBSD subversion repo to the FreeBSD docs repo. The freebsd git conversion is still be beta status, so some minor things may change between this and going into production.
 
-Before you git started, you'll need a copy of git. Any git will do, though the latest ones are always recommeneded. Either build it from ports, or install it using pkg:
+Before you git started, you'll need a copy of git. Any git will do, though the latest ones are always recommeneded. Either build it from ports, or install it using pkg (though some folks might use `su` or `doas` instead of `sudo`):
 ```
 % sudo pkg install git
 ```
@@ -60,11 +60,12 @@ At this point, your work is preserved, and in the git repo.
 
 ### Keeping current
 
-So, time passes. It's time now to update the tree for the latest changes upstream.
+So, time passes. It's time now to update the tree for the latest changes upstream. When you checkout `main` make sure that you have no diffs. It's a lot easier to commit those to a branch (or use `git stash`) before doing the following. I recommend the longer form here since the combination command `git pull` can be harder to recover from if something goes wrong.
 ```
 % cd git-docs/freebsd-doc
 % git checkout main
-% git pull --ff-only
+% git fetch origin
+% git merge --ff-only origin/main
 ```
 These commands reset your tree to the main branch, and then update it from where you pulled the tree from originally. It's important to switch to `main` before doing this so it moves forward. Now, it's time to move the changes forward:
 ```

@@ -47,11 +47,10 @@ If you are migrating from a tree that has changes you've not yet committed to Fr
 ```
 This will create a diff of your current changes. The last command creates a branch called `working` though you can call it whatever you  want.
 ```
-% patch -p0 < /tmp/docs.diff
+% git apply < /tmp/docs.diff
 ```
-this will apply all your pending changes to the working tree. For each set of files that you have, you should do something like the following
+this will apply all your pending changes to the working tree. This doesn't commit the change, so you'll need to make this permanant:
 ```
-% git add file1 file2 fileN
 % git commit
 ```
 where file1, file2, etc are replaced by the actual filenames that you've changed. The last command will commit these changes to the branch. The editor will prompt you for a commit message. Enter one as if you were committing to FreeBSD.

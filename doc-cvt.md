@@ -4,7 +4,7 @@ This document is designed to walk people through the conversion process from sub
 
 ## Git Basics
 
-There are many primers on how to use git on the web. There's a lot of them (google "git primer"). This one comes up first, and is generally good. https://danielmiessler.com/study/git/ and https://gist.github.com/williewillus/068e9a8543de3a7ef80adb2938657b6b are good overviews. The good book is also complete, but much longer https://git-scm.com/book/en/v2 .
+There are many primers on how to use git on the web. There's a lot of them (google "git primer"). This one comes up first, and is generally good. https://danielmiessler.com/study/git/ and https://gist.github.com/williewillus/068e9a8543de3a7ef80adb2938657b6b are good overviews. The git book is also complete, but much longer https://git-scm.com/book/en/v2 .
 
 This document will assume that you've read through it and will try not to belabor the basics (though it will cover them briefly).
 

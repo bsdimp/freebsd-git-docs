@@ -53,7 +53,7 @@ this will apply all your pending changes to the working tree. This doesn't commi
 ```
 % git commit
 ```
-where file1, file2, etc are replaced by the actual filenames that you've changed. The last command will commit these changes to the branch. The editor will prompt you for a commit message. Enter one as if you were committing to FreeBSD.
+The last command will commit these changes to the branch. The editor will prompt you for a commit message. Enter one as if you were committing to FreeBSD.
 
 At this point, your work is preserved, and in the git repo.
 

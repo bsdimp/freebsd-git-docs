@@ -27,7 +27,7 @@ If you have no changes pending, the migration is straight forward. In this, you 
 ```
 will create a clone of the FreeBSD doc repo into a subdirectory called `freebsd-doc`. I selected that name because there's an excellent chance that the repo will change from `doc` to `freebsd-doc` before we publish the final repo. The current plan for github mirroring is to mirror to https://github/freebsd/freebsd-doc as well, but more on that later.
 
-Now, it's useful to have the old subversion revisions, so let's fetch that information. This data is stored using git notes, but git doesn't fetch those by default. It's best to add them now, especially if you are a translator.
+Now, it's useful to have the old subversion revisions, so let's fetch that information. This data is stored using git notes, but git doesn't fetch those by default. It's best to add them now, especially if you are a translator. Sadly, there's no way to add this to the `git clone` command.
 ```
 % git config --add remote.origin.fetch "+refs/notes/*:refs/notes/*"
 % git fetch
@@ -47,7 +47,7 @@ If you are migrating from a tree that has changes you've not yet committed to Fr
 ```
 This will create a diff of your current changes. The last command creates a branch called `working` though you can call it whatever you  want.
 ```
-% git apply < /tmp/docs.diff
+% git apply /tmp/docs.diff
 ```
 this will apply all your pending changes to the working tree. This doesn't commit the change, so you'll need to make this permanant:
 ```

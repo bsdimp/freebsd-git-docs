@@ -41,7 +41,7 @@ If you have no changes pending, the migration is straight forward. In this, you 
 ```
 % mkdir git-docs
 % cd git-docs
-% git clone https://cgit-beta.freebsd.org/doc freebsd-doc
+% git clone https://cgit-beta.freebsd.org/doc.git freebsd-doc
 ```
 will create a clone of the FreeBSD doc repo into a subdirectory called `freebsd-doc`. I selected that name because there's an excellent chance that the repo will change from `doc` to `freebsd-doc` before we publish the final repo. The current plan for github mirroring is to mirror to https://github/freebsd/freebsd-doc as well, but more on that later.
 
@@ -49,7 +49,7 @@ Now, it's useful to have the old subversion revisions, so let's fetch that infor
 
 To create a clone of FreeBSD doc repo containing subversion revisions, use the following command:
 ```
-% git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://cgit-beta.freebsd.org/doc freebsd-doc
+% git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://cgit-beta.freebsd.org/doc.git freebsd-doc
 ```
 
 To add subversion revisions to existing clone, use the following commands:

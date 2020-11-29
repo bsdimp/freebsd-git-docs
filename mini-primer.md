@@ -3,16 +3,16 @@
 ## Scope
 If you want to download FreeBSD, compile it from sources and generally keep up to date that way, this primer is for you. If you are looking to do more with the tree, contribute back, or commit changes, then you should look HERE(link to developers guide). It covers getting the sources, updating the sources, how to bisect and touches briefly on how to cope with a few local changes. It covers the basics, and tries to give good pointers to more in-depth treatment for when the readers finds the basics insufficient.
 
-The goal of this document is to highlight those bits of git needed to track sources. They assume a basic understanding of git. There's many primers for git on the web, but the [Git Book](https://git-scm.com/book/en/v2) provides one of the better treatments.
+The goal of this document is to highlight those bits of git needed to track sources. They assume a basic understanding of git. There are many primers for git on the web, but the [Git Book](https://git-scm.com/book/en/v2) provides one of the better treatments.
 
 ## Keeping Current With FreeBSD src tree
 
-First step: cloning a tree. This downloads the entire tree. There's two ways to download. Most people will want to do a deep clone of the repo. However, there are times that you may wish to do a shallow clone.
+First step: cloning a tree. This downloads the entire tree. There are two ways to download. Most people will want to do a deep clone of the repo. However, there are times that you may wish to do a shallow clone.
 
 ### Branch names
 The branch names in the new git repo are similar to the old names. For the stable branches, they are stable/X where X is the major release (like 11 or 12). The main branch in the new repo is 'main'. The main branch in the old GitHub mirror is 'master'. Both reflecting the defaults of git at the time they were created. The main/master branch is the default branch if you omit the '-b branch' or '--branch branch' options below.
 ### Repositories
-At the moment, there's two repositories. The hashes are different between them. The old GitHub repo is similar to the new cgit repo. However, there are a large number of mistakes in the GitHub repo that required us to regenerate the export when we migrated to having a git repo be the source of truth for the project.
+At the moment, there are two repositories. The hashes are different between them. The old GitHub repo is similar to the new cgit repo. However, there are a large number of mistakes in the GitHub repo that required us to regenerate the export when we migrated to having a git repo be the source of truth for the project.
 
 The GitHub repo is at https://github.com/freebsd/freebsd.git
 The new cgit beta repo is at https://cgit-beta.freebsd.org/src.git

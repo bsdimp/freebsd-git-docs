@@ -43,7 +43,7 @@ packages. It's structure is currently being debated.
 
 ## The `src` repository
 
-The 'src' reposiotry contains all the source code needed to build
+The 'src' repository contains all the source code needed to build
 FreeBSD.
 
 There are four kinds of branches in this repository.

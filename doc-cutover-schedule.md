@@ -2,7 +2,7 @@
 
 The FreeBSD project will be converting from subversion to git in the
 coming weeks and months. The doc repo will be converted starting
-December 5th. This document provides a deatiled schedule.
+December 5th. This document provides a detailed schedule.
 
 ## Timetable
 
@@ -18,12 +18,12 @@ Note: the specific times are subject to change as the detailed logistics are wor
 | Dec 4th 23:30 | gjb     | commit updates to webupdate/webupdate.wrapper to svn     |
 | Dec 5th  0:00 | gjb     | start switch website / handbook building from svn to git |
 | Dec 5th 12:00 | gjb     | GO/NOGO on switch finalization                           |
-| Dec 8th  2:58 | uqs     | turn off scheduled svn -> git converter                  |
+| Dec 7th 22:00 | uqs     | turn off scheduled svn -> git converter                  |
 | Dec 8th  2:59 | lwhsu   | Make a final commit to subversion                        |
 | Dec 8th  3:00 | lwhsu   | turn off write access to subversion                      |
 | Dec 8th  3:01 | lwhsu   | snapshot the subversion repository repo filesystem       |
-| Dec 8th  3:02 | uqs     | start final run of svn to git converter                  |
-| Dec 8th  3:10 | uqs     | push converted tree to github/gitlab                     |
+| Dec 8th  8:00 | uqs     | start final run of svn to git converter                  |
+| Dec 8th  9:00 | uqs     | push converted tree to github/gitlab                     |
 | Dec 8th 10:00 | lwhsu   | turn on push to git                                      |
 | Dec 8th 10:01 | lwhsu   | push 'welcome to git' commit                             |
 | Dec 8th 12:00 | so@     | Next advisory window opens                               |
@@ -50,4 +50,4 @@ svn infra -> git infra map
 (*) Before all repositories in SVN have been migrated, the repo.freebsd.org will be pointing to one of:
     - svnrepo.freebsd.org
     - gitrepo.freebsd.org
-    please use the hostname explicitly includes the VCS name to access the right repositories during the migration. repo.freebsd.org will be the canonical FreeBSD git repository for the committers after all the repositories migrated to git.
+    please use the hostname that explicitly includes the VCS name to access the right repositories during the migration. repo.freebsd.org will be the canonical FreeBSD git repository for the committers after all the repositories migrated to git.

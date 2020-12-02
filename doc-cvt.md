@@ -2,6 +2,24 @@
 
 This document is designed to walk people through the conversion process from subversion to git, written from the doc committer's point of view. This document is a living document, so please don't hesistate to send improvements, or even ask for areas to be explained more / better / at all. Please note that the URL for the repo is currently https://cgit-beta.freebsd.org/doc, but that will change when this is put into productions.
 
+
+## Old vs New URL translation table
+
+Before we get started, here's a handly cheat sheet for old to new URLs.
+
+svn infra -> git infra map
+
+| Item                                     | SVN                             | GIT                                 |
+| ---------------------------------------- | ------------------------------- | ----------------------------------- |
+| Web-based repository browser             | https://svnweb.freebsd.org      | https://cgit.freebsd.org            |
+| Distributed mirrors for anonymous readonly checkout/clone | https://svn.freebsd.org svn://svn.freebsd.org | https://git.freebsd.org git+ssh://anongit@git.freebsd.org |
+| Read/write Repository for committers (*) | svn+ssh://(svn)repo.freebsd.org | git+ssh://git@(git)repo.freebsd.org |
+
+(*) Before all repositories in SVN have been migrated, the repo.freebsd.org will be pointing to one of:
+    - svnrepo.freebsd.org
+    - gitrepo.freebsd.org
+    please use the hostname explicitly includes the VCS name to access the right repositories during the migration. repo.freebsd.org will be the canonical FreeBSD git repository for the committers after all the repositories migrated to git.
+
 ## Git Basics
 
 There are many primers on how to use git on the web. There's a lot of them (google "git primer"). This one comes up first, and is generally good. https://danielmiessler.com/study/git/ and https://gist.github.com/williewillus/068e9a8543de3a7ef80adb2938657b6b are good overviews. The git book is also complete, but much longer https://git-scm.com/book/en/v2 .

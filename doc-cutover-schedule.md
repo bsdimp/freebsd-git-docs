@@ -37,6 +37,8 @@ Note: the specific times are subject to change as the detailed logistics are wor
 
 Announcement draft: https://hackmd.io/0r0OnsTjRTyojFeDpJZBng
 
+## Old vs New URL translation table
+
 svn infra -> git infra map
 
 | Item                                     | SVN                             | GIT                                 |

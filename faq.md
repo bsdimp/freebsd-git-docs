@@ -97,7 +97,7 @@ keep the rest in `wilma` for some reason?
 rest of the branch is ready (say you noticed an unrelated typo, or
 fixed an incidental bug). You can cherry pick those changes into main,
 then push to the parent repo. Once you've done that, cleanup couldn't
-be simpler: just `git rebase -i` since it will notice you've done
+be simpler: just `git rebase -i` since Git will notice you've done
 this and omit the common changes automatically (even if you had to
 change the commit message or tweak the commit slightly). There's no
 need to switch back to wilma to adjust it: just rebase!

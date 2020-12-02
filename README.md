@@ -1,6 +1,6 @@
-# Draft FreeBSD git docs
+# Draft FreeBSD Git docs
 
-This repo contains the draft docs for the FreeBSD migration to git.
+This repo contains the draft docs for the FreeBSD migration to Git.
 
 Please feel free to submit pull requests for typos, clearer language, additional
 topics, etc.

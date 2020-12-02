@@ -34,7 +34,7 @@ A shallow clone copies just the most current code, but none or little of the his
 
     git clone -b branch --depth 1 $URL [dir]
 
-This clones the repository, but only has the most recent version in the respository. The rest of the history is not downloaded. Should you change your mind later, you can do 'git fetch --unshallow' to get the old history.
+This clones the repository, but only has the most recent version in the repository. The rest of the history is not downloaded. Should you change your mind later, you can do 'git fetch --unshallow' to get the old history.
 
 ### Building
 
@@ -46,7 +46,7 @@ Once you've downloaded, building is done as described in the handbook, eg:
     % make installkernel
     % make installworld
 
-so that won't be coverd in depth here.
+so that won't be covered in depth here.
 
 ### Updating
 
@@ -134,11 +134,11 @@ One item that's important for all of them: all changes are local until pushed. U
 
 The simplest way to keep local changes (especially trivial ones) is to use 'git stash'. In its simples form, you use 'git stash' to record the changes (which pushes them onto the stash stack). Most people use this to save changes before updating the tree as described above. They then use 'git stash apply' to re-apply them to the tree. The stash is a stack of changes that can be examined with 'git stash list'. The git-stash man page (https://git-scm.com/docs/git-stash) has all the details.
 
-This method is suitable when you have tiny tweaks to the tree. When you have anything non trivial, you'll likely be better off keeping a local branch and rebasing. It is also integreated with the 'git pull' command: just add '--autostash' to the command line.
+This method is suitable when you have tiny tweaks to the tree. When you have anything non trivial, you'll likely be better off keeping a local branch and rebasing. It is also integrated with the 'git pull' command: just add '--autostash' to the command line.
 
 ### Keeping a local branch
 
-It's much easier to keep a local branch with git than subversion. In subversion you need to merge the commit, and resolve the conflicts. This is managable, but can lead to a convoluted history that's hard to upstream should that ever be necessary, or hard to replicate if you need to do so. Git also allows one to merge, along with the same problems. That's one way to mange the branch, but it's the least flexible.
+It's much easier to keep a local branch with git than subversion. In subversion you need to merge the commit, and resolve the conflicts. This is manageable, but can lead to a convoluted history that's hard to upstream should that ever be necessary, or hard to replicate if you need to do so. Git also allows one to merge, along with the same problems. That's one way to mange the branch, but it's the least flexible.
 
 Git has a concept of 'rebasing' which you can use to avoids these issues. The 'git rebase' command will basically replay all the commits relative to the parent branch at a newer location on that parent branch. This section will briefly cover how to do this, but will not cover all scenarios.
 
@@ -239,7 +239,7 @@ What the above does is checkout no-color-ls. Then create a new name for it (no-c
 
 ### Migrating from an existing git clone
 
-If you have work based on a previous git conversion or a locally running git-svn conversion, migrating to new repository can be problemtic because git have no knowledge about the connection between the two.
+If you have work based on a previous git conversion or a locally running git-svn conversion, migrating to new repository can be problematic because git have no knowledge about the connection between the two.
 
 If do not have a lot of local changes, the easiest way would be to cherry-pick your changes to the new base:
 

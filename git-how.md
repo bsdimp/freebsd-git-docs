@@ -10,10 +10,10 @@ The `src` repository will contain the base OS source code.
 
 The `ports` repository will contain the ports system.
 
-Note: Theres discussions about prefixing freebsd- to the front of those.
+Note: There's discussions about prefixing freebsd- to the front of those.
 
 In addition to these main repositories, a number of specialized
-repositories exist to cooridnate work on things like packages and
+repositories exist to coordinate work on things like packages and
 graphics drivers. These repositories have their own rules and are
 organized in a way that makes the best sense for the group working on
 these things. Their organization is beyond the scope of this document.
@@ -21,7 +21,7 @@ these things. Their organization is beyond the scope of this document.
 ## The `doc` repository.
 
 The documentation repository ('doc') is the simplest repository. It has
-no branches (large scale collaberation projects are done with
+no branches (large scale collaboration projects are done with
 forks). It has a number of tags that describe the doc tree at various
 releases.
 

@@ -8,10 +8,10 @@ are likely to come up often for users, developer and integrators.
 ### How do I track -current and -stable with only one copy of the repo?
 
 **Q:** Although disk space is not a huge issue, it's more efficient to use
-only one copy of the repository. With svn mirroring, I could checkout
-multiple trees from the same repo. How do I do this with git?
+only one copy of the repository. With SVN mirroring, I could checkout
+multiple trees from the same repo. How do I do this with Git?
 
-**A:** You can use git worktrees. There's a number of ways to do this,
+**A:** You can use Git worktrees. There's a number of ways to do this,
 but the simplest way is to do a clone to track -current, and a
 worktree to track stable releases. While using a 'naked repository'
 has been put forward as a way to cope, it's more complicated and will not
@@ -97,12 +97,12 @@ keep the rest in `wilma` for some reason?
 rest of the branch is ready (say you noticed an unrelated typo, or
 fixed an incidental bug). You can cherry pick those changes into main,
 then push to the parent repo. Once you've done that, cleanup couldn't
-be simpler: just `git rebase -i` since git will notice you've done
+be simpler: just `git rebase -i` since it will notice you've done
 this and omit the common changes automatically (even if you had to
 change the commit message or tweak the commit slightly). There's no
 need to switch back to wilma to adjust it: just rebase!
 
-**Q:** I want split off some chagnes from branch `wilma` into branch `fred`
+**Q:** I want to split off some chagnes from branch `wilma` into branch `fred`
 
 **A:** The more general answer would be the same as the
 previous. You'd checkout/create the `fred` branch, cherry pick the
@@ -131,13 +131,13 @@ split, you'd omit it.
 
 **Q:** But I did things as I read along and didn't see your advice at
 the end to create a branch, and now `fred` and `wilma` are all
-screwed up. How do I find what the `wilma` has was before I started. I don't
+screwed up. How do I find what `wilma` was before I started. I don't
 know how many times I moved things around.
 
 **A:** All is not lost. You can figure out it, so long as it hasn't
 been too long, or too many commits (hundreds).
 
-So I created a wilma branch committed a couple of things to it, then
+So I created a wilma branch and committed a couple of things to it, then
 decided I wanted to split it into fred and wilma. Nothing weird
 happened when I did that, but lot's say it did. The way to look at
 what you've done is with the `git reflog`:
@@ -179,7 +179,7 @@ since you're doing one thing at a time. You can also stack:
 and you are ready to try again. The checkout -B with the hash combines
 checking out and creating a branch for it. The -B instead of -b forces
 the movement of a pre-existing branch. Either way works, which is what's
-great (and aweful) about git. One reason I tend to use `git checkout -B xxxx hash`
+great (and awful) about Git. One reason I tend to use `git checkout -B xxxx hash`
 instead of checking out the hash, and then creating / moving the branch
 is purely to avoid the slightly distressing message about detached heads:
 ```
@@ -333,17 +333,17 @@ changes uncommitted in the tree:
 ```
 Note: Do not, repeat do not, add --hard here since that also removes the changes from your tree.
 
-Now, if you are lucky, the change needs to be split up falls entirely along file lines. In that
+Now, if you are lucky, the change needing to be split up falls entirely along file lines. In that
 case you can just do the usual `git add` for the files in each group than do a `git commit`. Note:
 when you do this, you'll lose the commit message when you do the reset, so if you need it for
 some reason, you should save a copy (though `git log $HASH` can recover it).
 
-If you are not lucky, you'll need to split apart files. There's another tool to do that you
+If you are not lucky, you'll need to split apart files. There's another tool to do that which you
 can apply one file at a time.
 ```
 git add -i foo/bar.c
 ```
-will step through the diffs, prompting you one at time whether to include or exclude the hunk.
+will step through the diffs, prompting you, one at time, whether to include or exclude the hunk.
 Once you're done, `git commit` and you'll have the remainder in your tree. You can run it
 multiple times as well, and even over multiple files (though I find it easier to do one file at a time
 and use the `git rebase -i` to fold the related commits together).

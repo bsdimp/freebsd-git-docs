@@ -1,6 +1,12 @@
 # FreeBSD Doc Committer Tranistion Guide
 
-This document is designed to walk people through the conversion process from Subversion to Git, written from the doc committer's point of view. This document is a living document, so please don't hesitate to send improvements, or even ask for areas to be explained more / better / at all. Please note that the URL for the repo is currently https://cgit-beta.freebsd.org/doc, but that will change when this is put into production.
+This document is designed to walk people through the conversion
+process from Subversion to Git, written from the doc committer's point
+of view. This document is a living document, so please don't hesitate
+to send improvements, or even ask for areas to be explained more /
+better / at all. Please note that the URL for the repo is currently
+https://cgit-beta.freebsd.org/doc, but that will change when this is
+put into production.
 
 
 ## Old vs New URL translation table
@@ -26,22 +32,37 @@ all the repositories migrated to Git.
 
 ## Git basics
 
-There are many primers on how to use Git on the web. There's a lot of them (google "Git primer"). This one comes up first, and is generally good. https://danielmiessler.com/study/git/ and https://gist.github.com/williewillus/068e9a8543de3a7ef80adb2938657b6b are good overviews. The Git book is also complete, but much longer https://git-scm.com/book/en/v2 .
+There are many primers on how to use Git on the web. There's a lot of
+them (google "Git primer"). This one comes up first, and is generally
+good. https://danielmiessler.com/study/git/ and
+https://gist.github.com/williewillus/068e9a8543de3a7ef80adb2938657b6b
+are good overviews. The Git book is also complete, but much longer
+https://git-scm.com/book/en/v2 .
 
-This document will assume that you've read through it and will try not to belabor the basics (though it will cover them briefly).
+This document will assume that you've read through it and will try not
+to belabor the basics (though it will cover them briefly).
 
 ## Migrating from a Subversion tree
 
-This section will cover a couple of common scenarios for migrating from using the FreeBSD Subversion repo to the FreeBSD docs repo. The FreeBSD Git conversion is still be beta status, so some minor things may change between this and going into production.
+This section will cover a couple of common scenarios for migrating
+from using the FreeBSD Subversion repo to the FreeBSD docs repo. The
+FreeBSD Git conversion is still be beta status, so some minor things
+may change between this and going into production.
 
-Before you git started, you'll need a copy of Git. Any Git will do, though the latest ones are always recommemded. Either build it from ports, or install it using pkg (though some folks might use `su` or `doas` instead of `sudo`):
+Before you git started, you'll need a copy of Git. Any Git will do,
+though the latest ones are always recommemded. Either build it from
+ports, or install it using pkg (though some folks might use `su` or
+`doas` instead of `sudo`):
 ```
 % sudo pkg install git
 ```
 
 ### No staged changes migration
 
-If you have no changes pending, the migration is straight forward. In this, you abandon the Subversion tree and clone the Git repo. It's likely best to retain your subversion tree, in case there's something you've forgotten about there.  First, let's clone a repo:
+If you have no changes pending, the migration is straight forward. In
+this, you abandon the Subversion tree and clone the Git repo. It's
+likely best to retain your subversion tree, in case there's something
+you've forgotten about there.  First, let's clone a repo:
 ```
 % mkdir git-docs
 % cd git-docs
@@ -54,68 +75,96 @@ publish the final repo. The current plan for GitHub mirroring is to
 mirror to https://github.com/freebsd/freebsd-doc.git as well, but more
 on that later.
 
-Now, it's useful to have the old Subversion revisions, so let's fetch that information. This data is stored using Git notes, but Git doesn't fetch those by default. It's best to add them now, especially if you are a translator.
+Now, it's useful to have the old Subversion revisions, so let's fetch
+that information. This data is stored using Git notes, but Git doesn't
+fetch those by default. It's best to add them now, especially if you
+are a translator.
 
-To create a clone of the FreeBSD doc repo containing Subversion revisions, use the following command:
+To create a clone of the FreeBSD doc repo containing Subversion
+revisions, use the following command:
 ```
 % git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://cgit-beta.freebsd.org/doc.git freebsd-doc
 ```
 
-To add Subversion revisions to the existing clone, use the following commands:
+To add Subversion revisions to the existing clone, use the following
+commands:
 ```
 % git config --add remote.origin.fetch "+refs/notes/*:refs/notes/*"
 % git fetch
 ```
 
-At this point you have the docs checked out into a Git tree, ready to do other things.
+At this point you have the docs checked out into a Git tree, ready to
+do other things.
 
 ### But I have changes that I've not committed
 
-If you are migrating from a tree that has changes you've not yet committed to FreeBSD, you'll need to follow the steps from the previous section first, and then follow these.
-
+If you are migrating from a tree that has changes you've not yet
+committed to FreeBSD, you'll need to follow the steps from the
+previous section first, and then follow these.
 ```
 % cd path-to-svn-checkout-tree
 % svn diff > /tmp/docs.diff
 % cd git-docs/freebsd-doc
 % git checkout -b working
 ```
-This will create a diff of your current changes. The last command creates a branch called `working` though you can call it whatever you want.
+This will create a diff of your current changes. The last command
+creates a branch called `working` though you can call it whatever you
+want.
 ```
 % git apply /tmp/docs.diff
 ```
-this will apply all your pending changes to the working tree. This doesn't commit the change, so you'll need to make this permanent:
+this will apply all your pending changes to the working tree. This
+doesn't commit the change, so you'll need to make this permanent:
 ```
 % git commit
 ```
-The last command will commit these changes to the branch. The editor will prompt you for a commit message. Enter one as if you were committing to FreeBSD.
+The last command will commit these changes to the branch. The editor
+will prompt you for a commit message. Enter one as if you were
+committing to FreeBSD.
 
 At this point, your work is preserved, and in the Git repo.
 
 ### Keeping current
 
-So, time passes. It's time now to update the tree for the latest changes upstream. When you checkout `main` make sure that you have no diffs. It's a lot easier to commit those to a branch (or use `git stash`) before doing the following. I recommend the longer form here since the combination command `git pull` can be harder to recover from if something goes wrong.
+So, time passes. It's time now to update the tree for the latest
+changes upstream. When you checkout `main` make sure that you have no
+diffs. It's a lot easier to commit those to a branch (or use `git
+stash`) before doing the following. I recommend the longer form here
+since the combination command `git pull` can be harder to recover from
+if something goes wrong.
 ```
 % cd git-docs/freebsd-doc
 % git checkout main
 % git fetch origin
 % git merge --ff-only origin/main
 ```
-These commands reset your tree to the main branch, and then update it from where you pulled the tree from originally. It's important to switch to `main` before doing this so it moves forward. Now, it's time to move the changes forward:
+These commands reset your tree to the main branch, and then update it
+from where you pulled the tree from originally. It's important to
+switch to `main` before doing this so it moves forward. Now, it's time
+to move the changes forward:
 ```
 % git rebase -i main working
 ```
-This will bring up an interactive screen to change the defaults. For now, just exit the editor. Everything should just apply. If not, then you'll need to resolve the diffs. https://docs.github.com/en/free-pro-team@latest/github/using-git/resolving-merge-conflicts-after-a-git-rebase can help you navigate this process.
+This will bring up an interactive screen to change the defaults. For
+now, just exit the editor. Everything should just apply. If not, then
+you'll need to resolve the
+diffs. https://docs.github.com/en/free-pro-team@latest/github/using-git/resolving-merge-conflicts-after-a-git-rebase
+can help you navigate this process.
 
 ### Time to push changes upstream
 
-Note: Git transition is still in beta, so your changes won't go into the Subversion repo and will be lost if you do this before the cutover.
+Note: Git transition is still in beta, so your changes won't go into
+the Subversion repo and will be lost if you do this before the
+cutover.
 
 ```
 % git checkout main
 % git merge --ff-only working
 % git push
 ```
-The above commands merge the 'working' tree into main line and push them upstream. It's important that you curate your changes to be just like you want them in the FreeBSD doc repo before doing this.
+The above commands merge the 'working' tree into main line and push
+them upstream. It's important that you curate your changes to be just
+like you want them in the FreeBSD doc repo before doing this.
 
 ## Migrating from GitHub fork
 

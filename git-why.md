@@ -11,7 +11,7 @@ tools that will make the project better. Today I'll enumerate these
 points. There are some logistical points around how the decision was
 made. I'll not get into the politics about how we got here. While
 interesting for insiders who like to argue and quibble, they are no
-more relevant to the larger community that the color of the delivery
+more relevant to the larger community than the color of the delivery
 truck that delivered groceries to your grocer this morning (even if it
 had the latest episode of a cool, scrappy cartoon cat that was
 involved in a multi-year arc wooing the love of his life by buying
@@ -33,14 +33,14 @@ compared to the thriving, vibrant Git ecosystem.
 
 ### Better CI support
 
-Git have more support for newer CI tools than Subversion. This will
+Git has more support for newer CI tools than Subversion. This will
 allow us, once things are fully phased in, to increase the quality of
 the code going into the tree, as well as greatly reduce build
-breakages and accidental regressions. While one can use CI tools
+breakages and accidental regressions. While one can use these CI tools
 outside of Git, integration into a Git workflow requires less
 discipline on the part of developers, making it easy for them to fix
-issues found by CI as part of the commit/merge process before they
-affect others.
+issues found by the CI system as part of the commit/merge process
+before they affect others.
 
 ### Better merging
 
@@ -56,14 +56,14 @@ workflow.
 
 ### Robust mirroring
 
-Git can easily and robustly be mirrored. Subversion can be mirrored,
-but that mirroring is far from robust. One of the snags in the Git
-migration is that different SVN mirrors have different data than the
-main repo or each other. Mirroring in Git is built into the work
-flow. Since every repo is cloned, mirroring comes along for free. And
-there's a number of third party mirroring sites available, such as
-GitHub, GitLab and SourceForge. These sites offer collaboration and CI
-add-ons as well.
+Git can be easily and robustly be mirrored. Subversion can be
+mirrored, but that mirroring is far from robust. One of the snags in
+the Git migration is that different SVN mirrors have different data
+than the main repo or each other. Mirroring in Git is built into the
+work flow. Since every repo is cloned, mirroring comes along for
+free. And there's a number of third party mirroring sites available,
+such as GitHub, GitLab and SourceForge. These sites offer
+collaboration and CI add-ons as well.
 
 Git can sign tags and commits. Subversion cannot. We can increase the
 integrity of the source of truth though these measures.

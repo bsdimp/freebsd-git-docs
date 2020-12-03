@@ -1,6 +1,6 @@
 # Git FAQ
 
-This document provides a number of targetted answers to questions that
+This document provides a number of targeted answers to questions that
 are likely to come up often for users, developer and integrators.
 
 ## Users
@@ -13,7 +13,7 @@ multiple trees from the same repo. How do I do this with Git?
 
 **A:** You can use Git worktrees. There's a number of ways to do this,
 but the simplest way is to do a clone to track -current, and a
-worktree to track stable releases. While using a 'naked repository'
+worktree to track stable releases. While using a 'bare repository'
 has been put forward as a way to cope, it's more complicated and will not
 be documented here.
 
@@ -86,8 +86,11 @@ in the `git cherry-pick` command), but that too can be generalized.
 % git checkout fred		# move to fred branch
 % git cherry-pick wilma		# pull in wrong commit
 % git checkout wilma		# go back to wilma branch
-% git reset --hard HEAD^	# move what wilma refers to
+% git reset --hard HEAD^	# move what wilma refers to back 1 commit
 ```
+Git experts would first rewind the wilma branch by 1 commit, switch over to
+fred and then use `git reflog` to see what that 1 deleted commit was and
+cherry-pick it over.
 
 **Q:** But what if I want to commit a few changes to `main`, but
 keep the rest in `wilma` for some reason?
@@ -163,7 +166,7 @@ argument to a command. Though if that command commits anything to the
 repo, the X numbers change. You can also use the hash (first column)
 as well.
 
-Next 'Encourage contribuions' was the last commit I did to `wilma`
+Next 'Encourage contributions' was the last commit I did to `wilma`
 before I decided to split things up. You can also see the same hash is
 there when I created the `fred` branch to do that. I started by
 rebasing `fred` and you see the 'start', each step, and the 'finish'
@@ -231,7 +234,7 @@ main branch to match the remove main branch:
 ```
 
 You can now use tmp-branch created above to pull in changes from there
-to a proper branch off of main for easiler rebasing. If it's one or
+to a proper branch off of main for easier rebasing. If it's one or
 two changes, you may be able to do this with a
 ```
 % git rebase -i main tmp-branch
@@ -245,7 +248,7 @@ branched from `main`. Since the most common cause of this issue is
 % git pull
 ```
 Those 3 commits will be relative to `main` and can easily be rebased to the
-recreated 'main' branch above (and since we gave the branch a name, they are on a proper brnach)
+recreated 'main' branch above (and since we gave the branch a name, they are on a proper branch)
 
 **Q:** But I hate the name `tmp-branch`. Can I change it easily?
 **A:** Yes.
@@ -273,7 +276,7 @@ while maintaining the commits in both.
 % git checkout -b feature	# create a new branch
 % git cherry-pick main..async	# bring in the changes
 ```
-You now have one brach called `feature`. This branch combines commits
+You now have one branch called `feature`. This branch combines commits
 from both branches. You can further curate it with `git rebase`.
 
 **Q:** OK Wise Guy. That was too easy. I have a branch called `driver` and I'd like

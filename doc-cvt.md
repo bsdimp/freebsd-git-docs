@@ -1,11 +1,11 @@
 # FreeBSD Doc Committer Tranistion Guide
 
-This document is designed to walk people through the conversion process from Subversion to Git, written from the doc committer's point of view. This document is a living document, so please don't hesistate to send improvements, or even ask for areas to be explained more / better / at all. Please note that the URL for the repo is currently https://cgit-beta.freebsd.org/doc, but that will change when this is put into production.
+This document is designed to walk people through the conversion process from Subversion to Git, written from the doc committer's point of view. This document is a living document, so please don't hesitate to send improvements, or even ask for areas to be explained more / better / at all. Please note that the URL for the repo is currently https://cgit-beta.freebsd.org/doc, but that will change when this is put into production.
 
 
 ## Old vs New URL translation table
 
-Before we get started, here's a handly cheat sheet for old to new URLs.
+Before we get started, here's a handy cheat sheet for old to new URLs.
 
 SVN infra -> Git infra map
 
@@ -18,7 +18,11 @@ SVN infra -> Git infra map
 (*) Before all repositories in SVN have been migrated, the repo.freebsd.org will be pointing to one of:
     - svnrepo.freebsd.org
     - gitrepo.freebsd.org
-    please use the hostname explicitly includes the VCS name to access the right repositories during the migration. repo.freebsd.org will be the canonical FreeBSD Git repository for the committers after all the repositories migrated to Git.
+
+please use the hostname that explicitly includes the VCS name to
+access the right repositories during the migration. `repo.freebsd.org`
+will be the canonical FreeBSD Git repository for the committers after
+all the repositories migrated to Git.
 
 ## Git basics
 
@@ -30,7 +34,7 @@ This document will assume that you've read through it and will try not to belabo
 
 This section will cover a couple of common scenarios for migrating from using the FreeBSD Subversion repo to the FreeBSD docs repo. The FreeBSD Git conversion is still be beta status, so some minor things may change between this and going into production.
 
-Before you git started, you'll need a copy of Git. Any Git will do, though the latest ones are always recommeneded. Either build it from ports, or install it using pkg (though some folks might use `su` or `doas` instead of `sudo`):
+Before you git started, you'll need a copy of Git. Any Git will do, though the latest ones are always recommemded. Either build it from ports, or install it using pkg (though some folks might use `su` or `doas` instead of `sudo`):
 ```
 % sudo pkg install git
 ```
@@ -43,7 +47,12 @@ If you have no changes pending, the migration is straight forward. In this, you 
 % cd git-docs
 % git clone https://cgit-beta.freebsd.org/doc.git freebsd-doc
 ```
-will create a clone of the FreeBSD doc repo into a subdirectory called `freebsd-doc`. I selected that name because there's an excellent chance that the repo will change from `doc` to `freebsd-doc` before we publish the final repo. The current plan for GitHub mirroring is to mirror to https://github/freebsd/freebsd-doc as well, but more on that later.
+will create a clone of the FreeBSD doc repo into a subdirectory called
+`freebsd-doc`. I selected that name because there's an excellent
+chance that the repo will change from `doc` to `freebsd-doc` before we
+publish the final repo. The current plan for GitHub mirroring is to
+mirror to https://github.com/freebsd/freebsd-doc.git as well, but more
+on that later.
 
 Now, it's useful to have the old Subversion revisions, so let's fetch that information. This data is stored using Git notes, but Git doesn't fetch those by default. It's best to add them now, especially if you are a translator.
 
@@ -74,7 +83,7 @@ This will create a diff of your current changes. The last command creates a bran
 ```
 % git apply /tmp/docs.diff
 ```
-this will apply all your pending changes to the working tree. This doesn't commit the change, so you'll need to make this permanant:
+this will apply all your pending changes to the working tree. This doesn't commit the change, so you'll need to make this permanent:
 ```
 % git commit
 ```

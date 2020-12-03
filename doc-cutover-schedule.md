@@ -18,12 +18,12 @@ Note: specific times are subject to change as the detailed logistics are worked 
 | Dec 4th 23:30 | gjb     | Commit updates to webupdate/webupdate.wrapper to SVN     |
 | Dec 5th  0:00 | gjb     | Start switch website / handbook building from SVN to Git |
 | Dec 5th 12:00 | gjb     | GO/NOGO on switch finalization                           |
-| Dec 8th  2:58 | uqs     | Turn off scheduled SVN -> Git converter                  |
+| Dec 7th 22:00 | uqs     | Turn off scheduled SVN -> Git converter                  |
 | Dec 8th  2:59 | lwhsu   | Make a final commit to Subversion                        |
 | Dec 8th  3:00 | lwhsu   | Turn off write access to Subversion                      |
 | Dec 8th  3:01 | lwhsu   | Snapshot the Subversion repository repo filesystem       |
-| Dec 8th  3:02 | uqs     | Start final run of SVN to Git converter                  |
-| Dec 8th  3:10 | uqs     | Push converted tree to GitHub/GitLab                     |
+| Dec 8th  8:00 | uqs     | Start final run of SVN to Git converter                  |
+| Dec 8th  9:00 | uqs     | Push converted tree to GitHub/GitLab                     |
 | Dec 8th 10:00 | lwhsu   | Turn on push to Git                                      |
 | Dec 8th 10:01 | lwhsu   | Push 'Welcome to Git' commit                             |
 | Dec 8th 12:00 | so@     | Next advisory window opens                               |
@@ -50,4 +50,8 @@ SVN infra -> Git infra map
 (*) Before all repositories in SVN have been migrated, the repo.freebsd.org will be pointing to one of:
     - svnrepo.freebsd.org
     - gitrepo.freebsd.org
-    please use the hostname that explicitly includes the VCS name to access the right repositories during the migration. repo.freebsd.org will be the canonical FreeBSD Git repository for the committers after all the repositories migrated to Git.
+
+please use the hostname that explicitly includes the VCS name to
+access the right repositories during the migration. `repo.freebsd.org`
+will be the canonical FreeBSD Git repository for the committers after
+all the repositories migrated to Git.

@@ -66,33 +66,25 @@ you've forgotten about there.  First, let's clone a repo:
 ```
 % mkdir git-docs
 % cd git-docs
-% git clone https://cgit-beta.freebsd.org/doc.git freebsd-doc
-```
-will create a clone of the FreeBSD doc repo into a subdirectory called
-`freebsd-doc`. I selected that name because there's an excellent
-chance that the repo will change from `doc` to `freebsd-doc` before we
-publish the final repo. The current plan for GitHub mirroring is to
-mirror to https://github.com/freebsd/freebsd-doc.git as well, but more
-on that later.
-
-Now, it's useful to have the old Subversion revisions, so let's fetch
-that information. This data is stored using Git notes, but Git doesn't
-fetch those by default. It's best to add them now, especially if you
-are a translator.
-
-To create a clone of the FreeBSD doc repo containing Subversion
-revisions, use the following command:
-```
 % git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://cgit-beta.freebsd.org/doc.git freebsd-doc
 ```
+will create a clone of the FreeBSD doc repo into a subdirectory called
+`freebsd-doc` and include the 'notes' about the revisions. I selected
+that name because there's an excellent chance that the repo will
+change from `doc` to `freebsd-doc` before we publish the final
+repo. The current plan for GitHub mirroring is to mirror to
+https://github.com/freebsd/freebsd-doc.git as well, but more on that
+later.
 
-To add Subversion revisions to the existing clone, use the following
-commands:
+It's useful to have the old Subversion revisions. This data is stored
+using Git notes, but Git doesn't fetch those by default. The --config
+and is argument above changed the default to fetch the notes. If
+you've cloned the repo without this, or wish to add notes to an
+previsouly clone repository, use the following commands:
 ```
 % git config --add remote.origin.fetch "+refs/notes/*:refs/notes/*"
 % git fetch
 ```
-
 At this point you have the docs checked out into a Git tree, ready to
 do other things.
 
@@ -166,7 +158,42 @@ The above commands merge the 'working' tree into main line and push
 them upstream. It's important that you curate your changes to be just
 like you want them in the FreeBSD doc repo before doing this.
 
+### Finding the Subversion Revision
+
+You'll need to make sure that you've fetched the notes (see the `No
+staged changes migration` section above for details. Once you have
+these, notes will show up in the git log command like so:
+```
+commit 77788b7b18c1569e368e845cfbd4739329a2b76f
+Author: phk <phk@FreeBSD.org>
+Date:   Mon Nov 23 09:00:37 2020 +0000
+
+    Update my GPG key
+
+Notes:
+    svn path=/head/; revision=54705
+```
+
+If you have a specific version in mind, you can use this construct:
+```
+% git log --grep revision=54700
+commit 9a9960bfb7e8ff9fa7fe04eb488eabb1fd06814b
+Author: dbaio <dbaio@FreeBSD.org>
+Date:   Sun Nov 22 20:57:38 2020 +0000
+
+    pt_BR/articles/freebsd-releng: Sync with en_US r54689
+
+    Approved by:    ebrandi (doc)
+    Obtained from:  https://translate-dev.freebsd.org
+    Differential Revision:  https://reviews.freebsd.org/D27315
+
+Notes:
+    svn path=/head/; revision=54700
+%
+```
+to find the specific revision. The hex number after 'commit' is the
+hash you can use to refer to this commit.
+
 ## Migrating from GitHub fork
 
 This section needs to be completed, but only if people need to do this.
-

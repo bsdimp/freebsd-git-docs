@@ -26,7 +26,7 @@ clone.
 The branch names in the new git repo are similar to the old names. For
 the stable branches, they are stable/X where X is the major release
 (like 11 or 12). The main branch in the new repo is 'main'. The main
-branch in the old GitHub mirror is 'master'. Both reflecting the
+branch in the old GitHub mirror is 'master'. Both reflect the
 defaults of git at the time they were created. The main/master branch
 is the default branch if you omit the '-b branch' or '--branch branch'
 options below.
@@ -59,7 +59,7 @@ separate directories but with only one copy of the repository.
 is how you make a deep clone. 'branch' should be one of the branches
 listed in the previous section. It is optional if it is the
 main/master branch. dir is an optional directory to place it in (the
-default will be the name of the repo you are clone (freebsd or src)).
+default will be the name of the repo you are cloning (freebsd or src)).
 
 You'll want a deep clone if you are interested in the history, plan on
 making local changes, or plan on working on more than one branch. It's
@@ -119,10 +119,9 @@ are available.
 
 ## Selecting a Specific Version
 
-In git, the 'git checkout' command can not only checkout branches, but
-it can also checkout a specific version. Git's versions are the long
-hashes rather than a sequential number. You saw them above in the
-conflict when it said it couldn't apply "646e0f9cda11".
+In git, the 'git checkout' checks out both branches and specific
+versions.  Git's versions are the long hashes rather than a sequential
+number.
 
 When you checkout a specific version, just specify the hash you want
 on the command line (the git log command can help you decide which
@@ -130,10 +129,8 @@ hash you might want):
 ```
 % git checkout 08b8197a74
 ```
-and you have that checked out.
-
-However, as with many things git, it's not so simple. You'll be
-greeted with a message similar to the following:
+and you have that checked out. You'll be greeted with a message
+similar to the following:
 ```
 Note: checking out '08b8197a742a96964d2924391bf9fdfeb788865d'.
 
@@ -149,12 +146,9 @@ do so (now or later) by using -b with the checkout command again. Example:
 HEAD is now at 08b8197a742a hook gpiokeys.4 to the build
 ```
 where the last line is generated from the hash you are checking out
-and the first line of the commit message from that revision. Also, a
-word about hashes: they can be abbreviated. That's why you'll see them
-have different lengths in different commands or their outputs. These
-super long hashes are often unique after 6 or 10 characters, so git
-lets you abbreviate and is somewhat inconsistent about how it presents
-them to users.
+and the first line of the commit message from that revision.  The hash
+can be abbreviated to the shortest unique length. Git itself is
+inconsistent about how many digits it displays.
 
 ## Bisecting
 Sometimes, things go wrong. The last version worked, but the one you
@@ -226,9 +220,9 @@ respectively. The quarterly branches are named the same as in
 FreeBSD's svn repo.
 
 ## Coping with Local Changes
-Here's a small collections of topics that are more advanced for the
-user tracking FreeBSD. If you have no local changes, you can stop
-reading now (it's the last section and OK to skip).
+This section addresses tracking local changes.If you have no local
+changes, you can stop reading now (it's the last section and OK to
+skip).
 
 One item that's important for all of them: all changes are local until
 pushed. Unlike svn, git uses a distributed model. For users, for most
@@ -250,8 +244,8 @@ details.
 
 This method is suitable when you have tiny tweaks to the tree. When
 you have anything non trivial, you'll likely be better off keeping a
-local branch and rebasing. It is also integrated with the 'git pull'
-command: just add '--autostash' to the command line.
+local branch and rebasing. Stashing is also integrated with the 'git
+pull' command: just add '--autostash' to the command line.
 
 ### Keeping a local branch
 It's much easier to keep a local branch with git than subversion. In
@@ -262,16 +256,15 @@ replicate if you need to do so. Git also allows one to merge, along
 with the same problems. That's one way to manage the branch, but it's
 the least flexible.
 
-Git has a concept of 'rebasing' which you can use to avoids these
-issues. The 'git rebase' command will basically replay all the commits
-relative to the parent branch at a newer location on that parent
-branch. This section will briefly cover how to do this, but will not
-cover all scenarios.
+In addition to merging, git supports the concept of 'rebasing' which
+avoids these issues. The 'git rebase' command replays all the commits
+of a branch at a newer location on the parent branch. We'll cover the
+most common scenarios that arise using it.
 
 #### Create a branch
 
 Let's say you want to make a hack to FreeBSD's ls command to never,
-ever do color. There's many reasons to do this, but this example will
+ever do color. There are many reasons to do this, but this example will
 use that as a baseline. The FreeBSD ls command changes from time to
 time, and you'll need to cope with those changes. Fortunately, with
 git rebase it usually is automatic.
@@ -370,11 +363,13 @@ changes:
 save the file. The rebase was interrupted, so you have to complete it:
 ```
 % git add ls.c
-% git rebase --cont
+% git rebase --continue
 ```
+
 which tells git that ls.c has changed and to continue the rebase
 operation.  Since there was a conflict, you'll get kicked into the
-editor to maybe update the commit message.
+editor to update the commit message if necessary. It the commit
+message is still accurate, just exit the editor.
 
 If you get stuck during the rebase, don't panic. git rebase --abort
 will take you back to a clean slate. It's important, though, to start
@@ -382,19 +377,17 @@ with an unmodified tree.
 
 For more on this topic,
 https://www.freecodecamp.org/news/the-ultimate-guide-to-git-merge-and-git-rebase/
-provides a rather extensive treatment. It goes into a lot of cases I
-didn't cover here for simplicity that are useful to know since they
-come up from time to time.
+provides a rather extensive treatment. It is a good resource for
+issues that arrise occasionally but are too obscure for this guide.
 
-### Updating to a New FreeBSD Branch
-
-Let's say you want to main the jump from FreeBSD stable/12 to FreeBSD
-current. That's easy to do as well, if you have a deep clone.
+### Switching to a Different FreeBSD Branch
+If you wish to shift from stable/12 to the current branch. 
+If you have a deep clone, the following will suffice:
 ```
 % git checkout main
 % # build and install here...
 ```
-and you are done. If you have a local branch, though, there's one or
+If you have a local branch, though, there's one or
 two caveats. First, rebase will rewrite history, so you'll likely want
 to do something to save it. Second, jumping branches tends to
 encounter more conflicts. If we pretend the example above was relative
@@ -414,10 +407,9 @@ branch creating a new no-color-ls branch there (which is why I had you
 create a place holder name).
 
 ### Migrating from an existing git clone
-
 If you have work based on a previous git conversion or a locally
-running git-svn conversion, migrating to new repository can be
-problematic because git have no knowledge about the connection between
+running git-svn conversion, migrating to new repository can encounter
+problems because git has no knowledge about the connection between
 the two.
 
 If do not have a lot of local changes, the easiest way would be to
@@ -425,6 +417,10 @@ cherry-pick your changes to the new base:
 ```
 % git checkout main
 % git cherry-pick old_branch..your_branch
+```
+Or alternatively, you can do the same thing with rebase:
+```
+% git rebase --onto main master your_branch
 ```
 
 If you do have a lot of changes, you would probably want to perform a
@@ -451,6 +447,6 @@ Then perform a merge of the old branch:
 % git merge -s ours -m "Mark old branch as merged" old_branch
 ```    
 With that, it's possible to merge your work branch or the main branch
-in any order without problem.  Eventually, when you are ready to merge
+in any order without problem.  Eventually, when you are ready to commit
 your work back to main, you can perform a rebase to main, or do a
 squash commit by combining everything into one commit.

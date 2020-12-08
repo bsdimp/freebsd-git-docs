@@ -17,10 +17,10 @@ Note: specific times are subject to change as the detailed logistics are worked 
 | Dec 4th 16:01 | lwhsu   | ~Finalize Git repo at freebsd.org repo~                    |
 | Dec 4th 23:30 | gjb     | ~Commit updates to webupdate/webupdate.wrapper to SVN~     |
 | Dec 5th  0:00 | gjb     | ~Start switch website / handbook building from SVN to Git~ |
-| Dec 5th 12:00 | gjb     | GO/NOGO on switch finalization                             |
-| Dec 7th 22:00 | uqs     | Turn off scheduled SVN -> Git converter                    |
-| Dec 8th  2:59 | lwhsu   | Make a final commit to Subversion                          |
-| Dec 8th  3:00 | lwhsu   | Turn off write access to Subversion                        |
+| Dec 5th 12:00 | gjb     | ~GO/NOGO on switch finalization~                           |
+| Dec 7th 22:00 | uqs     | ~Turn off scheduled SVN -> Git converter~                  |
+| Dec 8th  2:59 | lwhsu   | ~Make a final commit to Subversion~                        |
+| Dec 8th  3:00 | lwhsu   | ~Turn off write access to Subversion~                      |
 | Dec 8th  3:01 | lwhsu   | Snapshot the Subversion repository repo filesystem         |
 | Dec 8th  8:00 | uqs     | Start final run of SVN to Git converter                    |
 | Dec 8th  9:00 | uqs     | Push converted tree to GitHub/GitLab                       |

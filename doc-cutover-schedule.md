@@ -22,10 +22,10 @@ Note: specific times are subject to change as the detailed logistics are worked 
 | Dec 8th  2:59 | lwhsu   | ~Make a final commit to Subversion~                        |
 | Dec 8th  3:00 | lwhsu   | ~Turn off write access to Subversion~                      |
 | Dec 8th  3:01 | lwhsu   | ~Snapshot the Subversion repository repo filesystem~       |
-| Dec 9th  9:00 | uqs     | Start final run of SVN to Git converter                    |
+| Dec 9th  9:00 | uqs     | ~Start final run of SVN to Git converter~                  |
 | Dec 9th 10:00 | uqs     | Push converted tree to GitHub/GitLab                       |
-| Dec 9th 11:00 | lwhsu   | Turn on push to Git                                        |
-| Dec 9th 11:01 | lwhsu   | Push 'Welcome to Git' commit                               |
+| Dec 9th 11:00 | lwhsu   | ~Turn on push to Git~                                      |
+| Dec 9th 11:01 | lwhsu   | ~Push 'Welcome to Git' commit~                             |
 | Dec 9th 12:00 | so@     | Next advisory window opens                                 |
 | Dec 11th 0:00 | re@     | Next snapshot starts                                       |
 

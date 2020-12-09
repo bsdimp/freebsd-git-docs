@@ -1,4 +1,4 @@
-# FreeBSD Doc Committer Tranistion Guide
+# FreeBSD Doc Committer Transition Guide
 
 This document is designed to walk people through the conversion
 process from Subversion to Git, written from the doc committer's point

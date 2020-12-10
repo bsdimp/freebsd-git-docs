@@ -66,7 +66,7 @@ you've forgotten about there.  First, let's clone a repo:
 ```
 % mkdir git-docs
 % cd git-docs
-% git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://cgit-beta.freebsd.org/doc.git freebsd-doc
+% git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://git.freebsd.org/doc.git freebsd-doc
 ```
 will create a clone of the FreeBSD doc repo into a subdirectory called
 `freebsd-doc` and include the 'notes' about the revisions. I selected

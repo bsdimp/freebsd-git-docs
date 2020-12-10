@@ -196,4 +196,39 @@ hash you can use to refer to this commit.
 
 ## Migrating from GitHub fork
 
-This section needs to be completed, but only if people need to do this.
+Note: as of this writing, the https://github.com/freebsd/freebsd-doc
+repo ends with the last subversion commit. In the near future, we'll
+start mirroring the official repo there. We'll likely retain the
+'master' branch that's there now and just push to 'main' and all the
+historical branches...
+
+When migrating branches from a github fork from the old github mirror
+to the official repo, the process is straight forward. This assumes that
+you have a `origin` upstream pointing to github, adjust if necessary.
+This also assumes a clean tree before starting...
+1. Add the new `freebsd` source of truth:
+```
+% git remote add freebsd https://git.freebsd.org/doc.git
+% git fetch freebsd
+% git checkout freebsd/main
+```
+2. Rebase all your WIP branches. For each branch FOO do the following after
+fetching the `freebsd` sources and creating a local `main` reference with
+the above checkout:
+```
+% git rebase -i origin/master FOO --onto main
+```
+And you'll now be tracking the official source of truth. You can then follow
+the `Keeping Current` section above to stay up to date.
+
+If you need to then commit work to FreeBSD, you can do so following the 
+`Time to push changes upstream` instructions`. You'll need to do the following
+once to update the push URL if you are a FreeBSD doc committer:
+```
+% git remote set-url --push ssh://git@git.freebsd.org/doc.git
+```
+You will also need to add 'freebsd' as the location to push to. The
+author recommends that your upstream github repo remain the default
+push location so that you only push things into FreeBSD you intend to
+by making it explicit.
+

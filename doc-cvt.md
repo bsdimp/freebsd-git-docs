@@ -18,8 +18,8 @@ SVN infra -> Git infra map
 | Item                                     | SVN                             | Git                                 |
 | ---------------------------------------- | ------------------------------- | ----------------------------------- |
 | Web-based repository browser             | https://svnweb.freebsd.org      | https://cgit.freebsd.org            |
-| Distributed mirrors for anonymous readonly checkout/clone | https://svn.freebsd.org svn://svn.freebsd.org | https://git.freebsd.org git+ssh://anongit@git.freebsd.org |
-| Read/write Repository for committers (*) | svn+ssh://(svn)repo.freebsd.org | git+ssh://git@(git)repo.freebsd.org |
+| Distributed mirrors for anonymous readonly checkout/clone | https://svn.freebsd.org svn://svn.freebsd.org | https://git.freebsd.org ssh://anongit@git.freebsd.org |
+| Read/write Repository for committers (*) | svn+ssh://(svn)repo.freebsd.org | ssh://git@(git)repo.freebsd.org |
 
 (*) Before all repositories in SVN have been migrated, the repo.freebsd.org will be pointing to one of:
     - svnrepo.freebsd.org

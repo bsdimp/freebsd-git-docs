@@ -4,10 +4,7 @@ This document is designed to walk people through the conversion
 process from Subversion to Git, written from the doc committer's point
 of view. This document is a living document, so please don't hesitate
 to send improvements, or even ask for areas to be explained more /
-better / at all. Please note that the URL for the repo is currently
-https://cgit-beta.freebsd.org/doc, but that will change when this is
-put into production.
-
+better / at all.
 
 ## Old vs New URL translation table
 

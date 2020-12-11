@@ -399,4 +399,11 @@ which will give you everything in the repo. Please note, that this
 also grabs all the unconverted vendor branches and the number of refs
 assocaited with them is quite large.
 
+You'll need to refer to these 'refs' with their full name because they
+aren't in the `head` namespace.
+```
+        git log refs/origin/vendor/zlib/1.2.10
+```
+would look at the log for the vendor branch for zlib starting at 1.2.10.
+
 ## Integrators

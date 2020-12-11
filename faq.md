@@ -26,7 +26,7 @@ best for you:
 then once that's cloned, you can simply create a worktree from it:
 ```
 % cd freebsd-current
-% git worktree create ../freebsd-stable-12 stable/12
+% git worktree add ../freebsd-stable-12 stable/12
 ```
 this will checkout `stable/12` into a directory named `freebsd-stable-12`
 that's a peer to the `freebsd-current` directory. Once created, it's updated
@@ -327,7 +327,7 @@ several. Your rebase method to select sounds tricky.
 out the commits, and then use the above method to split the branch.
 
 So let's assume that there's just one commit with a clean tree. You
-can either use `git rebase` with a `rework` line, or you can use this
+can either use `git rebase` with an `edit` line, or you can use this
 with the commit on the tip. The steps are the same either way. The
 first thing we need to do is to back up one commit while leaving the
 changes uncommitted in the tree:

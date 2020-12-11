@@ -12,7 +12,7 @@ only one copy of the repository. With SVN mirroring, I could checkout
 multiple trees from the same repo. How do I do this with Git?
 
 **A:** You can use Git worktrees. There's a number of ways to do this,
-but the simplest way is to do a clone to track -current, and a
+but the simplest way is to use a clone to track -current, and a
 worktree to track stable releases. While using a 'bare repository'
 has been put forward as a way to cope, it's more complicated and will not
 be documented here.
@@ -30,7 +30,7 @@ then once that's cloned, you can simply create a worktree from it:
 ```
 this will checkout `stable/12` into a directory named `freebsd-stable-12`
 that's a peer to the `freebsd-current` directory. Once created, it's updated
-very similar to how you might expect:
+very similarly to how you might expect:
 ```
 % cd freebsd-current
 % git checkout main
@@ -73,7 +73,7 @@ there, but `HEAD^` or `HEAD^^` are the most typical.
 
 **Q:** I was working on feature on the `wilma` branch, but
 accidentally committed a change relevant to the `fred` branch
-to that branch. What do I do?
+in 'wilma'. What do I do?
 
 **A:** The answer is similar to the previous one, but with
 cherry picking. This assumes there's only one commit on wilma,
@@ -84,7 +84,7 @@ in the `git cherry-pick` command), but that too can be generalized.
 ```
 # We're on branch wilma
 % git checkout fred		# move to fred branch
-% git cherry-pick wilma		# pull in wrong commit
+% git cherry-pick wilma		# copy the misplaced commit
 % git checkout wilma		# go back to wilma branch
 % git reset --hard HEAD^	# move what wilma refers to back 1 commit
 ```
@@ -100,19 +100,19 @@ keep the rest in `wilma` for some reason?
 rest of the branch is ready (say you noticed an unrelated typo, or
 fixed an incidental bug). You can cherry pick those changes into main,
 then push to the parent repo. Once you've done that, cleanup couldn't
-be simpler: just `git rebase -i` since Git will notice you've done
-this and omit the common changes automatically (even if you had to
+be simpler: just `git rebase -i`. Git will notice you've done
+this and skip the common changes automatically (even if you had to
 change the commit message or tweak the commit slightly). There's no
 need to switch back to wilma to adjust it: just rebase!
 
-**Q:** I want to split off some chagnes from branch `wilma` into branch `fred`
+**Q:** I want to split off some changes from branch `wilma` into branch `fred`
 
 **A:** The more general answer would be the same as the
 previous. You'd checkout/create the `fred` branch, cherry pick the
 changes you want from `wilma` one at a time, then rebase `wilma` to
 remove those changes you cherry picked. `git rebase -i main wilma`
 will toss you into an editor, and remove the `pick` lines that
-correspond to the hashes you committed to `fred`. If all goes well,
+correspond to the commits you copied to `fred`. If all goes well,
 and there are no conflicts, you're done. If not, you'll need to
 resolve the conflicts as you go.
 
@@ -142,7 +142,7 @@ been too long, or too many commits (hundreds).
 
 So I created a wilma branch and committed a couple of things to it, then
 decided I wanted to split it into fred and wilma. Nothing weird
-happened when I did that, but lot's say it did. The way to look at
+happened when I did that, but let's say it did. The way to look at
 what you've done is with the `git reflog`:
 ```
 % git reflog
@@ -179,7 +179,7 @@ since you're doing one thing at a time. You can also stack:
 % git checkout -B wilma 869cbd3
 % git branch -D fred
 ```
-and you are ready to try again. The checkout -B with the hash combines
+and you are ready to try again. The 'checkout -B' with the hash combines
 checking out and creating a branch for it. The -B instead of -b forces
 the movement of a pre-existing branch. Either way works, which is what's
 great (and awful) about Git. One reason I tend to use `git checkout -B xxxx hash`
@@ -334,7 +334,7 @@ changes uncommitted in the tree:
 ```
 % git reset HEAD^
 ```
-Note: Do not, repeat do not, add --hard here since that also removes the changes from your tree.
+Note: Do not, repeat do not, add `--hard` here since that also removes the changes from your tree.
 
 Now, if you are lucky, the change needing to be split up falls entirely along file lines. In that
 case you can just do the usual `git add` for the files in each group than do a `git commit`. Note:
@@ -357,9 +357,9 @@ and use the `git rebase -i` to fold the related commits together).
 
 **A:** If all you want to do is mirror, then
 ```
-% git clone --mirror https://git.freebsd.org/ports.git
+% git clone --mirror $URL
 ```
-will do the trick. However, there's two disadvantages for this if you
+will do the trick. However, there are two disadvantages to this if you
 want to use it for anything other than a mirror you'll reclone.
 
 First, this is a 'naked repo' which has the repository files, but no
@@ -397,12 +397,12 @@ git config --add remote.origin.fetch '+refs/*:refs/origin/*'
 ```
 which will give you everything in the repo. Please note, that this
 also grabs all the unconverted vendor branches and the number of refs
-assocaited with them is quite large.
+associated with them is quite large.
 
 You'll need to refer to these 'refs' with their full name because they
 aren't in the `head` namespace.
 ```
-        git log refs/origin/vendor/zlib/1.2.10
+git log refs/origin/vendor/zlib/1.2.10
 ```
 would look at the log for the vendor branch for zlib starting at 1.2.10.
 

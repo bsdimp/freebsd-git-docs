@@ -61,13 +61,10 @@ has happened.
 The following answer assumes you committed to `main` and want to
 create a branch called `issue`:
 ```
-% git checkout -b issue     # Create the issue branch
-% git checkout main         # Go back to main branch
-% git reset --hard HEAD^    # Reset what main references
-% git checkout issue        # Back to where you were
+% git branch issue                # Create the 'issue' branch
+% git reset --hard origin/main    # Reset 'main' back to the official tip
+% git checkout issue              # Back to where you were
 ```
-The above assumes one commit, hence the `HEAD^`. You can put anything
-there, but `HEAD^` or `HEAD^^` are the most typical.
 
 ### Ooops! I committed something to the wrong branch!
 

@@ -207,59 +207,33 @@ aren't an image I like to contemplate.
 **Q:** I was on autopilot and did a 'git pull' for my development tree and
 that created a merge commit on the mainline. How do I recover?
 
-**A:** This can happen when you have changes in your tree that aren't properly on
-a branch when you do the pull.
+**A:** This can happen when you invoke the pull with your development branch
+checked out.
 
-There's two phases for recovering. The first is to figure out what the changes were
-that were on the main branch. The second is recovering.
-
-As we discovered above, `git reflog` will help you sort out what at least the hash
-was before the change. Once you have that, you can find what changes were present
-that caused the disruption. At this point, you should drop a branch to that change
-so you don't have to deal with hashes too much:
+Right after the pull, you will have the new merge commit checked out.  Git
+supports a `HEAD^#` syntax to examine the parents of a merge commit:
 ```
-% git checkout -B tmp-branch $HASH
+git log --oneline HEAD^1   # Look at the first parent's commits
+git log --oneline HEAD^2   # Look at the second parent's commits
 ```
-where $HASH is the hash in question (it's almost always one of the hashes of the merge
-commit that's created to bring the changes in, so `git log` would have told you
-the hash as well).
-
-Now that you have a temporary tag, you can fix main branch by forcing the local
-main branch to match the remove main branch:
+From those logs, you can easily identify which commit is your development
+work.  Then you simply reset your branch to the corresponding `HEAD^#`:
 ```
-% git checkout -B main origin/main
+git reset --hard HEAD^2
 ```
 
-You can now use tmp-branch created above to pull in changes from there
-to a proper branch off of main for easier rebasing. If it's one or
-two changes, you may be able to do this with a
-```
-% git rebase -i main tmp-branch
-```
-since that will look for the all the changes from the `tmp-branch` after it
-branched from `main`. Since the most common cause of this issue is
-```
-% git commit ...
-% git commit ...
-% git commit ...
-% git pull
-```
-Those 3 commits will be relative to `main` and can easily be rebased to the
-recreated 'main' branch above (and since we gave the branch a name, they are on a proper branch)
+**Q:** But I also need to fix my 'main' branch. How do I do that?
 
-**Q:** But I hate the name `tmp-branch`. Can I change it easily?
-**A:** Yes.
+**A:** Git keeps track of the origin repository's own branches in an
+`origin/` namespace.  To fix your 'main' branch, just make it point to
+the origin's 'main':
 ```
-% git checkout tmp-branch
-% git checkout -b good-name
-% git branch -d tmp-branch
+git branch -f main origin/main
 ```
-is what I do, though I have a feeling git has an obscure, one step command to do it too.
-There's nothing magical about branches in git: they are just labels on a DAG that can be moved
-forward by a commit. So the above works because you're just swapping out a label. There's no
-metadata about the branch that needs to be preserved due to this.
-
-Get both of them in the same repo.
+There's nothing magical about branches in git: they are just labels on a DAG
+that are automatically moved forward by making commits.  So the above works
+because you're just moving a label. There's no metadata about the branch
+that needs to be preserved due to this.
 
 ### Mixing and matching branches
 

@@ -351,4 +351,52 @@ Once you're done, `git commit` and you'll have the remainder in your tree. You c
 multiple times as well, and even over multiple files (though I find it easier to do one file at a time
 and use the `git rebase -i` to fold the related commits together).
 
+## Cloning and Mirroring
+
+**Q:** I'd like to mirror the entire git repo, how do I do that?
+
+**A:** If all you want to do is mirror, then
+```
+% git clone --mirror https://git.freebsd.org/ports.git
+```
+will do the trick. However, there's two disadvantages for this if you
+want to use it for anything other than a mirror you'll reclone.
+
+First, this is a 'naked repo' which has the repository files, but no
+checked out copy. This is great for mirroring, but terrible for day to
+day work. There's a number of ways around this with 'git subtree', but
+if you aren't using it for further local clones, then it's a poor match.
+
+Second, the git normally rewrites the refs (branch name, tags, etc)
+from upstream so that your local refs can evolve independently of
+upstream. This means that you'll lose changes if you are committing to
+this repo on anything other than private project branches.
+
+So to do the worktree thing,
+```
+% git clone --mirror https://cgit-beta.freebsd.org/ports.git ports.git
+% cd ports.git
+% git worktree add ../ports main
+% git worktree add ../quarterly branches/2020Q4
+% cd ../ports
+```
+
+**Q:** So what can I do instead?
+
+**A:** Well, you can grab all of the refs in the upstream repo. git clones everything
+via a 'refspec' and by default the refspec is:
+```
+        fetch = +refs/heads/*:refs/remotes/origin/*
+```
+which says just fetch the interesting refs that are used to create branches and tags.
+
+However, the FreeBSD repo has a number of other things in it. To see
+those, you'll have to fetch everything. To setup your repo to do that
+```
+git config --add remote.origin.fetch '+refs/*:refs/origin/*'
+```
+which will give you everything in the repo. Please note, that this
+also grabs all the unconverted vendor branches and the number of refs
+assocaited with them is quite large.
+
 ## Integrators

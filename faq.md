@@ -362,17 +362,9 @@ and use the `git rebase -i` to fold the related commits together).
 will do the trick. However, there's two disadvantages for this if you
 want to use it for anything other than a mirror you'll reclone.
 
-First, this is a 'naked repo' which has the repository files, but no
-checked out copy. This is great for mirroring, but terrible for day to
-day work. There's a number of ways around this with 'git subtree', but
-if you aren't using it for further local clones, then it's a poor match.
-
-Second, the git normally rewrites the refs (branch name, tags, etc)
-from upstream so that your local refs can evolve independently of
-upstream. This means that you'll lose changes if you are committing to
-this repo on anything other than private project branches.
-
-So to do the worktree thing,
+First, this is a 'bare repo' which has the repository database, but no
+checked out worktree. This is great for mirroring, but terrible for day to
+day work. There's a number of ways around this with 'git worktree':
 ```
 % git clone --mirror https://cgit-beta.freebsd.org/ports.git ports.git
 % cd ports.git
@@ -380,27 +372,36 @@ So to do the worktree thing,
 % git worktree add ../quarterly branches/2020Q4
 % cd ../ports
 ```
+But if you aren't using your mirror for further local clones, then it's a poor match.
+
+The second disadvantage is that Git normally rewrites the refs (branch name, tags, etc)
+from upstream so that your local refs can evolve independently of
+upstream. This means that you'll lose changes if you are committing to
+this repo on anything other than private project branches.
 
 **Q:** So what can I do instead?
 
-**A:** Well, you can grab all of the refs in the upstream repo. git clones everything
-via a 'refspec' and by default the refspec is:
+**A:** Well, you can stuff all of the upstream repo's refs into a private
+namespace in your local repo. Git clones everything via a 'refspec' and
+the default refspec is:
 ```
         fetch = +refs/heads/*:refs/remotes/origin/*
 ```
-which says just fetch the interesting refs that are used to create branches and tags.
+which says just fetch the branch refs.
 
 However, the FreeBSD repo has a number of other things in it. To see
-those, you'll have to fetch everything. To setup your repo to do that
+those, you can add explicit refspecs for each ref namespace, or you
+can fetch everything. To setup your repo to do that:
 ```
 git config --add remote.origin.fetch '+refs/*:refs/origin/*'
 ```
-which will give you everything in the repo. Please note, that this
+which will put everything in the upstream repo into your local repo's
+'res/origin/' namespace. Please note, that this
 also grabs all the unconverted vendor branches and the number of refs
 assocaited with them is quite large.
 
 You'll need to refer to these 'refs' with their full name because they
-aren't in the `head` namespace.
+aren't in and of Git's regular namespaces.
 ```
         git log refs/origin/vendor/zlib/1.2.10
 ```

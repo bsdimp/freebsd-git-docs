@@ -22,7 +22,7 @@ SVN infra -> Git infra map
     - svnrepo.freebsd.org
     - gitrepo.freebsd.org
 
-please use the hostname that explicitly includes the VCS name to
+Please use the hostname that explicitly includes the VCS name to
 access the right repositories during the migration. `repo.freebsd.org`
 will be the canonical FreeBSD Git repository for the committers after
 all the repositories migrated to Git.
@@ -34,7 +34,9 @@ them (google "Git primer"). This one comes up first, and is generally
 good. https://danielmiessler.com/study/git/ and
 https://gist.github.com/williewillus/068e9a8543de3a7ef80adb2938657b6b
 are good overviews. The Git book is also complete, but much longer
-https://git-scm.com/book/en/v2 .
+https://git-scm.com/book/en/v2. There is also this website
+https://ohshitgit.com/ for common traps and pitfalls of Git, in case
+you need guidance to fix things up.
 
 This document will assume that you've read through it and will try not
 to belabor the basics (though it will cover them briefly).
@@ -43,11 +45,11 @@ to belabor the basics (though it will cover them briefly).
 
 This section will cover a couple of common scenarios for migrating
 from using the FreeBSD Subversion repo to the FreeBSD docs repo. The
-FreeBSD Git conversion is still be beta status, so some minor things
+FreeBSD Git conversion is still in beta status, so some minor things
 may change between this and going into production.
 
 Before you git started, you'll need a copy of Git. Any Git will do,
-though the latest ones are always recommemded. Either build it from
+though the latest ones are always recommended. Either build it from
 ports, or install it using pkg (though some folks might use `su` or
 `doas` instead of `sudo`):
 ```
@@ -70,14 +72,15 @@ will create a clone of the FreeBSD doc repo into a subdirectory called
 that name because there's an excellent chance that the repo will
 change from `doc` to `freebsd-doc` before we publish the final
 repo. The current plan for GitHub mirroring is to mirror to
-https://github.com/freebsd/freebsd-doc.git as well, but more on that
-later.
+https://github.com/freebsd/freebsd-doc.git as well, but it is currently
+frozen as the point of the transition (notice that the main branch is
+still "master" instead of "main"), and more on that later.
 
 It's useful to have the old Subversion revisions. This data is stored
 using Git notes, but Git doesn't fetch those by default. The --config
-and is argument above changed the default to fetch the notes. If
+and the argument above changed the default to fetch the notes. If
 you've cloned the repo without this, or wish to add notes to an
-previsouly clone repository, use the following commands:
+previously clone repository, use the following commands:
 ```
 % git config --add remote.origin.fetch "+refs/notes/*:refs/notes/*"
 % git fetch
@@ -118,11 +121,25 @@ At this point, your work is preserved, and in the Git repo.
 So, time passes. It's time now to update the tree for the latest
 changes upstream. When you checkout `main` make sure that you have no
 diffs. It's a lot easier to commit those to a branch (or use `git
-stash`) before doing the following. I recommend the longer form here
-since the combination command `git pull` can be harder to recover from
-if something goes wrong.
+stash`) before doing the following.
+
+If you are used to `git pull`, I would strongly recommend using the
+`--ff-only` option, and further setting it as the default option.
 ```
-% cd git-docs/freebsd-doc
+% git config --global pull.ff only
+```
+```
+% cd freebsd-doc
+% git checkout main
+% git pull (--ff-only)
+```
+There is a common trap, that the combination command `git pull` will
+try to perform a merge, which would sometimes creates a merge commit
+sha that didn't exist before. This can be harder to recover from.
+
+The longer form is also recommended.
+```
+% cd freebsd-doc
 % git checkout main
 % git fetch origin
 % git merge --ff-only origin/main
@@ -142,18 +159,14 @@ can help you navigate this process.
 
 ### Time to push changes upstream
 
-Note: Git transition is still in beta, so your changes won't go into
-the Subversion repo and will be lost if you do this before the
-cutover.
-
+The below commands merge the 'working' branch into main line and push
+them upstream. It's important that you curate your changes to be just
+like you want them in the FreeBSD doc repo before doing this.
 ```
 % git checkout main
 % git merge --ff-only working
 % git push
 ```
-The above commands merge the 'working' tree into main line and push
-them upstream. It's important that you curate your changes to be just
-like you want them in the FreeBSD doc repo before doing this.
 
 ### Finding the Subversion Revision
 
@@ -196,7 +209,7 @@ hash you can use to refer to this commit.
 Note: as of this writing, the https://github.com/freebsd/freebsd-doc
 repo ends with the last subversion commit. In the near future, we'll
 start mirroring the official repo there. We'll likely retain the
-'master' branch that's there now and just push to 'main' and all the
+`master` branch that's there now and just push to `main` and all the
 historical branches...
 
 When migrating branches from a github fork from the old github mirror
@@ -209,7 +222,7 @@ This also assumes a clean tree before starting...
 % git fetch freebsd
 % git checkout freebsd/main
 ```
-2. Rebase all your WIP branches. For each branch FOO do the following after
+2. Rebase all your WIP branches. For each branch FOO, do the following after
 fetching the `freebsd` sources and creating a local `main` reference with
 the above checkout:
 ```
@@ -219,12 +232,12 @@ And you'll now be tracking the official source of truth. You can then follow
 the `Keeping Current` section above to stay up to date.
 
 If you need to then commit work to FreeBSD, you can do so following the 
-`Time to push changes upstream` instructions`. You'll need to do the following
+`Time to push changes upstream` instructions. You'll need to do the following
 once to update the push URL if you are a FreeBSD doc committer:
 ```
 % git remote set-url --push ssh://git@git.freebsd.org/doc.git
 ```
-You will also need to add 'freebsd' as the location to push to. The
+You will also need to add `freebsd` as the location to push to. The
 author recommends that your upstream github repo remain the default
 push location so that you only push things into FreeBSD you intend to
 by making it explicit.

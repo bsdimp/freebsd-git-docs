@@ -41,7 +41,8 @@ git repo be the source of truth for the project.
 The GitHub repo is at https://github.com/freebsd/freebsd.git The new
 cgit beta repo is at https://cgit-beta.freebsd.org/src.git and the
 production URLs will be https://git.freebsd.org/src.git and
-ssh://anonssh@git.freebsd.org/src.git after the cut over.  These will
+ssh://anongit@git.FreeBSD.org/src.git (or anongit@git.FreeBSD.org:src.git)
+after the cut over.  These will
 be $URL in the commands below.  Please note that the cgit repo is
 still beta at this time, and hashes may change as its refined. Once we
 move into production, no further hash changes will happen.
@@ -217,8 +218,9 @@ and the repos are in different locations.
 
 The GitHub mirror is at https://github.com/freebsd/freebsd-ports.git .
 The cgit mirror is https://cgit-beta.freebsd.org/ports.git . The
-production git repo will be https://git.freebsd.org/ports.git or
-ssh://anonsshgit.freebsd.org/ports.git when the time comes.
+production git repo will be https://git.freebsd.org/ports.git and
+ssh://anongit@git.FreeBSD.org/ports.git (or anongit@git.FreeBSD.org:ports.git)
+when the time comes.
 
 As with ports, the 'current' branches are 'master' and 'main'
 respectively. The quarterly branches are named the same as in

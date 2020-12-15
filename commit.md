@@ -52,13 +52,13 @@ change (hash and subject line) that brought it in.
 Having established the importance, here are elements of a good FreeBSD
 commit message:
 
- 1. Start with a subject line
+1. Start with a subject line
 
 Commit messages should start with a single-line subject that briefly
 summarizes the change. The subject should, by itself, allow the reader
 to quickly determine if the change is of interest or not.
 
- 2. Keep subject lines short
+2. Keep subject lines short
 
 The subject line should be as short as possible while still retaining
 the required information. This is to make browsing `git log` more
@@ -66,7 +66,7 @@ efficient, and so that `git log --oneline` can display the short hash
 and subject on a single 80-column line. A good rule of thumb is to
 stay below 63 characters, and aim for about 50 or fewer if possible.
 
- 3. Prefix the subject line with a component, if applicable
+3. Prefix the subject line with a component, if applicable
 
 If the change relates to a specific component the subject line may be
 prefixed with that component name and a colon (:).
@@ -76,17 +76,17 @@ prefixed with that component name and a colon (:).
 Include the prefix in the 63-character limit suggested above, so that
 `git log --oneline` avoids wrapping.
 
- 4. Capitalize the first letter of the subject
+4. Capitalize the first letter of the subject
 
 Capitalize the first letter of the subject itself. The prefix, if any,
 is not capitalized unless necessary (e.g., `USB:`).
 
- 5. Do not end the subject line with punctuation
+5. Do not end the subject line with punctuation
 
 Do not end with a period or other punctuation. In this regard the
 subject line is like a newspaper headline.
 
- 6. Separate the subject and body with a blank line
+6. Separate the subject and body with a blank line
 
 Separate the body from the subject with a blank line.
 
@@ -94,7 +94,7 @@ Some trivial commits do not require a body, and will have only a subject.
 
 ✓ `ls: fix typo in usage text`
 
- 7. Limit messages to 72 columns
+7. Limit messages to 72 columns
 
 `git log` and `git format-patch` indent the commit message by four
 spaces. Wrapping at 72 columns provides a matching margin on the right
@@ -104,7 +104,7 @@ limit of 78 characters. This limit works well with a variety of tools
 that may render commit messages; line wrapping might be inconsistent
 with longer line length.
 
- 8. Use the present tense, imperative mood
+8. Use the present tense, imperative mood
 
 This facilitates short subject lines and provides consistency,
 including with automatically generated commit messages (e.g., as
@@ -117,7 +117,7 @@ applied, this change will ...".
 ✗ `This change implements the -k option in foo`
 ✗ `-k option added`
 
- 9. Focus on what and why, not how
+9. Focus on what and why, not how
 
 Explain what the change accomplishes and why it is being done, rather
 than how.
@@ -128,14 +128,14 @@ you have it.
 
 If there are limitations or incomplete aspects of the change, describe them in the commit message.
 
- 10. Consider whether parts of the commit message could be code comments instead
+10. Consider whether parts of the commit message could be code comments instead
 
 Sometimes while writing a commit message you may find yourself writing
 a sentence or two explaining some tricky or confusing aspect of the
 change. When this happens consider whether it would be valuable to
 have that explanation as a comment in the code itself.
 
- 11. Write commit messages for your future self
+11. Write commit messages for your future self
 
 While writing the commit message for a change you have all of the
 context in mind - what prompted the change, alternate approaches that
@@ -144,17 +144,17 @@ on. Imagine yourself revisiting the change a year or two in the
 future, and write the commit message in a way that would provide that
 necessary context.
 
- 12. Commit messages should stand alone
+12. Commit messages should stand alone
 
 You may include references to mailing list postings, benchmark result web sites, or code review links. However, the commit message should contain all of the relevant information in case these references are no longer available in the future.
 
 Similarly, a commit may refer to a previous commit, for example in the case of a bug fix or revert. In addition to the commit identifier (revision or hash), include the subject line from the referenced commit (or another suitable brief reference). With each VCS migration (from CVS to Subversion to Git) revision identifiers from previous systems may become difficult to follow.
 
- 13. Include appropriate metadata in a footer
+13. Include appropriate metadata in a footer
 
 As described in the metadata standard.
 
- 14.  Take the opportunity to reconsider multiple commits
+14.  Take the opportunity to reconsider multiple commits
 
 # Other notes, not for commit messages:
 

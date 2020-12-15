@@ -112,49 +112,25 @@ It's also important to create an annotated tag, otherwise the push will be rejec
 ### Updating the FreeBSD Copy
 Now you need to update the mtree in FreeBSD. The sources live in `contrib/mtree` since it's upstream software.
 ```
+% cd ../src
 % git subtree merge  -P contrib/mtree vendor/NetBSD/mtree
 ```
 
 At this point you can push it upstream
 ```
-% git push --follow-tags origin vendor/NetBSD/mtree # XXX THIS IS FAILING
+% git push --follow-tags origin vendor/NetBSD/mtree
 ```
 
-The Failure
-```
-Enumerating objects: 18, done.
-Counting objects: 100% (18/18), done.
-Delta compression using up to 64 threads
-Compressing objects: 100% (10/10), done.
-Writing objects: 100% (10/10), 2.23 KiB | 380.00 KiB/s, done.
-Total 10 (delta 8), reused 0 (delta 0)
-remote: WARNING: ref create/delete ignored for purposes of merge-check
-remote:
-remote:
-remote: FATAL -- ACCESS DENIED
-remote: Repo            src
-remote: User            imp
-remote: Stage           From git's update hook
-remote: Ref             Branch 'vendor/NetBSD/mtree'
-remote: Operation       Create ref
-remote:
-remote: FATAL: C refs/heads/vendor/NetBSD/mtree src imp DENIED by fallthru
-remote: error: hook declined to update refs/heads/vendor/NetBSD/mtree
-remote: WARNING: ref create/delete ignored for purposes of merge-check
-remote:
-remote:
-remote: FATAL -- ACCESS DENIED
-remote: Repo            src
-remote: User            imp
-remote: Stage           From git's update hook
-remote: Ref             Tag 'vendor/NetBSD/mtree/20201211'
-remote: Operation       Create ref
-remote:
-remote: FATAL: C refs/tags/vendor/NetBSD/mtree/20201211 src imp DENIED by fallthru
-remote: error: hook declined to update refs/tags/vendor/NetBSD/mtree/20201211
-To ssh://repo-dev.freebsd.org/src.git
- ! [remote rejected]         vendor/NetBSD/mtree -> vendor/NetBSD/mtree (hook declined)
- ! [remote rejected]         vendor/NetBSD/mtree/20201211 -> vendor/NetBSD/mtree/20201211 (hook declined)
-error: failed to push some refs to 'ssh://git@repo-dev.freebsd.org/src.git'
-```
-Note: Since I wrote this, lwhsu has updated permissions, and I've not yet tried again.
+**NOTE:** I'm not 100% sure the above worked as intended.
+
+### Conflicts
+
+Despite your best laid plans, things can go wrong.
+
+If the upstream branch moves forward before you get a chance to push, you'll need to redo the merge.
+
+`git rebase` or `git pull --rebase` doesn't know how to rebase a merge commit **as a merge commit**. So, you are left with two options.
+
+The first option, which I know works, is to just abandon the merge you did, pull a fresh main, and then redo the steps you did and push. This works, but is annoying.
+
+The second options (uqs please help me out here) is that you can do the rebase. Then you can create a new commit that's empty, but a merge commit. Though uqs may have a better way to redo the rebase such that it winds up being a mege commit.

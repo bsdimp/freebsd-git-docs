@@ -54,7 +54,7 @@ up and do a `git cherry-pick --continue`.
 
 If you are looking for changes to MFC, the following may help:
 ```
-% git log --cherry stale/12 main -- path/here
+% git log --cherry stale/12 main -- bin/ls
 ```
 
 ## Scripts

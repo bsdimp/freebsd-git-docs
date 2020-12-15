@@ -3,6 +3,11 @@
 This document provides a number of targeted answers to questions that
 are likely to come up often for users, developer and integrators.
 
+Note, we use the common convention of having the origin for the
+FreeBSD repo being 'freebsd' rather than the default 'origin' to allow
+people to use that for their own development and to minimize "whoopse"
+pushes to source of truth.
+
 ## Users
 
 ### How do I track -current and -stable with only one copy of the repo?
@@ -21,7 +26,7 @@ First, you need to clone the FreeBSD repository, shown here cloning into
 `freebsd-current` to reduce confusion. $URL is whatever mirror works
 best for you:
 ```
-% git clone $URL freebsd-current
+% git clone -o freebsd $URL freebsd-current
 ```
 then once that's cloned, you can simply create a worktree from it:
 ```
@@ -37,7 +42,7 @@ very similarly to how you might expect:
 % git pull --ff-only
 # changes from upstream now local and current tree updated
 % cd ../freebsd-stable-12
-% git merge --ff-only origin/stable/12
+% git merge --ff-only freebsd/stable/12
 # now your stable/12 is up to date too
 ```
 I recommend using `--ff-only` because it's safer and you avoid
@@ -62,7 +67,7 @@ The following answer assumes you committed to `main` and want to
 create a branch called `issue`:
 ```
 % git branch issue                # Create the 'issue' branch
-% git reset --hard origin/main    # Reset 'main' back to the official tip
+% git reset --hard freebsd/main   # Reset 'main' back to the official tip
 % git checkout issue              # Back to where you were
 ```
 
@@ -148,7 +153,7 @@ what you've done is with the `git reflog`:
 869cbd3 HEAD@{2}: rebase -i (start): checkout wilma
 a6a5094 (fred) HEAD@{3}: rebase -i (finish): returning to refs/heads/fred
 a6a5094 (fred) HEAD@{4}: rebase -i (pick): Encourage contributions
-1ccd109 (origin/main, main) HEAD@{5}: rebase -i (start): checkout main
+1ccd109 (freebsd/main, main) HEAD@{5}: rebase -i (start): checkout main
 869cbd3 HEAD@{6}: rebase -i (start): checkout fred
 869cbd3 HEAD@{7}: checkout: moving from wilma to fred
 869cbd3 HEAD@{8}: commit: Encourage contributions
@@ -224,11 +229,11 @@ git reset --hard HEAD^2
 
 **Q:** But I also need to fix my 'main' branch. How do I do that?
 
-**A:** Git keeps track of the origin repository's own branches in an
-`origin/` namespace.  To fix your 'main' branch, just make it point to
+**A:** Git keeps track of the origis repository's own branches in an
+`freebsd/` namespace.  To fix your 'main' branch, just make it point to
 the origin's 'main':
 ```
-git branch -f main origin/main
+git branch -f main freebsd/main
 ```
 There's nothing magical about branches in git: they are just labels on a DAG
 that are automatically moved forward by making commits.  So the above works
@@ -356,7 +361,7 @@ this repo on anything other than private project branches.
 namespace in your local repo. Git clones everything via a 'refspec' and
 the default refspec is:
 ```
-        fetch = +refs/heads/*:refs/remotes/origin/*
+        fetch = +refs/heads/*:refs/remotes/freebsd/*
 ```
 which says just fetch the branch refs.
 
@@ -364,17 +369,17 @@ However, the FreeBSD repo has a number of other things in it. To see
 those, you can add explicit refspecs for each ref namespace, or you
 can fetch everything. To setup your repo to do that:
 ```
-git config --add remote.origin.fetch '+refs/*:refs/origin/*'
+git config --add remote.freebsd.fetch '+refs/*:refs/freebsd/*'
 ```
 which will put everything in the upstream repo into your local repo's
-'res/origin/' namespace. Please note, that this
+'res/freebsd/' namespace. Please note, that this
 also grabs all the unconverted vendor branches and the number of refs
 associated with them is quite large.
 
 You'll need to refer to these 'refs' with their full name because they
 aren't in and of Git's regular namespaces.
 ```
-git log refs/origin/vendor/zlib/1.2.10
+git log refs/freebsd/vendor/zlib/1.2.10
 ```
 would look at the log for the vendor branch for zlib starting at 1.2.10.
 

@@ -236,6 +236,7 @@ If you need to then commit work to FreeBSD, you can do so following the
 once to update the push URL if you are a FreeBSD doc committer:
 ```
 % git remote set-url --push origin ssh://git@gitrepo.freebsd.org/doc.git
+(note that gitrepo.freebsd.org will be change to repo.freebsd.org in the future.)
 ```
 You will also need to add `freebsd` as the location to push to. The
 author recommends that your upstream github repo remain the default

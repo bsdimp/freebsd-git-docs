@@ -77,6 +77,20 @@ https://github.com/freebsd/git_conv#gimme-the-repo
   origin  https://git.freebsd.org/${repo}.git (fetch)
   origin  https://git.freebsd.org/${repo}.git (push)
   ```
+
+* Config the FreeBSD committer data:
+
+  The commit hook in repo.freebsd.org checks the "Commit" field matches the
+  committer's information in FreeBSD.org.  The easiest way to get the suggested
+  config is by executing `/usr/local/bin/gen-gitconfig.sh` script on freefall:
+
+  ```
+  $ gen-gitconfig.sh
+  [...]
+  git config user.name (your name in gecos)
+  git config user.email (your login)FreeBSD.org
+  ```
+
 * Set the push URL:
   ```
    $ git remote set-url --push origin git@git.freebsd.org:${repo}.git

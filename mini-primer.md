@@ -58,7 +58,7 @@ branches. It's the easiest to do. It also allows you to use git's
 worktree feature to have all your active branches checked out into
 separate directories but with only one copy of the repository.
 ```
-% git clone $URL -b branch [dir]
+% git clone -o freebsd $URL -b branch [dir]
 ```
 is how you make a deep clone. 'branch' should be one of the branches
 listed in the previous section. It is optional if it is the
@@ -83,7 +83,7 @@ track the tree more fully. You can also use it to limit history to
 only so many revisions.
 
 ```
-% git clone -b branch --depth 1 $URL [dir]
+% git clone -o freebsd -b branch --depth 1 $URL [dir]
 ```
 
 This clones the repository, but only has the most recent version in
@@ -182,7 +182,7 @@ checked out.
 A quick aside: if you want to know the last version you checked out,
 you should use 'git reflog':
 ```
-5ef0bd68b515 (HEAD -> master, origin/master, origin/HEAD) HEAD@{0}: pull --ff-only: Fast-forward
+5ef0bd68b515 (HEAD -> master, freebsd/master, freebsd/HEAD) HEAD@{0}: pull --ff-only: Fast-forward
 a8163e165c5b (upstream/master) HEAD@{1}: checkout: moving from b6fb97efb682994f59b21fe4efb3fcfc0e5b9eeb to master
 ...
 ```
@@ -442,7 +442,7 @@ commit that are found on both parents:
 ```
 You will see a commit message, now search for that in the new branch:
 ```
-% git log --grep="commit message on old_branch" origin/main
+% git log --grep="commit message on old_branch" freebsd/main
 ```
 You would get a SHA1 on the new main branch, create a helper branch
 (in the example we call it 'stage') from that SHA1:

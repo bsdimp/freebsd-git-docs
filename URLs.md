@@ -47,14 +47,14 @@ Following is the quick map for the essential URLs from Subversion to Git:
 
 ## Web-based repository browser
 
-The FreeBSD project currentl use cgit as the web-based repository browser: https://cgit.freebsd.org/
+The FreeBSD project currently uses cgit as the web-based repository browser: https://cgit.freebsd.org/
 The URL of the indivirual repository is at: https://cgit.freebsd.org/${repo}/
 
 (*Information about mirrors at GitHub and GitLab will be update here soon.*)
 
 ## For Users
 
-Using `git clone` and `git pull` from the official distributed mirros is recommended. The GeoDNS should redirect you to the nearest mirror to you.
+Using `git clone` and `git pull` from the official distributed mirros is recommended. The GeoDNS should direct you to the nearest mirror to you.
 
 (*Information about mirrors at GitHub and GitLab will be update here soon.*)
 
@@ -62,7 +62,7 @@ Using `git clone` and `git pull` from the official distributed mirros is recomme
 
 This section describes the read-write access for committers to push the commits from develoeprs or contriburos.  For read-only access, please refer to the users section above.
 
-We only document the import URLs here, the full information of retrieving all data in the repository is available at:
+We only document the important URLs here, the full information of retrieving all data in the repository is available at:
 https://github.com/freebsd/git_conv#gimme-the-repo
 
 ### Daily use

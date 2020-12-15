@@ -2,6 +2,9 @@
 
 ** NOTE: THIS IS WORK IN PROGRESS and current woefully incomplete **
 
+Note: This document uses the convention where the upstream origin name
+is `freebsd` as suggested in other docs.
+
 ## Commit message standards
 
 Git gives some help for committing cherry picks and keeping track. Git computes a 'diff index' for each commit that's applied and uses that to detect when it
@@ -47,7 +50,7 @@ use `git pull --rebase` and try to push again.
 % git rebase -i stable/X
 # mark each of the commits after the first as 'squash'
 # edit the commit message to be sane
-% git push origin HEAD:stable/X
+% git push freebsd HEAD:stable/X
 ```
 
 If the push fails due to losing the commit race, rebase and try again:
@@ -57,7 +60,7 @@ If the push fails due to losing the commit race, rebase and try again:
 % git pull
 % git checkout tmp-branch
 % git rebase stable/X
-% git push origin HEAD:stable/X
+% git push freebsd HEAD:stable/X
 ```
 
 Once the merge is complete, you can delete the temporary branch:

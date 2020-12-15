@@ -23,7 +23,7 @@ Altnernatively, adding a note either to the src (saying where it had been merged
 similar to svn merge --record-only.
 
 There are also advantages to all the commits on stable/X having something to identify them as
-being merge commits (so you can tell if you inadvertantly reverse args so you got commits to stable/12
+being merge commits (so you can tell if you inadvertently reverse args so you got commits to stable/12
 instead of commits on main).
 
 ## Single commit MFC
@@ -36,17 +36,34 @@ instead of commits on main).
 If things go wrong, you'll either need to abort the cherry-pick with `git cherry-pick --abort` or fix it
 up and do a `git cherry-pick --continue`.
 
+Once the cherry-pick is finished, push with `git push`.  If you get an error due to losing the commit race,
+use `git pull --rebase` and try to push again.
+
 ## Multiple commit MFC
 
 ```
-% git checkout stable/X
-% git checkout -b tmp-branch
+% git checkout -b tmp-branch stable/X
 % for h in $HASH_LIST; do git cherry-pick -x $h; done
-% git reabse -i stable/X
+% git rebase -i stable/X
 # mark each of the commits after the first as 'squash'
 # edit the commit message to be sane
+% git push origin HEAD:stable/X
+```
+
+If the push fails due to losing the commit race, rebase and try again:
+
+```
 % git checkout stable/X
-% git merge --ff-only tmp-branch
+% git pull
+% git checkout tmp-branch
+% git rebase stable/X
+% git push origin HEAD:stable/X
+```
+
+Once the merge is complete, you can delete the temporary branch:
+
+```
+% git checkout stable/X
 % git branch -d tmp-branch
 ```
 
@@ -54,7 +71,7 @@ up and do a `git cherry-pick --continue`.
 
 If you are looking for changes to MFC, the following may help:
 ```
-% git log --cherry stale/12 main -- bin/ls
+% git log --cherry stable/12 main -- bin/ls
 ```
 
 ## Scripts

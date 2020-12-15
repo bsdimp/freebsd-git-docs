@@ -93,14 +93,15 @@ https://github.com/freebsd/git_conv#gimme-the-repo
 
 * Set the push URL:
   ```
-   $ git remote set-url --push origin git@git.freebsd.org:${repo}.git
+   $ git remote set-url --push origin git@gitrepo.freebsd.org:${repo}.git
   ```
   Then you should have separated fetch and push URLs as the most efficient setup:
   ```
   $ git remote -v
   origin  https://git.freebsd.org/${repo}.git (fetch)
-  origin  git@git.freebsd.org:${repo}.git (push)
+  origin  git@gitrepo.freebsd.org:${repo}.git (push)
   ```
+  Again, note that `gitrepo.freebsd.org` will be canonicalized to `repo.freebsd.org` in the future.
 
 ### "admin" branch
 

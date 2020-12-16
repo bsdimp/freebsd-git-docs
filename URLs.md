@@ -119,15 +119,16 @@ https://cgit.freebsd.org/${repo}/log/?h=internal/admin
 ## External mirrors
 
 Those mirrors are not hosted in FreeBSD.org but still maintained by the project members.
-Users and developers are welcomed to pull or browse repository on those mirrors.
+Users and developers are welcomed to pull or browse repositories on those mirrors.
 The project workflow with those mirrors are still under discussion.
 
-(*Information about mirrors at GitHub and GitLab will be update here soon.*)
+### Codeberg
+  - doc: https://codeberg.org/FreeBSD/freebsd-doc
 
-### GitHub:
+### GitHub
   - doc: https://github.com/freebsd/freebsd-doc
 
-### GitLab:
+### GitLab
   - doc: https://gitlab.com/FreeBSD/freebsd-doc
 
 ## Mailing lists

@@ -65,7 +65,7 @@ When we converted to Subversion, there were no good places to host
 collaborative work. The project filled the gap by creating two
 hierarchies in the subversion repository: the projects hierarchy for
 work that would likely be merged, and the user hierarchy for work that
-would not. Since that time, services like github, gitlab, sourceforge,
+would not. Since that time, services like github, gitlab, sourceforge, codeberg,
 project.net, and others have sprung up to provide collaboration
 points. As such, in the first phase, we're converting the old projects
 and user branches. But they will become read only. And they won't be

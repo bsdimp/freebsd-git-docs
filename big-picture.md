@@ -14,7 +14,7 @@ The first phase of FreeBSD's migration to git focuses on replacing
 Subversion with Git.  This is a modest goal where the project's work
 flow will remain much as it is today, but with Subversion replaced
 with Git. The bug tracking (bugzilla) and code review (phabricator)
-will remain in place for now. We'll self-host the git repo and manage
+will remain in place. We'll self-host the git repo and manage
 the first layer of mirrors ourselves. We'll publish the repository to
 github, gitlab and other places that are useful for our developers,
 users and contributors.

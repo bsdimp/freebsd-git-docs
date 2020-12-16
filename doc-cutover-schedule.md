@@ -26,8 +26,8 @@ Note: specific times are subject to change as the detailed logistics are worked 
 | Dec 9th 10:00 | uqs     | Push converted tree to GitHub/GitLab                       |
 | Dec 9th 11:00 | lwhsu   | ~Turn on push to Git~                                      |
 | Dec 9th 11:01 | lwhsu   | ~Push 'Welcome to Git' commit~                             |
-| Dec 9th 12:00 | so@     | Next advisory window opens                                 |
-| Dec 11th 0:00 | re@     | Next snapshot starts                                       |
+| Dec 9th 12:00 | so@     | ~Next advisory window opens~                               |
+| Dec 11th 0:00 | re@     | ~Next snapshot starts~                                     |
 
 ## Open Issues
 

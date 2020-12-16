@@ -107,10 +107,10 @@ from git.
 
 The $FreeBSD$ tag is being phased out. Git provides no way to
 implement it in a sane and helpful way. We're recommending the project
-keep $FreeBSD$ in the source tree until stable/12 is retired.
+keep $FreeBSD$ in the source tree at least until stable/12 reaches end
+of life..
 
 Git uses hashes instead of a sequentially increasing number. The
 conversion will include notes (that must be fetched separately) to
 allow a git revision to map to a subversion revision. A script is
 planned for the tools tree in the src repo.
-

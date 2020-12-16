@@ -26,6 +26,8 @@ Following is the quick map for the essential URLs from Subversion to Git:
     will be the canonical FreeBSD Git repository for the committers after
     all the repositories migrated to Git.
 
+There are also external mirrors maintained by project members available, please refer to "External mirros" section.
+
 ### SSH related information
 
  - `ssh://${user}@${url}/${repo}.git` can be written as `${user}@${url}:${repo}.git`, i.e., following two URLs are both valid for passing to git:
@@ -50,13 +52,9 @@ Following is the quick map for the essential URLs from Subversion to Git:
 The FreeBSD project currently uses cgit as the web-based repository browser: https://cgit.freebsd.org/
 The URL of the indivirual repository is at: https://cgit.freebsd.org/${repo}/
 
-(*Information about mirrors at GitHub and GitLab will be update here soon.*)
-
 ## For Users
 
 Using `git clone` and `git pull` from the official distributed mirros is recommended. The GeoDNS should direct you to the nearest mirror to you.
-
-(*Information about mirrors at GitHub and GitLab will be update here soon.*)
 
 ## For Developers
 
@@ -117,6 +115,20 @@ git checkout -b admin internal/admin
 
 For browsing `internal/admin` branch on web:
 https://cgit.freebsd.org/${repo}/log/?h=internal/admin
+
+## External mirrors
+
+Those mirrors are not hosted in FreeBSD.org but still maintained by the project members.
+Users and developers are welcomed to pull or browse repository on those mirrors.
+The project workflow with those mirrors are still under discussion.
+
+(*Information about mirrors at GitHub and GitLab will be update here soon.*)
+
+### GitHub:
+  - doc: https://github.com/freebsd/freebsd-doc
+
+### GitLab:
+  - doc: https://gitlab.com/FreeBSD/freebsd-doc
 
 ## Mailing lists
 

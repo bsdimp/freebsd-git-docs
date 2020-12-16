@@ -79,7 +79,7 @@ and manage this infrastructure provides enough benefit.
 
 The name of the default branch will be `main` in keeping with the new
 git default name. The beta mirror at github used the old default of
-`master` as it's default branch. Users migrating from that will need
+`master` as its default branch. Users migrating from that will need
 to adjust their tooling.
 
 The plan for github is still working out the details. The basic plan
@@ -103,7 +103,9 @@ for example.
 Release engineering plans to do future stable/12 releases from
 subversion to ensure maximum compatibility with current users
 (especially $FreeBSD$ tags). Starting with 13.0, releases will be cut
-from git.
+from git. To facilitate re@'s building from subversion, and to support
+our current users and downstreams using FreeBSD via subversion, we've
+built a git to subversion exporter.
 
 The $FreeBSD$ tag is being phased out. Git provides no way to
 implement it in a sane and helpful way. We're recommending the project

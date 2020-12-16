@@ -65,16 +65,17 @@ you've forgotten about there.  First, let's clone a repo:
 ```
 % mkdir git-docs
 % cd git-docs
-% git clone --config remote.origin.fetch='+refs/notes/*:refs/notes/*' https://git.freebsd.org/doc.git freebsd-doc
+% git clone -o freebsd --config remote.freebsd.fetch='+refs/notes/*:refs/notes/*' https://git.freebsd.org/doc.git freebsd-doc
 ```
 will create a clone of the FreeBSD doc repo into a subdirectory called
 `freebsd-doc` and include the 'notes' about the revisions. I selected
-that name because there's an excellent chance that the repo will
-change from `doc` to `freebsd-doc` before we publish the final
-repo. The current plan for GitHub mirroring is to mirror to
+that name because it is also the name we publish at github.
+The current plan for GitHub mirroring is to mirror to
 https://github.com/freebsd/freebsd-doc.git as well, but it is currently
 frozen as the point of the transition (notice that the main branch is
-still "master" instead of "main"), and more on that later.
+still "master" instead of "main") while some logistics are being worked out.
+We will also mirror the repo to gitlab at https://gitlab.com/FreeBSD/doc.git .
+Its transition plan isalso being finalized. 
 
 It's useful to have the old Subversion revisions. This data is stored
 using Git notes, but Git doesn't fetch those by default. The --config
@@ -82,7 +83,7 @@ and the argument above changed the default to fetch the notes. If
 you've cloned the repo without this, or wish to add notes to an
 previously clone repository, use the following commands:
 ```
-% git config --add remote.origin.fetch "+refs/notes/*:refs/notes/*"
+% git config --add remote.freebsd.fetch "+refs/notes/*:refs/notes/*"
 % git fetch
 ```
 At this point you have the docs checked out into a Git tree, ready to

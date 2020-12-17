@@ -229,9 +229,9 @@ git reset --hard HEAD^2
 
 **Q:** But I also need to fix my 'main' branch. How do I do that?
 
-**A:** Git keeps track of the origis repository's own branches in an
-`freebsd/` namespace.  To fix your 'main' branch, just make it point to
-the origin's 'main':
+**A:** Git keeps track of the remote repository branches in a `freebsd/`
+namespace.  To fix your 'main' branch, just make it point to the remote's
+'main':
 ```
 git branch -f main freebsd/main
 ```

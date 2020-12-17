@@ -9,7 +9,7 @@ forthcoming.
 
 ```
 git clone https://cgit-beta.freebsd.org/src.git && cd src
-git config --add remote.origin.fetch '+refs/notes/*:refs/notes/*' && git fetch
+git config --add remote.freebsd.fetch '+refs/notes/*:refs/notes/*' && git fetch
 ```
 
 Same for the `doc` and `ports` repos. You can expect some things to be
@@ -24,12 +24,12 @@ namespace for now only has the `access` and `mentors` file, detailing when
 people got their various commit bits.
 
 ```
-git config --add remote.origin.fetch '+refs/vendor/*:refs/vendor/*'
-git config --add remote.origin.fetch '+refs/projects/*:refs/projects/*'
-git config --add remote.origin.fetch '+refs/user/*:refs/user/*'
-git config --add remote.origin.fetch '+refs/backups/*:refs/backups/*'
-git config --add remote.origin.fetch '+refs/cvs2svn/*:refs/cvs2svn/*'
-git config --add remote.origin.fetch '+refs/internal/*:refs/internal/*'
+git config --add remote.freebsd.fetch '+refs/vendor/*:refs/vendor/*'
+git config --add remote.freebsd.fetch '+refs/projects/*:refs/projects/*'
+git config --add remote.freebsd.fetch '+refs/user/*:refs/user/*'
+git config --add remote.freebsd.fetch '+refs/backups/*:refs/backups/*'
+git config --add remote.freebsd.fetch '+refs/cvs2svn/*:refs/cvs2svn/*'
+git config --add remote.freebsd.fetch '+refs/internal/*:refs/internal/*'
 git fetch
 ```
 

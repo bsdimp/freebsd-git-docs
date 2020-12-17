@@ -29,3 +29,5 @@ spaces in the metadata tags. However, this standard conforms to the
 wider open-source communities use. The project isn't requiring
 signed-off-by for commits at this time, but don't want to preclude it
 in the future.
+
+In addition, you can replace - with a space in the above tags as a transition aid.

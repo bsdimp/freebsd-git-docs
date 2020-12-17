@@ -142,8 +142,8 @@ The longer form is also recommended.
 ```
 % cd freebsd-doc
 % git checkout main
-% git fetch origin
-% git merge --ff-only origin/main
+% git fetch freebsd
+% git merge --ff-only freebsd/main
 ```
 These commands reset your tree to the main branch, and then update it
 from where you pulled the tree from originally. It's important to

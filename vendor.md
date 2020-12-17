@@ -12,12 +12,12 @@ their own name space, in much the same way notes are.
 
 To import notes, for example, one would	clone the repository and then do:
 ```
-git config --add remote.origin.fetch '+refs/notes/*:refs/notes/*' && git fetch
+git config --add remote.freebsd.fetch '+refs/notes/*:refs/notes/*' && git fetch
 ```
 
 To retrieve the	vendor information, one	does the following:
 ```
-git config --add remote.origin.fetch '+refs/vendor/*:refs/vendor/*' && git fetch
+git config --add remote.freebsd.fetch '+refs/vendor/*:refs/vendor/*' && git fetch
 ```
 This will pull in all the vendor relevant stuff. You should expect to
 need a fair amount of disk space for this operation. In	the future,
@@ -118,7 +118,7 @@ Now you need to update the mtree in FreeBSD. The sources live in `contrib/mtree`
 
 At this point you can push it upstream
 ```
-% git push --follow-tags origin vendor/NetBSD/mtree
+% git push --follow-tags freebsd vendor/NetBSD/mtree
 ```
 
 **NOTE:** I'm not 100% sure the above worked as intended.

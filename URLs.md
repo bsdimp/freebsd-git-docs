@@ -67,13 +67,13 @@ https://github.com/freebsd/git_conv#gimme-the-repo
 
 * Clone the repository:
   ```
-  git clone https://git.freebsd.org/${repo}.git
+  git clone -o freebsd --config remote.freebsd.fetch='+refs/notes/*:refs/notes/*' https://git.freebsd.org/${repo}.git
   ```
   Then you should have the official mirrors as your remote:
   ```
   $ git remote -v
-  origin  https://git.freebsd.org/${repo}.git (fetch)
-  origin  https://git.freebsd.org/${repo}.git (push)
+  freebsd  https://git.freebsd.org/${repo}.git (fetch)
+  freebsd  https://git.freebsd.org/${repo}.git (push)
   ```
 
 * Config the FreeBSD committer data:
@@ -91,13 +91,13 @@ https://github.com/freebsd/git_conv#gimme-the-repo
 
 * Set the push URL:
   ```
-   $ git remote set-url --push origin git@gitrepo.freebsd.org:${repo}.git
+   $ git remote set-url --push freebsd git@gitrepo.freebsd.org:${repo}.git
   ```
   Then you should have separated fetch and push URLs as the most efficient setup:
   ```
   $ git remote -v
-  origin  https://git.freebsd.org/${repo}.git (fetch)
-  origin  git@gitrepo.freebsd.org:${repo}.git (push)
+  freebsd  https://git.freebsd.org/${repo}.git (fetch)
+  freebsd  git@gitrepo.freebsd.org:${repo}.git (push)
   ```
   Again, note that `gitrepo.freebsd.org` will be canonicalized to `repo.freebsd.org` in the future.
 
@@ -108,7 +108,7 @@ The `access` and `mentors` files are stored in a orphan branch, `internal/admin`
 Following example is how to check out the `internal/admin` branch to a local branch named `admin`:
 
 ```
-git config --add remote.origin.fetch '+refs/internal/*:refs/internal/*'
+git config --add remote.freebsd.fetch '+refs/internal/*:refs/internal/*'
 git fetch
 git checkout -b admin internal/admin
 ```

@@ -75,7 +75,7 @@ https://github.com/freebsd/freebsd-doc.git as well, but it is currently
 frozen as the point of the transition (notice that the main branch is
 still "master" instead of "main") while some logistics are being worked out.
 We will also mirror the repo to gitlab at https://gitlab.com/FreeBSD/doc.git .
-Its transition plan isalso being finalized. 
+Its transition plan is also being finalized. 
 
 It's useful to have the old Subversion revisions. This data is stored
 using Git notes, but Git doesn't fetch those by default. The --config

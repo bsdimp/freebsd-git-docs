@@ -2,7 +2,7 @@
 
 ## FreeBSD History
 
-The FreeBSD project is currently mirroring to github an experiemental
+The FreeBSD project is currently mirroring to github an experimental
 tree. Due to the large number of bugs that adversely affects the
 quality of the tree, and its day to day use for anything more
 complicated that merging and commits and simple history browsing, the
@@ -24,17 +24,17 @@ mappings).
 ## Git Background
 
 A git repo is usually clone with a 'git clone' command. This leads to
-an interesting condundrum. The FreeBSD project has /usr/src,
+an interesting conundrum. The FreeBSD project has /usr/src,
 /usr/ports and /usr/doc. It would be nice to have project resources
 setup to by default populate those areas with a simple git clone.
 
 On the other hand, these names are fairly generic. In the larger
 world, src, doc and ports are too generic to know what's going on. The
-typical practice is to have some descriptive name or some varation on
+typical practice is to have some descriptive name or some variation on
 that descriptive name. Software whose source of truth is elsewhere,
 but mirrored to github often has a different name than internal name
 that's used for this reason (though sometimes they don't). Sadly,
-github does not allow for an aribtrary number of layers beyond this
+github does not allow for an arbitrary number of layers beyond this
 (so we can't call the repo freebsd/src, for example).
 
 # doc mirroring

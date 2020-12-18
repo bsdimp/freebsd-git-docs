@@ -26,7 +26,7 @@ Following is the quick map for the essential URLs from Subversion to Git:
     will be the canonical FreeBSD Git repository for the committers after
     all the repositories migrated to Git.
 
-There are also external mirrors maintained by project members available, please refer to "External mirros" section.
+There are also external mirrors maintained by project members available, please refer to "External mirrors" section.
 
 ### SSH related information
 
@@ -58,7 +58,7 @@ Using `git clone` and `git pull` from the official distributed mirros is recomme
 
 ## For Developers
 
-This section describes the read-write access for committers to push the commits from develoeprs or contriburos.  For read-only access, please refer to the users section above.
+This section describes the read-write access for committers to push the commits from develoeprs or contributors.  For read-only access, please refer to the users section above.
 
 We only document the important URLs here, the full information of retrieving all data in the repository is available at:
 https://github.com/freebsd/git_conv#gimme-the-repo

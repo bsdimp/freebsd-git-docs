@@ -28,7 +28,7 @@ The rest of this document assumes that you've done the above.
 
 ## First step: Creating	a vendor branch
 
-When we	impored the CVS vendor	branches into Subversion, the project
+When we	imported the CVS vendor	branches into Subversion, the project
 required a 'flattening' step before you	could update the vendor branch.
 The same is true for for the Subversion to Git conversion. The
 automation could only do so much, and some manual adjustment is needed
@@ -78,7 +78,7 @@ Date:   Fri Dec 21 16:54:00 2012 +0000
 ```
 They were followed. Good. And there's only a few versions, so I'm able to list them all here. And it appears they followed the naming scheme of YYYYMMDD for the imports (NetBSD doesn't have frequent enough releases to just pull from a release).
 
-Since the trees are usually a tiny subset of the FreeBSD, it's best to do them with work trees since the process is quite fast. Make sure that whatever direcotry you choose (the `../mtree`) argument is empty and doesn't conflict.
+Since the trees are usually a tiny subset of the FreeBSD, it's best to do them with work trees since the process is quite fast. Make sure that whatever directory you choose (the `../mtree`) argument is empty and doesn't conflict.
 ```
 % cd ...../src
 % git worktree add -b vendor/NetBSD/mtree ../mtree refs/vendor/NetBSD/mtree/dist
@@ -133,4 +133,4 @@ If the upstream branch moves forward before you get a chance to push, you'll nee
 
 The first option, which I know works, is to just abandon the merge you did, pull a fresh main, and then redo the steps you did and push. This works, but is annoying.
 
-The second options (uqs please help me out here) is that you can do the rebase. Then you can create a new commit that's empty, but a merge commit. Though uqs may have a better way to redo the rebase such that it winds up being a mege commit.
+The second options (uqs please help me out here) is that you can do the rebase. Then you can create a new commit that's empty, but a merge commit. Though uqs may have a better way to redo the rebase such that it winds up being a merge commit.

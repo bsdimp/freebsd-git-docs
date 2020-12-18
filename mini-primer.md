@@ -385,7 +385,7 @@ with an unmodified tree.
 For more on this topic,
 https://www.freecodecamp.org/news/the-ultimate-guide-to-git-merge-and-git-rebase/
 provides a rather extensive treatment. It is a good resource for
-issues that arrise occasionally but are too obscure for this guide.
+issues that arise occasionally but are too obscure for this guide.
 
 ### Switching to a Different FreeBSD Branch
 If you wish to shift from stable/12 to the current branch. 

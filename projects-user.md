@@ -29,11 +29,11 @@ This will create a local branch named masq. But you'll be unable to
 push these branches to FreeBSD's src repo.
 
 We've done this to simplify the FreeBSD repository. Going forward, it
-will just be for project branches. Collaberative works will be done in
+will just be for project branches. Collaborative works will be done in
 forked repositories. There are several sites that can host this. At the
 present we have no plans to offer hosting services for this
 purpose. However, if there's demand those plans can change in the future.
-Most of this work has alrady moved to github forks and other platforms hosted
+Most of this work has already moved to github forks and other platforms hosted
 elsewhere, however.
 
 In the mean time, github.com, gitlab.com and sourceforge offer free hosting services

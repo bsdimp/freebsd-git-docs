@@ -73,7 +73,7 @@ starts, the github `master` branch will be frozen. We will be using the name `ma
 of `master` that was used in the beta version of the github.com mirror.
 The exact logistics of this are still being finalized, as there are over 2k forks and 5k stars.
 We will also mirror the repo to gitlab at https://gitlab.com/FreeBSD/src.git .
-Its transition plan isalso being finalized. 
+Its transition plan is also being finalized. 
 
 It's useful to have the old Subversion revisions available. This data is stored
 using Git notes, but Git doesn't fetch those by default. The --config
@@ -182,7 +182,7 @@ XXX NEED to UPDATE
 If you have a specific version in mind, you can use this construct:
 ```
 % git log --grep revision=XXXX
-XXX need to updte
+XXX need to update
 %
 ```
 to find the specific revision. The hex number after 'commit' is the

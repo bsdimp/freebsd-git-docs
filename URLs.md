@@ -140,9 +140,9 @@ Commit messages will be sent to following mailing lists:
 - [dev-commits-doc-all](https://lists.freebsd.org/mailman/listinfo/dev-commits-doc-all): All changes to the doc repository
 - [dev-commits-ports-all](https://lists.freebsd.org/mailman/listinfo/dev-commits-ports-all): All changes to the ports repository
 - [dev-commits-ports-main](https://lists.freebsd.org/mailman/listinfo/dev-commits-ports-main): All changes to the "main" branch of the ports repository
-- [dev-commits-ports-branches](https://lists.freebsd.org/mailman/listinfo/dev-commits-ports-branches): All changes to the doc repository
-- [dev-commits-src-all](https://lists.freebsd.org/mailman/listinfo/dev-commits-src-all): All changes to the quarterly branches of the ports repository
-- [dev-commits-src-main](https://lists.freebsd.org/mailman/listinfo/dev-commits-src-main): All changes to the "“main" branch of the src repository (the FreeBSD-CURRENT branch)
-- [dev-commits-src-branches](https://lists.freebsd.org/mailman/listinfo/dev-commits-src-branches):All changes to all stable branches of the src repository
+- [dev-commits-ports-branches](https://lists.freebsd.org/mailman/listinfo/dev-commits-ports-branches): All changes to the quarterly branches of the ports repository
+- [dev-commits-src-all](https://lists.freebsd.org/mailman/listinfo/dev-commits-src-all): All changes to the src repository
+- [dev-commits-src-main](https://lists.freebsd.org/mailman/listinfo/dev-commits-src-main): All changes to the "main" branch of the src repository (the FreeBSD-CURRENT branch)
+- [dev-commits-src-branches](https://lists.freebsd.org/mailman/listinfo/dev-commits-src-branches): All changes to all stable branches of the src repository
 
 For more information, please refer to the "Commit message lists" section of C.2. "Mailing Lists" in handbook: https://www.freebsd.org/doc/en/books/handbook/eresources-mail.html

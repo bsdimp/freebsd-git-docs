@@ -160,6 +160,19 @@ can help you navigate this process.
 
 ### Time to push changes upstream
 
+First, ensure that the push URL is properly configured for the upstream
+repository.
+```
+% git remote set-url --push freebsd ssh://git@gitrepo.freebsd.org/src.git
+```
+Then, verify that user name and email are configured right.  We require
+that they exactly match the passwd entry in FreeBSD cluster.  Use
+```
+freefall% gen-gitconfig.sh
+```
+on freefall.freebsd.org to get recipe that you can use directly, assuming
+/usr/local/bin is in the PATH.
+
 The below commands merge the 'working' branch into main line and push
 them upstream. It's important that you curate your changes to be just
 like you want them in the FreeBSD doc repo before doing this.

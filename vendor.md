@@ -107,7 +107,7 @@ I have my copy of NetBSD checked out from their github mirror in `~/git/NetBSD`,
 % git tag -a vendor/NetBSD/mtree/20201211
 ```
 
-Note: I used git commit -a here because I was sure I knew what I was doing and I'd run the `git diff` and `git status` commands to make sure nothing weird was present. Normally I only recommend using that when you're an expert and have checked what's going on to be sure.
+Note: I used git commit -a here because I was sure I knew what I was doing and I'd run the `git diff` and `git status` commands to make sure nothing weird was present. Normally I only recommend using that when you're an expert and have checked what's going on to be sure. Also I used `-m` to illustrate, but you should compose a proper message in an editor.
 
 It's also important to create an annotated tag, otherwise the push will be rejected.
 

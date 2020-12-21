@@ -17,7 +17,12 @@ want to have MFCs marked like this in the commit message.
 ```
 MFC: 12def6789a,ac32ee4a5c
 ```
-where the first 10 digits of the hash is used to mark the commit message. This preserves the information,
+where the first 10 digits of the hash (might be longer in a large repository)
+is used to mark the commit message. This "abbreviated hash" can be get by:
+```
+git show --format=%p --no-patch $full_hash
+```
+This preserves the information,
 but isn't 'git standard' which is just to have a line of text that says the commit was from hash
 whatever without the 'key: value' structure. It also wouldn't help the `git log --cherry` command, unless
 we would use that to come up with candidates, and then use the MFC lines to weed them out.

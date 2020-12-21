@@ -10,33 +10,41 @@ move to git project opted to redo the hashes and fix many historical
 mistakes as part of its effort. As such, a migration plan is needed,
 so this describes it.
 
-The current https://svn.freebsd.org/base repo is mirrored to github as
-https://github.com/freebsd/freebsd with the branches and tags
-preserved as appropriate for git. So, base/head is the represented as
-the 'master' branch. All the other branches map from base/branch/name
-to branch/name. Tags are similarly preserved. The
-https://svn.freebsd.org/doc repo is mirrored to
-https://github.com/freebsd/freebsd-doc and the
-https://svn.freebsd.org/ports to
-https://github.com/freebsd/freebsd-ports (both with the same
-mappings).
+## The Plan for src
 
-## Git Background
+1. fork the 'beta hashes' repo on github and call it freebsd-legacy
+2. push the new repo, the stable/*, releng/* and release/* branches/tags
+3. rename github/freebsd -> github/freebsd-src. Old users that have freebsd/freebsd
+   in their .git/config will get the new stream.
+4. Add the merge commit to freebsd-legacy that we need for subtree merges (for each of
+   the branches that are active)
+5. At some point, delete 'master' from the new freebsd-src.
 
-A git repo is usually clone with a 'git clone' command. This leads to
-an interesting conundrum. The FreeBSD project has /usr/src,
-/usr/ports and /usr/doc. It would be nice to have project resources
-setup to by default populate those areas with a simple git clone.
+With this plan, all the upward migration paths are preserved.
 
-On the other hand, these names are fairly generic. In the larger
-world, src, doc and ports are too generic to know what's going on. The
-typical practice is to have some descriptive name or some variation on
-that descriptive name. Software whose source of truth is elsewhere,
-but mirrored to github often has a different name than internal name
-that's used for this reason (though sometimes they don't). Sadly,
-github does not allow for an arbitrary number of layers beyond this
-(so we can't call the repo freebsd/src, for example).
+For folks tracking master, they will see no updates until they cut
+over. This is -current, and people are expected to pay attention, so
+this is OK.
 
-# doc mirroring
+Folks with work off stable/* will see forced push and will have to do
+something special. My notion is the special thing will be
+```
+% git remote add legacy https://github.com/freebsd/freebsd-legacy
+% git fetch legacy
+% foreach branch B:
+  git rebase legacy/stable/X B --onto stable/X
+```
+the fetch legacy will largely be a nop since they have all the
+objects, just not the refs. Once they do the conversion, they can get
+rid of the double history with git gc.
 
-Today, 
+We put this in the readme.md (and delete readme, but that's a separate
+issue) and a pointer to the doc.
+
+## Plan for doc
+
+1. fork freebsd-doc-legacy
+2. delete the delgacy stuff except master.
+3. keep master around for N months (6?) and then delete it.
+4. Add note to readme about how to jump.
+

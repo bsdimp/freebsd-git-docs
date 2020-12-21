@@ -150,11 +150,99 @@ We currently have no scripts.
 
 This walks through the process of merging a commit to stable/12 that
 was originally committed to head in Subversion.  In this case, the
-original commit is r368314.
+original commit is r368685.
 
 The first step is to map the Subversion commit to a Git hash.  Once
 you have fetched refs/notes/commits, you can pass the revision number
 to `git log --grep`:
+
+```
+> git log main --grep 368685
+commit ce8395ecfda2c8e332a2adf9a9432c2e7f35ea81
+Author: John Baldwin <jhb@FreeBSD.org>
+Date:   Wed Dec 16 00:11:30 2020 +0000
+
+    Use the 't' modifier to print a ptrdiff_t.
+    
+    Reviewed by:    imp
+    Obtained from:  CheriBSD
+    Sponsored by:   DARPA
+    Differential Revision:  https://reviews.freebsd.org/D27576
+
+Notes:
+    svn path=/head/; revision=368685
+```
+
+Next, merge the commit to a `stable/12` checkout:
+
+```
+git checkout stable/12
+git cherry-pick -x ce8395ecfda2c8e332a2adf9a9432c2e7f35ea81 --edit
+```
+
+Git will invoke the editor.  Use this to remove the metadata that only
+applied to the original commit (Phabricator URL and Reviewed by).
+After the editor saves the updated log message, Git completes the
+commit:
+
+```
+[stable/12 3e3a548c4874] Use the 't' modifier to print a ptrdiff_t.
+ Date: Wed Dec 16 00:11:30 2020 +0000
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+The contents of the merged commit can be examined via `git show`:
+
+```
+> git show
+commit 3e3a548c487450825679e4bd63d8d1a67fd8bd2d (HEAD -> stable/12)
+Author: John Baldwin <jhb@FreeBSD.org>
+Date:   Wed Dec 16 00:11:30 2020 +0000
+
+    Use the 't' modifier to print a ptrdiff_t.
+    
+    Obtained from:  CheriBSD
+    Sponsored by:   DARPA
+    
+    (cherry picked from commit ce8395ecfda2c8e332a2adf9a9432c2e7f35ea81)
+
+diff --git a/sys/compat/linuxkpi/common/include/linux/printk.h b/sys/compat/linuxkpi/common/include/linux/printk.h
+index 31802bdd2c99..e6510e9e9834 100644
+--- a/sys/compat/linuxkpi/common/include/linux/printk.h
++++ b/sys/compat/linuxkpi/common/include/linux/printk.h
+@@ -68,7 +68,7 @@ print_hex_dump(const char *level, const char *prefix_str,
+                        printf("[%p] ", buf);
+                        break;
+                case DUMP_PREFIX_OFFSET:
+-                       printf("[%p] ", (const char *)((const char *)buf -
++                       printf("[%#tx] ", ((const char *)buf -
+                            (const char *)buf_old));
+                        break;
+                default:
+```
+
+The merged commit can now be published via `git push`
+
+```
+git push freebsd
+Enumerating objects: 17, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (9/9), 817 bytes | 204.00 KiB/s, done.
+Total 9 (delta 5), reused 1 (delta 1), pack-reused 0
+To gitrepo-dev.FreeBSD.org:src.git
+   525bd9c9dda7..3e3a548c4874  stable/12 -> stable/12
+```
+
+### Merging a Single Subversion Commit with a Conflict
+
+This example is similar to the previous example except that the
+commit in question encounters a merge conflict.  In this case, the
+original commit is r368314.
+
+As above, the first step is to map the Subversion commit to a Git
+hash:
 
 ```
 > git log main --grep 368314
@@ -193,7 +281,9 @@ hint: and commit the result with 'git commit'
 
 In this case, the commit encountered a merge conflict in
 sys/dev/cxge/tom/t4_cpl_io.c as kernel TLS is not present in
-stable/12.  `git status` confirms that this file has merge conflicts:
+stable/12.  Note that Git does not invoke an editor to adjust the
+commit message due to the conflict.  `git status` confirms that this
+file has merge conflicts:
 
 ```
 > git status

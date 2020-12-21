@@ -10,12 +10,14 @@ that the FreeBSD project has created over the years. To	keep all this
 clutter from getting in the way, vendor	branches were imported in
 their own name space, in much the same way notes are.
 
-To import notes, for example, one would	clone the repository and then do:
+To import notes (helpful when you want to look up svn revisions), for example, one would clone the repository and then do:
 ```
 git config --add remote.freebsd.fetch '+refs/notes/*:refs/notes/*' && git fetch
 ```
 
-To retrieve the	vendor information, one	does the following:
+Replace `freebsd` with the actual remote name in your clone.
+
+To retrieve the	vendor branches and tags, do the following:
 ```
 git config --add remote.freebsd.fetch '+refs/vendor/*:refs/vendor/*' && git fetch
 ```
@@ -111,26 +113,62 @@ It's also important to create an annotated tag, otherwise the push will be rejec
 
 ### Updating the FreeBSD Copy
 Now you need to update the mtree in FreeBSD. The sources live in `contrib/mtree` since it's upstream software.
-```
-% cd ../src
-% git subtree merge  -P contrib/mtree vendor/NetBSD/mtree
-```
 
 At this point you can push it upstream
 ```
 % git push --follow-tags freebsd vendor/NetBSD/mtree
 ```
 
-**NOTE:** I'm not 100% sure the above worked as intended.
+`--follow-tags` tells `git push` to also push tags associated with the locally committed revision.
 
-### Conflicts
+### Updating the FreeBSD source tree
 
-Despite your best laid plans, things can go wrong.
+```
+% cd ../src
+% git subtree merge  -P contrib/mtree vendor/NetBSD/mtree
+```
 
-If the upstream branch moves forward before you get a chance to push, you'll need to redo the merge.
+This would generate a subtree merge commit of `contrib/mtree` against the local `vendor/NetBSD/mtree` branch.
+If there were conflicts, you would need to fix them before committing.
 
-`git rebase` or `git pull --rebase` doesn't know how to rebase a merge commit **as a merge commit**. So, you are left with two options.
+### Rebasing your change against latest FreeBSD source tree
 
-The first option, which I know works, is to just abandon the merge you did, pull a fresh main, and then redo the steps you did and push. This works, but is annoying.
+Because the current policy recommends against using merges, if the upstream FreeBSD `main` moved forward
+before you get a chance to push, you would have to redo the merge.
 
-The second options (uqs please help me out here) is that you can do the rebase. Then you can create a new commit that's empty, but a merge commit. Though uqs may have a better way to redo the rebase such that it winds up being a merge commit.
+Regular `git rebase` or `git pull --rebase` doesn't know how to rebase a merge commit **as a merge commit**,
+so instead of that you would have to recreate the commit.
+
+The easiest way to do this would be to create a side branch with the **contents** of the merged tree:
+
+```
+% cd ../src
+% git fetch freebsd
+% git checkout -b merge_result
+% git merge freebsd/main
+```
+
+Typically, there would be no merge conflicts here (because developers tends to work on different components).
+In the worst case scenario, you would still have to resolve merge conflicts, if there was any, but this
+should be really rare.
+
+Now, checkout `freebsd/main` again as `new_merge`, and redo the merge:
+
+```
+% git checkout -b new_merge freebsd/main
+% git subtree merge  -P contrib/mtree vendor/NetBSD/mtree
+```
+
+Instead of resolving the conflicts, perform this instead:
+
+```
+% git checkout merge_result .
+```
+
+Which will overwrite the files with conflicts with the version found in `merge_result`.
+
+Examine the tree against `merge_result` to make sure that you haven't missed deleted files:
+
+```
+% git diff merge_result
+```

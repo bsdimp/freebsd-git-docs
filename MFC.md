@@ -7,32 +7,82 @@ is `freebsd` as suggested in other docs.
 
 ## Commit message standards
 
-Git gives some help for committing cherry picks and keeping track. Git computes a 'diff index' for each commit that's applied and uses that to detect when it
-doesn't need to include the patch in a rebase, or as part of git log --cherry described below.
+### Marking Merges
 
-This works great for single commits, but the project tradition is to squash multiple changes.
-This defeats the diff index that git does. So, we'd need to mark them somehow. Keeping with
-the traditional way we've marked commits (the wisdom of which I'm not commenting on), we'd
-want to have MFCs marked like this in the commit message.
+As with subversion, we wish to mark commits to stable branches that
+are merges from main distinctly from direct commits.  There are two
+main options:
+
+1. One option that matches our existing practice (the wisdom of which
+   I'm not commenting on) would mark MFCs like this in the commit
+   message:
+
 ```
 MFC: 12def6789a,ac32ee4a5c
 ```
-where the first 10 digits of the hash (might be longer in a large repository)
-is used to mark the commit message. This "abbreviated hash" can be retrieved by:
+
+   where the first 10 digits of the hash (might be longer in a large repository)
+   is used to mark the commit message. This "abbreviated hash" can be retrieved by:
+
 ```
 git show --format=%p --no-patch $full_hash
 ```
-This preserves the information,
-but isn't 'git standard' which is just to have a line of text that says the commit was from hash
-whatever without the 'key: value' structure. It also wouldn't help the `git log --cherry` command, unless
-we would use that to come up with candidates, and then use the MFC lines to weed them out.
-Alternatively, adding a note either to the src (saying where it had been merged to) or the destination
-(saying where it had been merged from) would allow for easier parsing and after-the-fact fixups
-similar to svn merge --record-only.
 
-There are also advantages to all the commits on stable/X having something to identify them as
-being merge commits (so you can tell if you inadvertently reverse args so you got commits to stable/12
-instead of commits on main).
+   This preserves the information, but isn't 'git standard'.  It also
+   requires committers to manually edit commit messages to include
+   this information when merging.
+
+2. Use the `-x` flag with `git cherry-pick`.  This adds a line to the
+   commit message that includes the hash of the original commit when
+   merging.  Since it is added by Git directly, committers do not have
+   to manually edit the commit log when merging.
+
+We feel that the second option is simpler going forward.
+
+### Finding Eligible Merges
+
+One feature some developers have found happy with subversion is
+determining which commits have or have not been merged (for example,
+`svn mergeinfo --show-revs eligible`).
+
+Git provides some built-in support for this via the `git cherry` and
+`git log --cherry` commands.  These commands compare the raw diffs of
+commits (but not other metadata such as log messages) to determine if
+two commits are identical.  This works well when each commit from head
+is merged as a single commit to a stable branch, but it falls over if
+multiple commits from main are squashed together as a single commit to
+a stable branch.
+
+There are a few options for resolving this:
+
+1. We could ban squashing of commits and instead require that committers
+   stage all of the fixup / follow-up commits to stable into a single
+   push.
+
+2. We could adopt a consistent style for describing merges and write
+   our own tooling to wrap around `git cherry` to determine the list
+   of eligible commits.  A simple approach here might be to use the
+   syntax from `git cherry-pick -x`, but require that a squashed
+   commit list all of the hashes (one line per hash) at the end of
+   the commit message.  Developers could do this by using
+   `git cherry-pick -x` of each individual commit into a branch and
+   then use `git rebase` to squash the commits down into a single
+   commit, but collecting the `-x` annotations at the end of the
+   merged commit log.
+
+### Trim Metadata
+
+`git cherry-pick` will copy the entire log message of the original
+commit as the log message for the merge to stable.  This is useful,
+but metadata fields that only apply to the head commit should be
+removed or updated for the MFC.  For example, phabriactor URLs or
+reviewers should be removed.  Metadata should only be included if it
+is relevant to the merge operation (for example, if a developer
+reviews the merge prior to commit, or if re@ approves a merge to a
+stable branch).  Using `--edit` with `git cherry-pick` allows the
+commit message to be fixed to remove incorrect metadata.  The commit
+log can always be updated prior to pushing via `git commit --amend` or
+the `reword` action in `git rebase -i`.
 
 ## Single commit MFC
 

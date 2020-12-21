@@ -12,7 +12,7 @@ Following is the quick map for the essential URLs from Subversion to Git:
 | Item                                     | Subversion                             | Git                                 |
 | ---------------------------------------- | ------------------------------- | ----------------------------------- |
 | Web-based repository browser             | `https://svnweb.freebsd.org/${repo}`      | `https://cgit.freebsd.org/${repo}`            |
-| Distributed mirrors for anonymous read-only checkout/clone | `https://svn.freebsd.org/${repo}` `svn://svn.freebsd.org/${repo}` | `https://git.freebsd.org/${repo}` `ssh://anongit@git.freebsd.org/${repo}.git` |
+| Distributed mirrors for anonymous read-only checkout/clone | `https://svn.freebsd.org/${repo}` `svn://svn.freebsd.org/${repo}` | `https://git.freebsd.org/${repo}.git` `ssh://anongit@git.freebsd.org/${repo}.git` |
 | Read/write Repository for committers (**) | `svn+ssh://(svn)repo.freebsd.org/${repo}` | `ssh://git@(git)repo.freebsd.org/${repo}.git` |
 
   - (*) In subversion, `base` is used for FreeBSD src repository (`src`).

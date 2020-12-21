@@ -36,6 +36,14 @@ instead of commits on main).
 % git cherry-pick -x $HASH --edit
 ```
 
+For merge commits, for example a vendor import, you would need to specify one parent for cherry-pick
+purposes.  Normally, that would be the "first parent" of the branch you are cherry-picking from, so:
+
+```
+% git checkout stable/X
+% git cherry-pick -x $HASH -m 1 --edit
+```
+
 If things go wrong, you'll either need to abort the cherry-pick with `git cherry-pick --abort` or fix it
 up and do a `git cherry-pick --continue`.
 

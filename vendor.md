@@ -82,7 +82,7 @@ They were followed. Good. And there's only a few versions, so I'm able to list t
 
 Since the trees are usually a tiny subset of the FreeBSD, it's best to do them with work trees since the process is quite fast. Make sure that whatever directory you choose (the `../mtree`) argument is empty and doesn't conflict.
 ```
-% cd ...../src
+% cd path/to/your/clone/of/src
 % git worktree add -b vendor/NetBSD/mtree ../mtree refs/vendor/NetBSD/mtree/dist
 ```
 
@@ -94,14 +94,16 @@ and you'd have the same thing.
 ### Update the Sources in the Vendor Branch
 
 I have my copy of NetBSD checked out from their github mirror in `~/git/NetBSD`, so I'll update from there:
+Note that "upstream" might have added or removed files, so we want to make sure deletions are propagated as well. rsync(1) is commonly installed, so I'll use that.
 ```
 % cd ../mtree
-% cp ~/git/NetBSD/usr.sbin/mtree/* .
-% git diff
-...
+% rsync -va --del ~/git/NetBSD/usr.sbin/mtree/ .
+% git add -A
 % git status
 ...
-% git commit -a -m"Vendor import of NetBSD's mtree at 2020-12-11"
+% git diff --staged
+...
+% git commit -m"Vendor import of NetBSD's mtree at 2020-12-11"
 [vendor/NetBSD/mtree 8e7aa25fcf1] Vendor import of NetBSD's mtree at 2020-12-11
  7 files changed, 114 insertions(+), 82 deletions(-)
 % git tag -a vendor/NetBSD/mtree/20201211
@@ -125,7 +127,7 @@ At this point you can push it upstream
 
 ```
 % cd ../src
-% git subtree merge  -P contrib/mtree vendor/NetBSD/mtree
+% git subtree merge -P contrib/mtree vendor/NetBSD/mtree
 ```
 
 This would generate a subtree merge commit of `contrib/mtree` against the local `vendor/NetBSD/mtree` branch.
@@ -156,7 +158,7 @@ Now, checkout `freebsd/main` again as `new_merge`, and redo the merge:
 
 ```
 % git checkout -b new_merge freebsd/main
-% git subtree merge  -P contrib/mtree vendor/NetBSD/mtree
+% git subtree merge -P contrib/mtree vendor/NetBSD/mtree
 ```
 
 Instead of resolving the conflicts, perform this instead:

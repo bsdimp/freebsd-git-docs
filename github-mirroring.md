@@ -47,4 +47,6 @@ issue) and a pointer to the doc.
 2. delete the delgacy stuff except master.
 3. keep master around for N months (6?) and then delete it.
 4. Add note to readme about how to jump.
+5. NOTE: historical branches will be deleted so only 'main' reamins on github.
+
 

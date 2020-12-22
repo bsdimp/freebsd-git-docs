@@ -5,13 +5,44 @@
 Note: This document uses the convention where the upstream origin name
 is `freebsd` as suggested in other docs.
 
+## Goals
+
+When committing source commits to stable and releng branches, we have
+the following goals:
+
+1. Clearly mark direct commits distinct from commits that merge a
+   change from another branch
+2. Avoid introducing known breakage into stable and releng branches
+3. Allow developers to determine which changes have or have not been
+   merged from one branch to another
+
+With subversion, we used the following practices to achieve these goals:
+
+1. Using 'MFC' and 'MFS' tags to mark commits that merged changes from
+   another branch
+2. Squashing fixup commits into the main commit when merging a change
+3. Recording mergeinfo so that `svn mergeinfo --show-revs` worked
+
+With Git, we will need to use different strategies to achieve the same
+goals.  This document aims to define best practices when merging
+source commits using git that achieve these goals.  In general, we aim
+to use git's native support to achieve these goals rather than
+enforcing practices built on subversion's model.
+
+One general note: due to technical differences with Git, we will not
+be using git "merge commits" (created via `git merge`) in stable or
+releng branches.  Instead, when this document refers to "merge
+commits", it means a commit originally made to `main` that is
+replicated to a stable branch, or a commit from a stable branch that
+is replicated to a releng branch with some varation of `git
+cherry-pick`.
+
 ## Commit message standards
 
 ### Marking Merges
 
-As with subversion, we wish to mark commits to stable branches that
-are merges from main distinctly from direct commits.  There are two
-main options:
+There are two main options for marking merges as distinct from direct
+commits:
 
 1. One option that matches our existing practice (the wisdom of which
    I'm not commenting on) would mark MFCs like this in the commit
@@ -41,10 +72,6 @@ We feel that the second option is simpler going forward.
 
 ### Finding Eligible Merges
 
-One feature some developers have found happy with subversion is
-determining which commits have or have not been merged (for example,
-`svn mergeinfo --show-revs eligible`).
-
 Git provides some built-in support for this via the `git cherry` and
 `git log --cherry` commands.  These commands compare the raw diffs of
 commits (but not other metadata such as log messages) to determine if
@@ -57,7 +84,11 @@ There are a few options for resolving this:
 
 1. We could ban squashing of commits and instead require that committers
    stage all of the fixup / follow-up commits to stable into a single
-   push.
+   push.  This would still achieve the goal of stability in stable and
+   releng branches since pushes are atomic and users doing a simple pull
+   will never end up with a tree that has the main commit without the
+   fixup(s).  `git bisect` is also able to cope with this model via
+   `git bisect skip`.
 
 2. We could adopt a consistent style for describing merges and write
    our own tooling to wrap around `git cherry` to determine the list
@@ -70,19 +101,43 @@ There are a few options for resolving this:
    commit, but collecting the `-x` annotations at the end of the
    merged commit log.
 
-### Trim Metadata
+### Trim Metadata?
 
-`git cherry-pick` will copy the entire log message of the original
-commit as the log message for the merge to stable.  This is useful,
-but metadata fields that only apply to the head commit should be
-removed or updated for the MFC.  For example, phabriactor URLs or
-reviewers should be removed.  Metadata should only be included if it
-is relevant to the merge operation (for example, if a developer
-reviews the merge prior to commit, or if re@ approves a merge to a
-stable branch).  Using `--edit` with `git cherry-pick` allows the
-commit message to be fixed to remove incorrect metadata.  The commit
-log can always be updated prior to pushing via `git commit --amend` or
-the `reword` action in `git rebase -i`.
+One area that was not clearly documented with subversion (or even CVS)
+is how to format metadata in log messages for merge commits.  Should
+it include the metadata from the original commit unchanged, or should
+it be altered to reflect information about the merge commit itself?
+
+Historical practice has varied, though some of the variance is by
+field.  For example, merges that are relevant to a PR generally
+include the PR field in the merge so that merge commits are included
+in the bug tracker's audit trail.  Other fields are less clear.  For
+example, Phabricator shows the diff of the last commit tagged to a
+review, so including Phabricator URLs replaces the `main` commit with
+the merged commits.  The list of reviewers is also not clear.  If a
+reviewer has approved a change to `main`, does that mean they have
+approved the merge commit?  What it the merge encounters conflicts, or
+if the commit doesn't conflict but introduces an ABI change?  A
+reviewer may have ok'd a commit for `main` due to the ABI breakage but
+may not approve of merging the same commit as-is.
+
+For merges regulated by re@, new metadata fields are added, such as
+the Approved by tag for approved commits.  This new metadata will have
+to be added via `git commit --amend` or similar after the original
+commit has been reviewed and approved.  We may also want to reserve
+some metadata fields in merge commits such as Phabricator URLs for use
+by re@ in the future.
+
+Preserving existing metadata provides a very simple workflow.
+Developers can just use `git cherry-pick -x` without having to edit
+the log message.
+
+If instead we choose to adjust metadata in merges, developers will
+have to edit log messages explicitly via the use of `git cherry-pick
+--edit` or `git commit --amend`.  However, as compared to svn, at
+least the existing commit message can be pre-populated and metadata
+fields can be added or removed without having to re-enter the entire
+commit message.
 
 ## Single commit MFC
 

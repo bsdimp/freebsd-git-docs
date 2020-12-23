@@ -9,11 +9,6 @@ Note: This document follows the convention that the `freebsd` origin
 is the source of truth. If you use a different convention, replace
 freebsd with your name.
 
-There are hundreds, if not thousands of	tags related to	vendor imports
-that the FreeBSD project has created over the years. To	keep all this
-clutter from getting in the way, vendor	branches were imported in
-their own name space, in much the same way notes are.
-
 To import notes (helpful when you want to look up svn revisions), for
 example, one would clone the repository and then do:
 ```
@@ -21,16 +16,16 @@ git config --add remote.freebsd.fetch '+refs/notes/*:refs/notes/*' && git fetch
 ```
 
 All vendor branches and tags start with `vendor/` and are branches and
-tags visible by default. Prior drafts of this document had them
-directly under `refs/vendor` rather than `refs/head/vendor` so early adopters
-that have the older refs may need to clean them up.
+tags visible by default. Prior drafts of this document had them directly under
+`refs/vendor` rather than `refs/heads/vendor` and `refs/tags/vendor` (the git
+defaults) so early adopters that have the older refs may need to clean them up.
 
 We'll explore an example for updating NetBSD's mtree that's in our
 tree. The vendor branch for this is `vendor/NetBSD/mtree`.
 
 ## Updating an old vendor import
 
-Since the trees we have in vendor branchesare usually a tiny subset of
+Since the trees we have in vendor branches are usually a tiny subset of
 the FreeBSD, it's best to do them with work trees since the process is
 quite fast. Make sure that whatever directory you choose (the
 `../mtree`) argument is empty and doesn't conflict.
@@ -39,7 +34,7 @@ quite fast. Make sure that whatever directory you choose (the
 ```
 ### Update the Sources in the Vendor Branch
 
-I have my copy of NetBSD checked out from their github mirror in
+I have my copy of NetBSD checked out from their GitHub mirror in
 `~/git/NetBSD`, so I'll update from there: Note that "upstream" might
 have added or removed files, so we want to make sure deletions are
 propagated as well. rsync(1) is commonly installed, so I'll use that.
@@ -57,20 +52,15 @@ propagated as well. rsync(1) is commonly installed, so I'll use that.
 % git tag -a vendor/NetBSD/mtree/20201211
 ```
 
-Note: I used git commit -a here because I was sure I knew what I was
-doing and I'd run the `git diff` and `git status` commands to make
-sure nothing weird was present. Normally I only recommend using that
-when you're an expert and have checked what's going on to be
-sure. Also I used `-m` to illustrate, but you should compose a proper
-message in an editor.
+Note: I run the `git diff` and `git status` commands to make sure nothing weird
+was present. Also I used `-m` to illustrate, but you should compose a proper
+message in an editor (using a commit message template).
 
 It's also important to create an annotated tag, otherwise the push
 will be rejected. Only annotated tags are allowed to be pushed.
 
 ### Updating the FreeBSD Copy
-Now you need to update the mtree in FreeBSD. The sources live in `contrib/mtree` since it's upstream software.
-
-At this point you can push the updated vendor branch upstream:
+At this point you can push the import to vendor into our repo.
 ```
 % git push --follow-tags freebsd vendor/NetBSD/mtree
 ```
@@ -78,6 +68,8 @@ At this point you can push the updated vendor branch upstream:
 `--follow-tags` tells `git push` to also push tags associated with the locally committed revision.
 
 ### Updating the FreeBSD source tree
+Now you need to update the mtree in FreeBSD. The sources live in
+`contrib/mtree` since it is upstream software.
 
 ```
 % cd ../src
@@ -144,8 +136,12 @@ command that puts the nitz device into different magical glorb states.
 % git checkout -b vendor/glorbnitz
 ```
 
-At this point, you have a new repo, where all new commtis will go on
+At this point, you have a new repo, where all new commits will go on
 the `vendor/glorbnitz` branch.
+
+(Git professionals can also do this right in their FreeBSD clone, if they know
+how to create a new root commit that's not attached to anything, e.g.
+`git checkout --orphan vendor/glorbnitz`)
 
 ### Copy the sources in
 Since this is a new import, you can just cp the sources in, or use tar or
@@ -161,7 +157,7 @@ At this point, you should have a pristine copy of glorbnitz ready to commit.
 % git commit -m"Import GlorbNitz frobnosticator revision 3.1415"
 ```
 As above, I used `-m` for simplicity, but you should likely create a
-ncommit message that explains what a Glorb is and why you'd use a Nitz
+commit message that explains what a Glorb is and why you'd use a Nitz
 to get it. Not everybody will know.
 
 ### Now import it into our repository
@@ -171,7 +167,7 @@ Now you need to import the branch into our repository.
 % git remote add glorbnitz /some/where/glorbnitz
 % git fetch glorbnitz vendor/glorbnitz
 ```
-Not the vendor/glorbnitz branch is in the repo. At this point the
+Note the vendor/glorbnitz branch is in the repo. At this point the
 `/some/where/glorbnitz` can be deleted, if you like. It was only a means
 to an end.
 

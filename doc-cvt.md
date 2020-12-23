@@ -84,7 +84,7 @@ you've cloned the repo without this, or wish to add notes to an
 previously clone repository, use the following commands:
 ```
 % git config --add remote.freebsd.fetch "+refs/notes/*:refs/notes/*"
-% git fetch
+% git fetch freebsd
 ```
 At this point you have the docs checked out into a Git tree, ready to
 do other things.

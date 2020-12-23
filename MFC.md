@@ -1,6 +1,6 @@
 # How to MFC
 
-** NOTE: THIS IS WORK IN PROGRESS and current woefully incomplete **
+** NOTE: THIS IS WORK IN PROGRESS and current incomplete **
 
 Note: This document uses the convention where the upstream origin name
 is `freebsd` as suggested in other docs.
@@ -10,11 +10,11 @@ is `freebsd` as suggested in other docs.
 When committing source commits to stable and releng branches, we have
 the following goals:
 
-1. Clearly mark direct commits distinct from commits that merge a
+1. Clearly mark direct commits distinct from commits that land a
    change from another branch
 2. Avoid introducing known breakage into stable and releng branches
 3. Allow developers to determine which changes have or have not been
-   merged from one branch to another
+   landed from one branch to another
 
 With subversion, we used the following practices to achieve these goals:
 
@@ -33,15 +33,15 @@ One general note: due to technical differences with Git, we will not
 be using git "merge commits" (created via `git merge`) in stable or
 releng branches.  Instead, when this document refers to "merge
 commits", it means a commit originally made to `main` that is
-replicated to a stable branch, or a commit from a stable branch that
-is replicated to a releng branch with some varation of `git
-cherry-pick`.
+replicated or "landed" to a stable branch, or a commit from a stable
+branch that is replicated to a releng branch with some varation of
+`git cherry-pick`.
 
 ## Commit message standards
 
-### Marking Merges
+### Marking MFCs
 
-There are two main options for marking merges as distinct from direct
+There are two main options for marking MFCs as distinct from direct
 commits:
 
 1. One option that matches our existing practice (the wisdom of which
@@ -70,13 +70,13 @@ git show --format=%p --no-patch $full_hash
 
 We feel that the second option is simpler going forward.
 
-### Finding Eligible Merges
+### Finding Eligible Hashes to MFC
 
 Git provides some built-in support for this via the `git cherry` and
 `git log --cherry` commands.  These commands compare the raw diffs of
 commits (but not other metadata such as log messages) to determine if
 two commits are identical.  This works well when each commit from head
-is merged as a single commit to a stable branch, but it falls over if
+is landed as a single commit to a stable branch, but it falls over if
 multiple commits from main are squashed together as a single commit to
 a stable branch.
 
@@ -90,7 +90,7 @@ There are a few options for resolving this:
    fixup(s).  `git bisect` is also able to cope with this model via
    `git bisect skip`.
 
-2. We could adopt a consistent style for describing merges and write
+2. We could adopt a consistent style for describing MFCs and write
    our own tooling to wrap around `git cherry` to determine the list
    of eligible commits.  A simple approach here might be to use the
    syntax from `git cherry-pick -x`, but require that a squashed
@@ -99,45 +99,51 @@ There are a few options for resolving this:
    `git cherry-pick -x` of each individual commit into a branch and
    then use `git rebase` to squash the commits down into a single
    commit, but collecting the `-x` annotations at the end of the
-   merged commit log.
+   landed commit log.
 
 ### Trim Metadata?
 
 One area that was not clearly documented with subversion (or even CVS)
-is how to format metadata in log messages for merge commits.  Should
+is how to format metadata in log messages for MFC commits.  Should
 it include the metadata from the original commit unchanged, or should
-it be altered to reflect information about the merge commit itself?
+it be altered to reflect information about the MFC commit itself?
 
 Historical practice has varied, though some of the variance is by
-field.  For example, merges that are relevant to a PR generally
-include the PR field in the merge so that merge commits are included
+field.  For example, MFCs that are relevant to a PR generally
+include the PR field in the MFC so that MFC commits are included
 in the bug tracker's audit trail.  Other fields are less clear.  For
 example, Phabricator shows the diff of the last commit tagged to a
 review, so including Phabricator URLs replaces the `main` commit with
-the merged commits.  The list of reviewers is also not clear.  If a
+the landed commits.  The list of reviewers is also not clear.  If a
 reviewer has approved a change to `main`, does that mean they have
-approved the merge commit?  What it the merge encounters conflicts, or
-if the commit doesn't conflict but introduces an ABI change?  A
-reviewer may have ok'd a commit for `main` due to the ABI breakage but
-may not approve of merging the same commit as-is.
+approved the MFC commit?  Is that true if it's identical code only,
+or with merely trivial reworkes? It's clearly not true for more
+extensive reworks. Even for identical code what if the commit doesn't
+conflict but introduces an ABI change?  A reviewer may have ok'd a
+commit for `main` due to the ABI breakage but may not approve of
+merging the same commit as-is. One will have to use one's best
+judgement until clear guidelines can be agreed upon.
 
-For merges regulated by re@, new metadata fields are added, such as
+For MFCs regulated by re@, new metadata fields are added, such as
 the Approved by tag for approved commits.  This new metadata will have
 to be added via `git commit --amend` or similar after the original
 commit has been reviewed and approved.  We may also want to reserve
-some metadata fields in merge commits such as Phabricator URLs for use
+some metadata fields in MFC commits such as Phabricator URLs for use
 by re@ in the future.
 
 Preserving existing metadata provides a very simple workflow.
 Developers can just use `git cherry-pick -x` without having to edit
 the log message.
 
-If instead we choose to adjust metadata in merges, developers will
+If instead we choose to adjust metadata in MFCs, developers will
 have to edit log messages explicitly via the use of `git cherry-pick
 --edit` or `git commit --amend`.  However, as compared to svn, at
 least the existing commit message can be pre-populated and metadata
 fields can be added or removed without having to re-enter the entire
 commit message.
+
+The bottom line is that developers will likely need to curate their
+commit message for MFCs that are non-trivial.
 
 ## Single commit MFC
 
@@ -146,7 +152,7 @@ commit message.
 % git cherry-pick -x $HASH --edit
 ```
 
-For merge commits, for example a vendor import, you would need to specify one parent for cherry-pick
+For MFC commits, for example a vendor import, you would need to specify one parent for cherry-pick
 purposes.  Normally, that would be the "first parent" of the branch you are cherry-picking from, so:
 
 ```
@@ -181,7 +187,7 @@ If the push fails due to losing the commit race, rebase and try again:
 % git push freebsd HEAD:stable/X
 ```
 
-Once the merge is complete, you can delete the temporary branch:
+Once the MFC is complete, you can delete the temporary branch:
 
 ```
 % git checkout stable/X
@@ -228,7 +234,7 @@ Notes:
     svn path=/head/; revision=368685
 ```
 
-Next, merge the commit to a `stable/12` checkout:
+Next, MFC the commit to a `stable/12` checkout:
 
 ```
 git checkout stable/12
@@ -246,7 +252,7 @@ commit:
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
-The contents of the merged commit can be examined via `git show`:
+The contents of the MFCd commit can be examined via `git show`:
 
 ```
 > git show
@@ -276,7 +282,7 @@ index 31802bdd2c99..e6510e9e9834 100644
                 default:
 ```
 
-The merged commit can now be published via `git push`
+The MFC commit can now be published via `git push`
 
 ```
 git push freebsd
@@ -319,7 +325,7 @@ Notes:
     svn path=/head/; revision=368314
 ```
 
-Next, merge the commit to a `stable/12` checkout:
+Next, MFC the commit to a `stable/12` checkout:
 
 ```
 git checkout stable/12
@@ -385,7 +391,7 @@ adjust the commit message.  Trim the metadata fields from the
 commit log from the original commit to head and save the
 updated log message.
 
-The contents of the merged commit can be examined via `git show`:
+The contents of the MFC commit can be examined via `git show`:
 
 ```
 > git show
@@ -438,7 +444,7 @@ index 8e8c2b8639e6..43861f10b689 100644
         if (m == NULL && toep->flags & TPF_SEND_FIN)
 ```
 
-The merged commit can now be published via `git push`
+The MFC commit can now be published via `git push`
 
 ```
 git push freebsd

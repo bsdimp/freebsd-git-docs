@@ -205,8 +205,9 @@ Bisecting: 1722 revisions left to test after this (roughly 11 steps)
 ```
 
 You'd then build/install that version. If it's good you'd type 'git
-bisect good' otherwise 'git bisect bad'. You'll get a similar message
-to the above each step. When you are done, report the bad version to
+bisect good' otherwise 'git bisect bad'. If the version doesn't compile,
+type 'git bisect skip'.  You'll get a similar message
+to the above after each step. When you are done, report the bad version to
 the developer (or fix the bug yourself and send a patch). 'git bisect
 reset' will end the process and return you back to where you started
 (usually tip of main). Again, the git-bisect manual (linked above) is

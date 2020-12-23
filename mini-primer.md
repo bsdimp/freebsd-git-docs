@@ -104,9 +104,9 @@ eg:
 ```
 so that won't be covered in depth here.
 
-If you want to build a custom kernel, chapter 8.4 of the FreeBSD 
-Handbook recommends to create a file MYKERNEL under sys/${ARCH}/conf 
-with your changes against GENERIC. To have MYKERNEL disregarded by 
+If you want to build a custom kernel, chapter 8.4 of the FreeBSD
+Handbook recommends creating a file MYKERNEL under sys/${ARCH}/conf
+with your changes against GENERIC. To have MYKERNEL disregarded by
 git, it can be added to .git/info/exclude.
 
 ### Updating
@@ -303,7 +303,7 @@ index 7378268867ef..cfc3f4342531 100644
 % # these look good, make the commit...
 % git commit ls.c
 ```
-    
+
 The commit will pop you into an editor to describe what you've
 done. Once you enter that, you have your own **local** branch in the
 git repo. Build and install it like you normally would, following the
@@ -364,7 +364,7 @@ from other source code systems (the rest of ls.c has been omitted):
 #ifdef COLORLS
 #include <termcap.h>
 >>>>>>> 646e0f9cda11... no color ls
-```    
+```
 The new code is first, and your code is second. The right fix here is
 to just add a #undef COLORLS_NEW before #ifdef and then delete the old
 changes:
@@ -372,7 +372,7 @@ changes:
 #undef COLORLS_NEW
 #ifdef COLORLS_NEW
 #include <terminfo.h>
-```    
+```
 save the file. The rebase was interrupted, so you have to complete it:
 ```
 % git add ls.c
@@ -394,7 +394,7 @@ provides a rather extensive treatment. It is a good resource for
 issues that arise occasionally but are too obscure for this guide.
 
 ### Switching to a Different FreeBSD Branch
-If you wish to shift from stable/12 to the current branch. 
+If you wish to shift from stable/12 to the current branch.
 If you have a deep clone, the following will suffice:
 ```
 % git checkout main
@@ -458,7 +458,7 @@ You would get a SHA1 on the new main branch, create a helper branch
 Then perform a merge of the old branch:
 ```
 % git merge -s ours -m "Mark old branch as merged" old_branch
-```    
+```
 With that, it's possible to merge your work branch or the main branch
 in any order without problem.  Eventually, when you are ready to commit
 your work back to main, you can perform a rebase to main, or do a

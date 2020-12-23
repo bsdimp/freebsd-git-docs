@@ -160,13 +160,20 @@ can help you navigate this process.
 
 ### Time to push changes upstream
 
-The below commands merge the 'working' branch into main line and push
-them upstream. It's important that you curate your changes to be just
+The below command merges the 'working' branch into the upstream main line.
+It's important that you curate your changes to be just
 like you want them in the FreeBSD doc repo before doing this.
 ```
-% git checkout main
-% git merge --ff-only working
-% git push
+% git push freebsd working:main
+```
+
+If your push is rejected due to losing a commit race, rebase your branch
+before trying again:
+```
+% git checkout working
+% git fetch freebsd
+% git rebase freebsd/main
+% git push freebsd working:main
 ```
 
 ### Finding the Subversion Revision
@@ -234,7 +241,7 @@ the `Keeping Current` section above to stay up to date.
 
 If you need to then commit work to FreeBSD, you can do so following the 
 `Time to push changes upstream` instructions. You'll need to do the following
-once to update the push URL if you are a FreeBSD doc committer:
+once to update the push URL if you are a FreeBSD committer:
 ```
 % git remote set-url --push origin ssh://git@gitrepo.freebsd.org/doc.git
 (note that gitrepo.freebsd.org will be change to repo.freebsd.org in the future.)

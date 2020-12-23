@@ -1,7 +1,7 @@
 # FreeBSD Src Committer Transition Guide
 
 This document is designed to walk people through the conversion
-process from Subversion to Git, written from the doc committer's point
+process from Subversion to Git, written from the source committer's point
 of view. This document is a living document, so please don't hesitate
 to send improvements, or even ask for areas to be explained more /
 better / at all.
@@ -44,7 +44,7 @@ to belabor the basics (though it will cover them briefly).
 ## Migrating from a Subversion tree
 
 This section will cover a couple of common scenarios for migrating
-from using the FreeBSD Subversion repo to the FreeBSD docs repo. The
+from using the FreeBSD Subversion repo to the FreeBSD source git repo. The
 FreeBSD Git conversion is still in beta status, so some minor things
 may change between this and going into production.
 
@@ -173,13 +173,20 @@ freefall% gen-gitconfig.sh
 on freefall.freebsd.org to get recipe that you can use directly, assuming
 /usr/local/bin is in the PATH.
 
-The below commands merge the 'working' branch into main line and push
-them upstream. It's important that you curate your changes to be just
-like you want them in the FreeBSD doc repo before doing this.
+The below command merges the 'working' branch into the upstream main line.
+It's important that you curate your changes to be just
+like you want them in the FreeBSD source repo before doing this.
 ```
-% git checkout main
-% git merge --ff-only working
-% git push
+% git push freebsd working:main
+```
+
+If your push is rejected due to losing a commit race, rebase your branch
+before trying again:
+```
+% git checkout working
+% git fetch freebsd
+% git rebase freebsd/main
+% git push freebsd working:main
 ```
 
 ### Finding the Subversion Revision
@@ -203,7 +210,7 @@ hash you can use to refer to this commit.
 
 ## Migrating from GitHub fork
 
-Note: as of this writing, the https://github.com/freebsd/freebsd-doc
+Note: as of this writing, the https://github.com/freebsd/freebsd-src
 repo ends with the last subversion commit. In the near future, we'll
 start mirroring the official repo there. We'll likely retain the
 `master` branch that's there now and just push to `main` and all the
@@ -215,7 +222,7 @@ you have a `freebsd` upstream pointing to github, adjust if necessary.
 This also assumes a clean tree before starting...
 1. Add the new `freebsd` source of truth:
 ```
-% git remote add freebsd https://git.freebsd.org/doc.git
+% git remote add freebsd https://git.freebsd.org/src.git
 % git fetch freebsd
 % git checkout freebsd/main
 ```
@@ -230,9 +237,9 @@ the `Keeping Current` section above to stay up to date.
 
 If you need to then commit work to FreeBSD, you can do so following the 
 `Time to push changes upstream` instructions. You'll need to do the following
-once to update the push URL if you are a FreeBSD doc committer:
+once to update the push URL if you are a FreeBSD committer:
 ```
-% git remote set-url --push freebsd ssh://git@gitrepo.freebsd.org/doc.git
+% git remote set-url --push freebsd ssh://git@gitrepo.freebsd.org/src.git
 (note that gitrepo.freebsd.org will be change to repo.freebsd.org in the future.)
 ```
 You will also need to add `freebsd` as the location to push to. The

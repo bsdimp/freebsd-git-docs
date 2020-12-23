@@ -104,6 +104,11 @@ eg:
 ```
 so that won't be covered in depth here.
 
+If you want to build a custom kernel, chapter 8.4 of the FreeBSD 
+Handbook recommends to create a file MYKERNEL under sys/${ARCH}/conf 
+with your changes against GENERIC. To have MYKERNEL disregarded by 
+git, it can be added to .git/info/exclude.
+
 ### Updating
 
 To update both types of trees uses the same commands. This pulls in

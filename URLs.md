@@ -38,13 +38,19 @@ There are also external mirrors maintained by project members available, please 
      - `ssh://git@(git)repo.freebsd.org/${repo}.git`
      - `git@(git)repo.freebsd.org:${repo}.git`
 
+- gitrepo.FreeBSD.org host key fingerprints:
+
+  - ECDSA key fingerprint is `SHA256:seWO5D27ySURcx4bknTNKlC1mgai0whP443PAKEvvZA`
+  - ED25519 key fingerprint is `SHA256:lNR6i4BEOaaUhmDHBA1WJsO7H3KtvjE2r5q4sOxtIWo`
+  - RSA key fingerprint is `SHA256:f453CUEFXEJAXlKeEHV+ajJfeEfx9MdKQUD7lIscnQI`
+
 - git.FreeBSD.org host key fingerprints:
 
   - ECDSA key fingerprint is `SHA256:/UlirUAsGiitupxmtsn7f9b7zCWd0vCs4Yo/tpVWP9w`
   - ED25519 key fingerprint is `SHA256:y1ljKrKMD3lDObRUG3xJ9gXwEIuqnh306tSyFd1tuZE`
   - RSA key fingerprint is `SHA256:jBe6FQGoH4HjvrIVM23dcnLZk9kmpdezR/CvQzm7rJM`
 
-  These are also published as SSHFP records in DNS.
+These are also published as SSHFP records in DNS.
 
 
 ## Web-based repository browser

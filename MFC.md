@@ -49,11 +49,11 @@ commits:
    message:
 
 ```
-MFC: 12def6789a,ac32ee4a5c
+MFC: 12def6789a3a,ac32ee4a5c2e
 ```
 
-   where the first 10 digits of the hash (might be longer in a large repository)
-   is used to mark the commit message. This "abbreviated hash" can be retrieved by:
+   where the first 12 digits of the hash is used to mark the commit message.
+   This "abbreviated hash" can be retrieved by:
 
 ```
 git show --format=%p --no-patch $full_hash

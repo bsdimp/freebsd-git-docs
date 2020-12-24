@@ -32,20 +32,22 @@ is the default branch if you omit the '-b branch' or '--branch branch'
 options below.
 
 ### Repositories
-At the moment, there are two repositories. The hashes are different
-between them. The old GitHub repo is similar to the new cgit
-repo. However, there are a large number of mistakes in the GitHub repo
-that required us to regenerate the export when we migrated to having a
-git repo be the source of truth for the project.
+At the moment, there are two repositories:
 
-The GitHub repo is at https://github.com/freebsd/freebsd.git The new
-cgit beta repo is at https://cgit-beta.freebsd.org/src.git and the
-production URLs will be https://git.freebsd.org/src.git and
-ssh://anongit@git.FreeBSD.org/src.git (or anongit@git.FreeBSD.org:src.git)
-after the cut over.  These will
-be $URL in the commands below.  Please note that the cgit repo is
-still beta at this time, and hashes may change as its refined. Once we
-move into production, no further hash changes will happen.
+- The old GitHub repository (https://github.com/freebsd/freebsd.git)
+  was exported by the project for several years to support downstream
+  users using git.  There were a large number of mistakes in the repo
+  that have led us to generate a new export to be the source of truth,
+  which will as a result have new hashes.
+  
+- The new cgit beta repo (https://cgit-beta.freebsd.org/src.git) is in
+  the process of becoming the authoritative repository (and history)
+  for the project.  It is currently being refined, which may lead to
+  further hash changes.  Once it moves into production (and the hashes
+  are finalized), its URls will be https://git.freebsd.org/src.git,
+  https://git.freebsd.org/src.git (or anongit@git.FreeBSD.org:src.git).
+
+The new repository should be used as $URL in the commands below.
 
 Note: The project doesn't use submodules as they are a poor fit for
 our workflows and development model. How we track changes in

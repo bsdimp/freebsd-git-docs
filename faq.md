@@ -50,6 +50,7 @@ accidentally getting into a 'merge nightmare' where you have an extra
 change in your tree, forcing a complicated merge rather than a simple
 one.
 
+Here's https://adventurist.me/posts/00296 a good writeup that goes into more detail.
 ## Developers
 
 ### Ooops! I committed to `main` instead of a branch.

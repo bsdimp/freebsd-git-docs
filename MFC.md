@@ -5,7 +5,95 @@
 Note: This document uses the convention where the upstream origin name
 is `freebsd` as suggested in other docs.
 
-## Goals
+## Summary
+
+MFC workflow can be summarized as `git cherry-pick -x` plus git commit
+--amend to adjust the commit message. For multiple commits, use `git rebase -i`
+to squash them together and edit the commit message.
+
+## Single commit MFC
+
+```
+% git checkout stable/X
+% git cherry-pick -x $HASH --edit
+```
+
+For MFC commits, for example a vendor import, you would need to specify one parent for cherry-pick
+purposes.  Normally, that would be the "first parent" of the branch you are cherry-picking from, so:
+
+```
+% git checkout stable/X
+% git cherry-pick -x $HASH -m 1 --edit
+```
+
+If things go wrong, you'll either need to abort the cherry-pick with `git cherry-pick --abort` or fix it
+up and do a `git cherry-pick --continue`.
+
+Once the cherry-pick is finished, push with `git push`.  If you get an error due to losing the commit race,
+use `git pull --rebase` and try to push again.
+
+## Multiple commit MFC
+
+```
+% git checkout -b tmp-branch stable/X
+% for h in $HASH_LIST; do git cherry-pick -x $h; done
+% git rebase -i stable/X
+# mark each of the commits after the first as 'squash'
+# edit the commit message to be sane
+% git push freebsd HEAD:stable/X
+```
+
+If the push fails due to losing the commit race, rebase and try again:
+
+```
+% git checkout stable/X
+% git pull
+% git checkout tmp-branch
+% git rebase stable/X
+% git push freebsd HEAD:stable/X
+```
+
+Once the MFC is complete, you can delete the temporary branch:
+
+```
+% git checkout stable/X
+% git branch -d tmp-branch
+```
+
+## MFC a vendor import
+
+Vendor imports are the only thing in the tree that creates a merge
+commit in the main line. Cherry picking merge commits into stable/XX
+presents an additional difficulty because there are two parents for a
+merge commit. Generally, you'll want the first parent's diff since
+that's the diff to mainline (though there may be some exceptions).
+
+```
+% git cherry-pick -x -m 1 $HASH
+```
+is typically what you want. This will tell cherry-pick to apply the correct diff.
+
+There are some, hopefully, rare cases where it's possible that the
+mainline was merged backwards by the conversion script. Should that be
+the case (and we've not found any yet), you'd change the above to '-m 2'
+to pickup the proper parent. Just do
+```
+% git cherry-pick --abort
+% git cherry-pick -x -m 2 $HASH
+```
+to do that. The `--aboort` will cleanup the failed first attempt.
+
+## Redoing a MFC
+
+If you do a MFC, and it goes horribly wrong and you want to start over,
+then the easiest way is to use `git reset --hard` like so:
+```
+% git reset --hard freebsd/stable/12
+```
+though if you have some revs you want to keep, and others you don't,
+using 'git rebase -i' is better.
+
+## Considerations when MFCing
 
 When committing source commits to stable and releng branches, we have
 the following goals:
@@ -144,55 +232,6 @@ commit message.
 
 The bottom line is that developers will likely need to curate their
 commit message for MFCs that are non-trivial.
-
-## Single commit MFC
-
-```
-% git checkout stable/X
-% git cherry-pick -x $HASH --edit
-```
-
-For MFC commits, for example a vendor import, you would need to specify one parent for cherry-pick
-purposes.  Normally, that would be the "first parent" of the branch you are cherry-picking from, so:
-
-```
-% git checkout stable/X
-% git cherry-pick -x $HASH -m 1 --edit
-```
-
-If things go wrong, you'll either need to abort the cherry-pick with `git cherry-pick --abort` or fix it
-up and do a `git cherry-pick --continue`.
-
-Once the cherry-pick is finished, push with `git push`.  If you get an error due to losing the commit race,
-use `git pull --rebase` and try to push again.
-
-## Multiple commit MFC
-
-```
-% git checkout -b tmp-branch stable/X
-% for h in $HASH_LIST; do git cherry-pick -x $h; done
-% git rebase -i stable/X
-# mark each of the commits after the first as 'squash'
-# edit the commit message to be sane
-% git push freebsd HEAD:stable/X
-```
-
-If the push fails due to losing the commit race, rebase and try again:
-
-```
-% git checkout stable/X
-% git pull
-% git checkout tmp-branch
-% git rebase stable/X
-% git push freebsd HEAD:stable/X
-```
-
-Once the MFC is complete, you can delete the temporary branch:
-
-```
-% git checkout stable/X
-% git branch -d tmp-branch
-```
 
 ## Looking for things to MFC
 

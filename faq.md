@@ -26,7 +26,7 @@ First, you need to clone the FreeBSD repository, shown here cloning into
 `freebsd-current` to reduce confusion. $URL is whatever mirror works
 best for you:
 ```
-% git clone -o freebsd $URL freebsd-current
+% git clone -o freebsd --config remote.freebsd.fetch='+refs/notes/*:refs/notes/*' $URL freebsd-current
 ```
 then once that's cloned, you can simply create a worktree from it:
 ```

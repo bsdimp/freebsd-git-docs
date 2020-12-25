@@ -10,7 +10,7 @@ The best place to start is with the [FreeBSD mini-git Primer](mini-primer.md) if
 
 More advanced topics can be found in the [Git FAQ](FAQ.md).
 
-Other files contain inforamtion about different aspects of the src or doc repository that FreeBSD developers with commit access need to know.
+Other files contain information about different aspects of the src or doc repository that FreeBSD developers with commit access need to know.
 
 ## Contributing
 

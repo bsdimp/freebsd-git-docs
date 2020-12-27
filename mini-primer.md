@@ -40,12 +40,11 @@ At the moment, there are two repositories:
   that have led us to generate a new export to be the source of truth,
   which will as a result have new hashes.
   
-- The new cgit beta repo (https://cgit-beta.freebsd.org/src.git) is in
-  the process of becoming the authoritative repository (and history)
-  for the project.  It is currently being refined, which may lead to
-  further hash changes.  Once it moves into production (and the hashes
-  are finalized), its URls will be https://git.freebsd.org/src.git,
-  https://git.freebsd.org/src.git (or anongit@git.FreeBSD.org:src.git).
+- The new git repo (https://cgit.freebsd.org/src.git) is
+  the authoritative repository (and history)
+  for the project. Its cloning URLs are https://git.freebsd.org/src.git,
+  ssh://anongit@git.FreeBSD.org/src.git or
+  ssh://git@gitrepo.FreeBSD.org/src.git (developers with SSH key only).
 
 The new repository should be used as $URL in the commands below.
 
@@ -224,18 +223,18 @@ a good resource for when things go wrong or for unusual cases.
 The ports tree operates the same way. The branch names are different
 and the repos are in different locations.
 
-The GitHub mirror is at https://github.com/freebsd/freebsd-ports.git .
-The cgit mirror is https://cgit-beta.freebsd.org/ports.git . The
+The legacy GitHub mirror is at https://github.com/freebsd/freebsd-ports.git .
+The canonical cgit mirror is https://cgit-beta.freebsd.org/ports.git . The
 production git repo will be https://git.freebsd.org/ports.git and
 ssh://anongit@git.FreeBSD.org/ports.git (or anongit@git.FreeBSD.org:ports.git)
 when the time comes.
 
-As with ports, the 'current' branches are 'master' and 'main'
+As with ports, the 'current' branches are 'master' (legacy) and 'main' (new)
 respectively. The quarterly branches are named the same as in
 FreeBSD's svn repo.
 
 ## Coping with Local Changes
-This section addresses tracking local changes.If you have no local
+This section addresses tracking local changes. If you have no local
 changes, you can stop reading now (it's the last section and OK to
 skip).
 
@@ -381,7 +380,7 @@ save the file. The rebase was interrupted, so you have to complete it:
 % git rebase --continue
 ```
 
-which tells git that ls.c has changed and to continue the rebase
+which tells git that ls.c has been fixed and to continue the rebase
 operation.  Since there was a conflict, you'll get kicked into the
 editor to update the commit message if necessary. It the commit
 message is still accurate, just exit the editor.
@@ -389,6 +388,9 @@ message is still accurate, just exit the editor.
 If you get stuck during the rebase, don't panic. git rebase --abort
 will take you back to a clean slate. It's important, though, to start
 with an unmodified tree.
+An aside: The above mentioned 'git reflog' comes in handy here, as it will have
+a list of all the (intermediate) commits that you can view or inspect or
+cherry-pick.
 
 For more on this topic,
 https://www.freecodecamp.org/news/the-ultimate-guide-to-git-merge-and-git-rebase/

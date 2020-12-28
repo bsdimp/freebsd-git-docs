@@ -107,6 +107,12 @@ https://github.com/freebsd/git_conv#gimme-the-repo
   ```
   Again, note that `gitrepo.freebsd.org` will be canonicalized to `repo.freebsd.org` in the future.
 
+* Install commit message template hook:
+  ```
+  fetch https://cgit.freebsd.org/src/plain/tools/tools/git/hooks/prepare-commit-msg -o .git/hooks
+  chmod 755 .git/hooks/prepare-commit-msg
+  ```
+
 ### "admin" branch
 
 The `access` and `mentors` files are stored in a orphan branch, `internal/admin`, in each repository.

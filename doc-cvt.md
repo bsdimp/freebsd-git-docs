@@ -9,14 +9,15 @@ better / at all.
 ## Old vs New URL translation table
 
 Before we get started, here's a handy cheat sheet for old to new URLs.
+For complete information, please see [URLs.md].
 
 SVN infra -> Git infra map
 
 | Item                                     | SVN                             | Git                                 |
 | ---------------------------------------- | ------------------------------- | ----------------------------------- |
 | Web-based repository browser             | https://svnweb.freebsd.org      | https://cgit.freebsd.org            |
-| Distributed mirrors for anonymous readonly checkout/clone | https://svn.freebsd.org svn://svn.freebsd.org | https://git.freebsd.org ssh://anongit@git.freebsd.org |
-| Read/write Repository for committers (*) | svn+ssh://(svn)repo.freebsd.org | ssh://git@(git)repo.freebsd.org |
+| Distributed mirrors for anonymous readonly checkout/clone | https://svn.freebsd.org svn://svn.freebsd.org | https://git.freebsd.org/doc.git ssh://anongit@git.freebsd.org/doc.git |
+| Read/write Repository for committers (*) | svn+ssh://(svn)repo.freebsd.org/doc | ssh://git@(git)repo.freebsd.org/doc.git |
 
 (*) Before all repositories in SVN have been migrated, the repo.freebsd.org will be pointing to one of:
     - svnrepo.freebsd.org

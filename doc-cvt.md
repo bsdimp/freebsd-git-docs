@@ -223,7 +223,9 @@ historical branches...
 When migrating branches from a github fork from the old github mirror
 to the official repo, the process is straight forward. This assumes that
 you have a `origin` upstream pointing to github, adjust if necessary.
-This also assumes a clean tree before starting...
+This also assumes a clean tree before starting... It's also recommended to
+run `git gc` beforehand in order to speed up the process of adding a new
+remote.
 1. Add the new `freebsd` source of truth:
 ```
 % git remote add freebsd https://git.freebsd.org/doc.git

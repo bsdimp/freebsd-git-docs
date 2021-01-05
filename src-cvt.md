@@ -224,7 +224,7 @@ This also assumes a clean tree before starting...
 ```
 % git remote add freebsd https://git.freebsd.org/src.git
 % git fetch freebsd
-% git checkout freebsd/main
+% git checkout --track freebsd/main
 ```
 2. Rebase all your WIP branches. For each branch FOO, do the following after
 fetching the `freebsd` sources and creating a local `main` reference with

@@ -108,6 +108,12 @@ https://github.com/freebsd/git_conv#gimme-the-repo
   Again, note that `gitrepo.freebsd.org` will be canonicalized to `repo.freebsd.org` in the future.
 
 * Install commit message template hook:
+  If you also cloned the src repository, we recommend creating a symlink to the hook so that future
+  updates will be received:
+  ```
+  ln -s `realpath <path-to-src-checkout>/tools/tools/git/hooks/prepare-commit-msg` .git/hooks/
+  ```
+  If not, you can also download the commit message hook:
   ```
   fetch https://cgit.freebsd.org/src/plain/tools/tools/git/hooks/prepare-commit-msg -o .git/hooks
   chmod 755 .git/hooks/prepare-commit-msg

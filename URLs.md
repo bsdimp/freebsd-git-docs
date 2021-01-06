@@ -130,7 +130,7 @@ https://cgit.freebsd.org/${repo}/log/?h=internal/admin
 
 For pushing, either specify the full refspec:
 ```
-git push origin HEAD:refs/internal/admin
+git push freebsd HEAD:refs/internal/admin
 ```
 
 Or setting `push.default` to `upstream` which will make `git push` to push the current branch back to its upstream by default, which is more suitable for our workflow:

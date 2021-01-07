@@ -8,7 +8,7 @@ Please check out the [Summary](SUMMARY.md) page for a clean and complete list of
 
 The best place to start is with the [FreeBSD mini-git Primer](mini-primer.md) if you are coming to this fresh. Otherwise the best place to start is the [FreeBSD Src Committer Transition Guide](src-cvt.md) if you have an existing source tree from the project you'd like to convert over to the new git repo. Once you've read that, you can read the [FreeBSD mini-git Primer](mini-primer.md) for a general primer.
 
-More advanced topics can be found in the [Git FAQ](FAQ.md).
+More advanced topics can be found in the [Git FAQ](faq.md).
 
 Other files contain information about different aspects of the src or doc repository that FreeBSD developers with commit access need to know.
 

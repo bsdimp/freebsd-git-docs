@@ -5,7 +5,6 @@ Commit messages may have one or more of number of standard metadata tags in the 
 | Tag | Description |
 | -------- | -------- |
 | PR: | FreeBSD problem report (Bugzilla) number |
-| Submitted-by: | ID the original author, if not the committer |
 | Reported-by: | ID of a 3rd party who reported the issue |
 | Reviewed-by: | Reviewer ID |
 | Tested-by: | ID of those who have tested the change |
@@ -31,3 +30,5 @@ signed-off-by for commits at this time, but don't want to preclude it
 in the future.
 
 In addition, you can replace - with a space in the above tags as a transition aid.
+
+"Submitted by" may still appear, but is generally discouraged as a legacy tag. See [How to deal with Pull Requests](pull-request.md) for details on attribution.

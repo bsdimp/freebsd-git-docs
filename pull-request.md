@@ -57,6 +57,8 @@ Adapt this to wherever you got the pull or merge request from.
 
 # Common ways to integrate the Pull Request
 
+## Patches in a Git repository
+
 We'll take the GitHub example, but GitLab and co. will be just the same.
 
 Run `git log github/pull/422/head` and you see 3 commits by a contributor,
@@ -89,6 +91,26 @@ Auto-merging sys/sys/errno.h
  Date: Fri Jan 24 16:31:41 2020 +0800
  1 file changed, 2 insertions(+)
 
+```
+
+## Other patches
+
+Various means exist to submit patches that do not haved metadata associated with
+them, including the patch author, e.g., Bugzilla. Previously a committer would
+commit the received patch and typically add the contributor's name and e-mail
+address in the message metadata, in the form of a "Submitted by" line.
+
+Going forward, the procedure is generally the same with exception of the
+contributor metadata. Patches should have the author set to the contributor's
+information that would have previously appeared in the "Submitted by" tag, and
+the "Submitted by" tag should be entirely omitted.
+
+```
+% git checkout -b unattributed_patch freebsd/main
+% fetch "https://.../foo.diff"
+% patch < foo.diff
+...
+% git commit --author="Submitter Name <Email Address>" ...
 ```
 
 ## Massaging the commit history and content

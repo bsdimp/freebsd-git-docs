@@ -216,10 +216,11 @@ hash you can use to refer to this commit.
 ## Migrating from GitHub fork
 
 Note: as of this writing, the https://github.com/freebsd/freebsd-doc
-repo ends with the last subversion commit. In the near future, we'll
-start mirroring the official repo there. We'll likely retain the
-`master` branch that's there now and just push to `main` and all the
-historical branches...
+is mirroring the official `main` branch, along with a `master` branch which
+is the leagcy svn2git result.  The `master` branch will not be updated anymore.
+We'll likely retain the `master` branch for a certain time, but in the future
+it will only be kept in the
+[freebsd-doc-legacy](https://github.com/freebsd/freebsd-doc-legacy) repository.
 
 When migrating branches from a github fork from the old github mirror
 to the official repo, the process is straight forward. This assumes that

@@ -32,6 +32,7 @@
 
 * [Writing Good FreeBSD Commit Messages](commit.md)
 * [Include appropriate metadata in a footer](meta.md)
+* [How to deal with Pull Requests](pull-request.md)
 
 ## Design & Implementation
 

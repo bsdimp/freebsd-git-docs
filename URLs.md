@@ -115,7 +115,7 @@ https://github.com/freebsd/git_conv#gimme-the-repo
 
 ### "admin" branch
 
-The `access` and `mentors` files are stored in a orphan branch, `internal/admin`, in each repository.
+The `access` and `mentors` files are stored in an orphan branch, `internal/admin`, in each repository.
 
 Following example is how to check out the `internal/admin` branch to a local branch named `admin`:
 

@@ -16,7 +16,7 @@ Commit messages may have one or more of number of standard metadata tags in the 
 | Relnotes: | Yes/No whether this change should be included in release notes |
 | Security: | External reference for a security issue, such as a CVE number |
 | Sponsored-by: | Organization or event that sponsored work on the change |
-| Differential-Revision: | Full URL of code review in FreeBSD's Phabricator instance
+| Differential Revision: | Full URL of code review in FreeBSD's Phabricator instance
 | Signed-off-by: | ID certifies compliance with https://developercertificate.org/ |
 
 "ID" indicates either a FreeBSD userid, or a name and email
@@ -24,10 +24,10 @@ address. Multiple IDs may be presented as a comma-separated list, or
 by repeating metadata tags on subsequent lines.
 
 This represents a change from the prior FreeBSD practice of using
-spaces in the metadata tags. However, this standard conforms to the
-wider open-source communities use. The project isn't requiring
-signed-off-by for commits at this time, but don't want to preclude it
-in the future.
+spaces in the metadata tags (other than in `Differential Revision`).
+However, this standard conforms to the wider open-source communities use.
+The project isn't requiring signed-off-by for commits at this time, but
+don't want to preclude it in the future.
 
 In addition, you can replace - with a space in the above tags as a transition aid.
 

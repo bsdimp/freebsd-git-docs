@@ -40,7 +40,7 @@ have added or removed files, so we want to make sure deletions are
 propagated as well. rsync(1) is commonly installed, so I'll use that.
 ```
 % cd ../mtree
-% rsync -va --del ~/git/NetBSD/usr.sbin/mtree/ .
+% rsync -va --del --exclude=".git" ~/git/NetBSD/usr.sbin/mtree/ .
 % git add -A
 % git status
 ...

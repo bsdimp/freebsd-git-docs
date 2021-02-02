@@ -1,8 +1,18 @@
-# Draft FreeBSD Git docs
+= Draft FreeBSD Git docs
+:doctype: article
+:description: A first draft of FreeBSD Git docs
+:author: Warner Losh
+:email: imp@FreeBSD.org
+:source-highlighter: rouge
+:rouge-style: github
+:!showtitle:
+:icons: font
+:toc: preamble
+
 
 This repo contains the draft docs for the FreeBSD migration to Git.
 
-## How to read the docs
+== How to read the docs
 
 Please check out the link:SUMMARY.md[SUMMARY] page for a clean and complete list of the documentation.
 
@@ -17,7 +27,7 @@ More advanced topics can be found in the link:faq.md[Git FAQ].
 
 Other files contain information about different aspects of the src or doc repository that FreeBSD developers with commit access need to know.
 
-## Contributing
+== Contributing
 
 Please feel free to submit pull requests for typos, clearer language, additional
 topics, etc.

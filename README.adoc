@@ -1,11 +1,11 @@
 = Draft FreeBSD Git docs
+
 :doctype: article
 :description: A first draft of FreeBSD Git docs
 :author: Warner Losh
 :email: imp@FreeBSD.org
 :source-highlighter: rouge
 :rouge-style: github
-:!showtitle:
 :icons: font
 :toc: preamble
 

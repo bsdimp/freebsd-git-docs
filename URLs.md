@@ -124,6 +124,10 @@ git config --add remote.freebsd.fetch '+refs/internal/*:refs/internal/*'
 git fetch
 git checkout -b admin internal/admin
 ```
+Alternatively, you can add a worktree for the `admin` branch:
+```
+git worktree add -b admin ../${repo}-admin internal/admin
+```
 
 For browsing `internal/admin` branch on web:
 https://cgit.freebsd.org/${repo}/log/?h=internal/admin

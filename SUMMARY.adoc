@@ -49,6 +49,19 @@
 
 * link:github-mirroring.md[Github mirroring plan]
 
+== How to read the docs
+
+The best place to start is with the link:mini-primer.md[FreeBSD mini-git Primer] if
+you are coming to this fresh. Otherwise the best place to start is the
+link:src-cvt.md[FreeBSD Src Committer Transition Guide] if you have an existing source tree
+from the project you'd like to convert over to the new git repo. Once you've
+read that, you can read the link:mini-primer.md[FreeBSD mini-git Primer] for a
+general primer.
+
+More advanced topics can be found in the link:faq.md[Git FAQ].
+
+Other files contain information about different aspects of the src or doc repository that FreeBSD developers with commit access need to know.
+
 == Contributing
 
 Please feel free to submit pull requests for typos, clearer language, additional

@@ -22,7 +22,7 @@ Following is the quick map for the essential URLs from Subversion to Git:
       - gitrepo.freebsd.org
   - (***) `git` is a special user on the repository server which will map your registered ssh key in FreeBSD.org to your identity, no need to change it.
 
-    Please use the hostname that explicitly includes the VCS name to
+    Please use the hostname that explicitly includes the VCS name (ex: `gitrepo` or `svnrepo`) to
     access the right repositories during the migration. `repo.freebsd.org`
     will be the canonical FreeBSD Git repository for the committers after
     all the repositories migrated to Git.

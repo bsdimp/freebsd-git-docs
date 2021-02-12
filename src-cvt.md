@@ -233,7 +233,7 @@ This also assumes a clean tree before starting...
 fetching the `freebsd` sources and creating a local `main` reference with
 the above checkout:
 ```
-% git rebase -i freebsd/master FOO --onto main
+% git rebase -i freebsd/master FOO --onto freebsd/main
 ```
 And you'll now be tracking the official source of truth. You can then follow
 the `Keeping Current` section above to stay up to date.

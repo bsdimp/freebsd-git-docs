@@ -77,20 +77,21 @@ versions of history).
 
 ### Shallow Clone
 
-A shallow clone copies just the most current code, but none or little
-of the history. This can be useful when you need to build a specific
-revision of FreeBSD, or when you are just starting out and plan to
-track the tree more fully. You can also use it to limit history to
-only so many revisions.
+A shallow clone copies just the most current code, but none or little of the history.
+This can be useful when you need to build a specific revision of FreeBSD, or when you are just starting out and plan to track the tree more fully.
+You can also use it to limit history to only so many revisions.
+However, see below for a significant limitation of this approach.
 
 ```
 % git clone -o freebsd -b branch --depth 1 $URL [dir]
 ```
 
-This clones the repository, but only has the most recent version in
-the repository. The rest of the history is not downloaded. Should you
-change your mind later, you can do 'git fetch --unshallow' to get the
-old history.
+This clones the repository, but only has the most recent version in the repository.
+The rest of the history is not downloaded.
+Should you change your mind later, you can do 'git fetch --unshallow' to get the old history.
+
+WARNING: When you make a shallow clone, you will lose the commit count in your uname output.
+This can make it more difficult to determine if your system needs to be updated when a security advisory is issued.
 
 ### Building
 

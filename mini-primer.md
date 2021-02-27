@@ -32,26 +32,11 @@ is the default branch if you omit the '-b branch' or '--branch branch'
 options below.
 
 ### Repositories
-At the moment, there are two repositories:
+Please see [URLs.md] for the latest information on where to get FreeBSD soruces.
+$URL below can be obstained from that page.
 
-- The old GitHub repository (https://github.com/freebsd/freebsd.git)
-  was exported by the project for several years to support downstream
-  users using git.  There were a large number of mistakes in the repo
-  that have led us to generate a new export to be the source of truth,
-  which will as a result have new hashes.
-  
-- The new git repo (https://cgit.freebsd.org/src.git) is
-  the authoritative repository (and history)
-  for the project. Its cloning URLs are https://git.freebsd.org/src.git,
-  ssh://anongit@git.FreeBSD.org/src.git or
-  ssh://git@gitrepo.FreeBSD.org/src.git (developers with SSH key only).
-
-The new repository should be used as $URL in the commands below.
-
-Note: The project doesn't use submodules as they are a poor fit for
-our workflows and development model. How we track changes in
-third-party applications is discussed elsewhere and generally of
-little concern to the casual user.
+Note: The project doesn't use submodules as they are a poor fit for our workflows and development model.
+How we track changes in third-party applications is discussed elsewhere and generally of little concern to the casual user.
 
 ### Deep Clone
 A deep clone pulls in the entire tree, as well as all the history and

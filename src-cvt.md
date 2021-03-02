@@ -221,7 +221,7 @@ it will only be kept in the
 
 When migrating branches from a github fork from the old github mirror
 to the official repo, the process is straight forward. This assumes that
-you have a `freebsd` upstream pointing to github, adjust if necessary.
+you have a `origin` upstream pointing to github, adjust if necessary.
 This also assumes a clean tree before starting...
 1. Add the new `freebsd` source of truth:
 ```
@@ -233,7 +233,7 @@ This also assumes a clean tree before starting...
 fetching the `freebsd` sources and creating a local `main` reference with
 the above checkout:
 ```
-% git rebase -i freebsd/master FOO --onto main
+% git rebase -i origin/master FOO --onto main
 ```
 And you'll now be tracking the official source of truth. You can then follow
 the `Keeping Current` section above to stay up to date.

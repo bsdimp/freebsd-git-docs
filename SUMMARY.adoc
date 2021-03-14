@@ -17,7 +17,7 @@
 
 * link:git-how.md[How FreeBSD implements Git]
 * link:mini-primer.md[FreeBSD mini-git Primer]
-* link:URLs.md[Important URLs of the FreeBSD Git Infrastructure]
+* https://docs.freebsd.org/en/books/handbook/mirrors/#git[Important URLs of the FreeBSD Git Infrastructure]
 
 == `doc` Specific
 
@@ -44,10 +44,6 @@
 
 * link:big-picture.md[Big Picture]
 * link:design-notes.md[Design Notes]
-
-== Next Steps
-
-* link:github-mirroring.md[Github mirroring plan]
 
 == How to read the docs
 

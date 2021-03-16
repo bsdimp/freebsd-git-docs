@@ -180,7 +180,7 @@ a8163e165c5b (upstream/master) HEAD@{1}: checkout: moving from b6fb97efb682994f5
 ```
 shows me moving the working tree to the master branch (a816...) and
 then updating from upstream (to 5ef0...). In this case, bad would be
-HEAD (or 5rf0bd68) and good would be a8163e165. As you can see from
+HEAD (or 5ef0bd68) and good would be a8163e165. As you can see from
 the output, HEAD@{1} also often works, but isn't foolproof if you've
 done other things to your git tree after updating, but before you
 discover the need to bisect.

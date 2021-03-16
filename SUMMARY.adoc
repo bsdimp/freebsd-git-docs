@@ -26,7 +26,7 @@
 == `src` Specific
 
 * link:src-cvt.md[FreeBSD Src Committer Transition Guide]
-* link:vendor.md[(WIP) How to do vendor imports]
+* https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to do vendor imports]
 * link:MFC.md[(WIP) How to MFC]
 * link:projects-user.md[A brief note about Subversion Projects and User branches]
 

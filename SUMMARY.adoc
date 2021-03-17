@@ -25,9 +25,9 @@
 
 == `src` Specific
 
-* link:src-cvt.md[FreeBSD Src Committer Transition Guide]
+* https://docs.freebsd.org/en/articles/committers-guide/#git-primer[FreeBSD Src Committer Transition Guide]
 * https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to do vendor imports]
-* link:MFC.md[(WIP) How to MFC]
+* https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to MFC]
 * link:projects-user.md[A brief note about Subversion Projects and User branches]
 
 == Git References

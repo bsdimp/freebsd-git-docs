@@ -16,15 +16,8 @@
 == Getting Started
 
 * link:git-how.md[How FreeBSD implements Git]
-* link:mini-primer.md[FreeBSD mini-git Primer]
+* https://docs.freebsd.org/en/articles/committers-guide/#git-mini-primer[FreeBSD mini-git Primer]
 * https://docs.freebsd.org/en/books/handbook/mirrors/#git[Important URLs of the FreeBSD Git Infrastructure]
-
-== `doc` Specific
-
-* link:doc-cvt.md[FreeBSD Doc Committer Transition Guide]
-
-== `src` Specific
-
 * https://docs.freebsd.org/en/articles/committers-guide/#git-primer[FreeBSD Src Committer Transition Guide]
 * https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to do vendor imports]
 * https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to MFC]
@@ -36,8 +29,7 @@
 
 == Committer References
 
-* link:commit.md[Writing Good FreeBSD Commit Messages]
-* link:meta.md[Include appropriate metadata in a footer]
+* https://docs.freebsd.org/en/articles/committers-guide/#commit-log-message[Writing Good FreeBSD Commit Messages]
 * link:pull-request.md[How to deal with Pull Requests]
 
 == Design & Implementation

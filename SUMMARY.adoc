@@ -9,51 +9,13 @@
 :icons: font
 :toc: preamble
 
-== Preface
+Most of this has been merged into https://docs.freebsd.org/en/articles/committers-guide/#git-primer[the committer's guide].
+
+Here's the few reamaining that didn't fit in:
 
 * link:git-why.md[FreeBSD moving to Git: Why]
-
-== Getting Started
-
 * link:git-how.md[How FreeBSD implements Git]
-* https://docs.freebsd.org/en/articles/committers-guide/#git-mini-primer[FreeBSD mini-git Primer]
-* https://docs.freebsd.org/en/books/handbook/mirrors/#git[Important URLs of the FreeBSD Git Infrastructure]
-* https://docs.freebsd.org/en/articles/committers-guide/#git-primer[FreeBSD Src Committer Transition Guide]
-* https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to do vendor imports]
-* https://docs.freebsd.org/en/articles/committers-guide/#git-primer[How to MFC]
 * link:projects-user.md[A brief note about Subversion Projects and User branches]
-
-== Git References
-
-* link:faq.md[Git FAQ]
-
-== Committer References
-
-* https://docs.freebsd.org/en/articles/committers-guide/#commit-log-message[Writing Good FreeBSD Commit Messages]
 * link:pull-request.md[How to deal with Pull Requests]
-
-== Design & Implementation
-
 * link:big-picture.md[Big Picture]
 * link:design-notes.md[Design Notes]
-
-== How to read the docs
-
-The best place to start is with the link:mini-primer.md[FreeBSD mini-git Primer] if
-you are coming to this fresh. Otherwise the best place to start is the
-link:src-cvt.md[FreeBSD Src Committer Transition Guide] if you have an existing source tree
-from the project you'd like to convert over to the new git repo. Once you've
-read that, you can read the link:mini-primer.md[FreeBSD mini-git Primer] for a
-general primer.
-
-More advanced topics can be found in the link:faq.md[Git FAQ].
-
-Other files contain information about different aspects of the src or doc repository that FreeBSD developers with commit access need to know.
-
-== Contributing
-
-Please feel free to submit pull requests for typos, clearer language, additional
-topics, etc.
-
-Please open issues for something that you're just noting the problem, but
-don't have a solution for.

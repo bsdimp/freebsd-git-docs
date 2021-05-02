@@ -13,7 +13,7 @@ Most of this has been merged into https://docs.freebsd.org/en/articles/committer
 
 Here's the few reamaining that didn't fit in:
 
-* link:git-why.md[FreeBSD moving to Git: Why]
+* link:git-how.md[How FreeBSD implements Git]
 * link:projects-user.md[A brief note about Subversion Projects and User branches]
 * link:pull-request.md[How to deal with Pull Requests]
 * link:big-picture.md[Big Picture]
